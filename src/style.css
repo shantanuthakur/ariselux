@@ -1643,3 +1643,373 @@ p { margin-bottom: 20px; }
   .hero-buttons { flex-direction: column; align-items: center; }
   .btn-circle { width: 150px; height: 150px; font-size: 13px; }
 }
+
+/* ============================================
+   CLIENTS SHOWCASE & MARQUEE
+   ============================================ */
+.clients-section {
+  padding: 100px 0;
+  background: var(--white);
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: 50px;
+}
+
+@media (max-width: 1200px) {
+  .clients-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .clients-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.client-item {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 18px 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90px;
+  transition: var(--transition);
+}
+
+.client-item:hover {
+  border-color: var(--primary);
+  background: var(--white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.client-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.client-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gray-900);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+/* Client poster highlight */
+.client-poster-box {
+  margin-top: 50px;
+  background: var(--black);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .client-poster-box {
+    grid-template-columns: 1fr;
+  }
+}
+
+.client-poster-img {
+  width: 100%;
+  height: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  background: #111;
+  padding: 20px;
+}
+
+.client-poster-text {
+  padding: 40px;
+  color: var(--white);
+}
+
+.client-poster-text h3 {
+  color: var(--white);
+  font-size: clamp(24px, 3vw, 36px);
+  margin-bottom: 16px;
+}
+
+.client-poster-text p {
+  color: var(--gray-400);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ============================================
+   TECH ADVANTAGES / LED SPEC SECTION
+   ============================================ */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-top: 40px;
+}
+
+@media (max-width: 1024px) {
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tech-card {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  padding: 30px 24px;
+  border-top: 4px solid var(--primary);
+  transition: var(--transition);
+}
+
+.tech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.tech-card .tech-icon {
+  font-size: 32px;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.tech-card h5 {
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--black);
+}
+
+.tech-card p {
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================
+   LEADERSHIP / FOUNDERS SPOTLIGHT
+   ============================================ */
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .leadership-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leader-card {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  padding: 35px 30px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.leader-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+}
+
+.leader-role {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.leader-name {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--black);
+  margin-bottom: 14px;
+}
+
+.leader-desc {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.7;
+}
+
+/* ============================================
+   BROCHURE DOWNLOAD HERO BANNER
+   ============================================ */
+.brochure-bar {
+  background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
+  color: var(--white);
+  padding: 30px;
+  border-radius: 4px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-left: 6px solid var(--primary);
+}
+
+.brochure-bar-text h4 {
+  color: var(--white);
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.brochure-bar-text p {
+  color: var(--gray-400);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ============================================
+   SPECS TABLE / BADGES
+   ============================================ */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 15px 0;
+}
+
+.spec-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.spec-table td:first-child {
+  font-weight: 700;
+  color: var(--gray-700);
+  width: 45%;
+}
+
+.spec-table td:last-child {
+  color: var(--black);
+  font-weight: 600;
+}
+
+/* ============================================
+   WHATSAPP & CALL FLOATING BUTTONS
+   ============================================ */
+.floating-actions {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-float {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-float:hover {
+  transform: scale(1.1);
+  color: #fff;
+}
+
+.btn-float.whatsapp {
+  background: #25D366;
+}
+
+.btn-float.call {
+  background: var(--primary);
+}
+
+/* ============================================
+   TOP INFO BAR (OPTIONAL QUICK CONTACT)
+   ============================================ */
+.top-bar {
+  background: #0d0d0d;
+  color: #a0a0a0;
+  font-size: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.top-bar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.top-bar-contact {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.top-bar-contact a {
+  color: #bbb;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.top-bar-contact a:hover {
+  color: var(--primary);
+}
+
+.top-bar-badge {
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+

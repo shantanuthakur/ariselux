@@ -234,4 +234,31 @@ if (contactForm) {
       }, 3000);
     }
   });
+
+  // Preselect product in dropdown if in URL parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedProduct = urlParams.get('product');
+  if (selectedProduct) {
+    const selectEl = contactForm.querySelector('select[name="product"]');
+    if (selectEl) {
+      for (let option of selectEl.options) {
+        if (option.value.toLowerCase().includes(selectedProduct.toLowerCase()) || selectedProduct.toLowerCase().includes(option.value.toLowerCase())) {
+          option.selected = true;
+          break;
+        }
+      }
+    }
+  }
 }
+
+// Check URL hash on page load for products tab
+window.addEventListener('load', () => {
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    const targetTab = document.querySelector(`.category-tab[data-category="${hash}"]`);
+    if (targetTab) {
+      targetTab.click();
+    }
+  }
+});
+
