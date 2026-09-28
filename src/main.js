@@ -247,3 +247,81 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// --- Product Photo Lightbox / Big Image Viewer ---
+function initProductImageLightbox() {
+  const productImages = document.querySelectorAll('.product-card-image, .product-detail-image');
+  if (productImages.length === 0) return;
+
+  // Create modal element if not already present
+  let lightbox = document.querySelector('.image-lightbox');
+  if (!lightbox) {
+    lightbox = document.createElement('div');
+    lightbox.className = 'image-lightbox';
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+    lightbox.innerHTML = `
+      <div class="lightbox-dialog">
+        <button class="lightbox-close-btn" aria-label="Close enlarged view">&times;</button>
+        <div class="lightbox-image-container">
+          <img src="" alt="" class="lightbox-img">
+        </div>
+        <div class="lightbox-footer">
+          <span class="lightbox-title"></span>
+          <a href="/contact.html" class="lightbox-action">Get Quotation →</a>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+  }
+
+  const lightboxImg = lightbox.querySelector('.lightbox-img');
+  const lightboxTitle = lightbox.querySelector('.lightbox-title');
+  const closeBtn = lightbox.querySelector('.lightbox-close-btn');
+
+  function openLightbox(src, title) {
+    lightboxImg.src = src;
+    lightboxImg.alt = title;
+    lightboxTitle.textContent = title;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+
+  // Attach click listener & zoom hint to each image container
+  productImages.forEach(container => {
+    const img = container.querySelector('img');
+    if (!img) return;
+
+    // Add zoom hint badge if not present
+    if (!container.querySelector('.image-zoom-hint')) {
+      const hint = document.createElement('span');
+      hint.className = 'image-zoom-hint';
+      hint.innerHTML = '🔍 Click to Enlarge';
+      container.appendChild(hint);
+    }
+
+    container.addEventListener('click', (e) => {
+      // Don't trigger if clicked on a badge link
+      if (e.target.closest('a')) return;
+      const title = img.getAttribute('alt') || 'Ariselux Light Tower';
+      openLightbox(img.src, title);
+    });
+  });
+}
+initProductImageLightbox();
+
