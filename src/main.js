@@ -1,58 +1,54 @@
-/**
- * ARISELUX - Main JavaScript
- * Interactive features, animations, and scroll effects
- */
+/* ============================================
+   ARISELUX - Main JavaScript
+   Full Interactive Functionality
+   ============================================ */
 
-// ============================================
-// DOM Ready
-// ============================================
-document.addEventListener('DOMContentLoaded', () => {
-  initHeader();
-  initMobileNav();
-  initScrollReveal();
-  initCounters();
-  initProductTabs();
-  initSmoothScroll();
-  initParallax();
-});
-
-// ============================================
-// Header Scroll Effect
-// ============================================
-function initHeader() {
-  const header = document.querySelector('.header');
-  if (!header) return;
-
-  let lastScrollY = 0;
-
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-
-    if (scrollY > 100) {
+// --- Header Scroll Effect ---
+const header = document.getElementById('header');
+if (header) {
+  const handleScroll = () => {
+    if (window.scrollY > 60) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-
-    lastScrollY = scrollY;
-  });
+  };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 }
 
-// ============================================
-// Mobile Navigation
-// ============================================
-function initMobileNav() {
-  const hamburger = document.querySelector('.hamburger');
-  const mobileNav = document.querySelector('.mobile-nav');
-  if (!hamburger || !mobileNav) return;
+// --- Active Nav Link Highlighting ---
+function updateActiveNavLink() {
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+  const navLinks = document.querySelectorAll('.nav-menu a, .mobile-nav a');
+  
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http')) {
+      return;
+    }
+    const cleanHref = href.replace(/\/$/, '') || '/';
+    if (cleanHref === currentPath || (currentPath === '' && cleanHref === '/')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+updateActiveNavLink();
 
+// --- Mobile Navigation Toggle ---
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+
+if (hamburger && mobileNav) {
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     mobileNav.classList.toggle('active');
     document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
   });
 
-  // Close on link click
+  // Close mobile nav when a link is clicked
   mobileNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
@@ -62,203 +58,192 @@ function initMobileNav() {
   });
 }
 
-// ============================================
-// Scroll Reveal Animation
-// ============================================
-function initScrollReveal() {
-  const reveals = document.querySelectorAll('.reveal');
-  if (!reveals.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
+// --- Scroll Reveal Animation ---
+const revealElements = document.querySelectorAll('.reveal');
+if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
   });
 
-  reveals.forEach(el => observer.observe(el));
+  revealElements.forEach(el => revealObserver.observe(el));
+} else {
+  // Fallback for older browsers
+  revealElements.forEach(el => el.classList.add('revealed'));
 }
 
-// ============================================
-// Counter Animation
-// ============================================
-function initCounters() {
-  const counters = document.querySelectorAll('[data-count]');
-  if (!counters.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
+// --- Stat Counter Animation ---
+const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+if (statNumbers.length > 0 && 'IntersectionObserver' in window) {
+  const statObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        const target = parseInt(el.getAttribute('data-count'));
+        const target = parseInt(el.getAttribute('data-count'), 10);
         const suffix = el.getAttribute('data-suffix') || '';
-        const prefix = el.getAttribute('data-prefix') || '';
-        animateCounter(el, target, prefix, suffix);
-        observer.unobserve(el);
+        let current = 0;
+        const duration = 1800;
+        const step = Math.max(1, Math.ceil(target / (duration / 16)));
+
+        const counter = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(counter);
+          }
+          el.textContent = current + suffix;
+        }, 16);
+
+        statObserver.unobserve(el);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.3 });
 
-  counters.forEach(el => observer.observe(el));
+  statNumbers.forEach(el => statObserver.observe(el));
 }
 
-function animateCounter(el, target, prefix, suffix) {
-  const duration = 2000;
-  const start = 0;
-  const startTime = performance.now();
+// --- Client Logo Slider (Infinite Auto-scroll) ---
+function initLogoSliders() {
+  const sliders = document.querySelectorAll('.logo-slider-track');
+  sliders.forEach(track => {
+    // Avoid re-cloning if already cloned
+    if (track.dataset.cloned === 'true') return;
+    const items = track.innerHTML;
+    track.innerHTML = items + items;
+    track.dataset.cloned = 'true';
+  });
+}
+initLogoSliders();
 
-  function update(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    
-    // Ease out quad
-    const eased = 1 - (1 - progress) * (1 - progress);
-    const current = Math.floor(eased * target);
-    
-    el.textContent = prefix + current + suffix;
-    
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    } else {
-      el.textContent = prefix + target + suffix;
+// --- Product Category Tabs Filter (products.html) ---
+function initProductFilters() {
+  const tabs = document.querySelectorAll('.category-tab');
+  const products = document.querySelectorAll('.product-item');
+
+  if (tabs.length === 0 || products.length === 0) return;
+
+  function filterCategory(category) {
+    // Update active tab
+    tabs.forEach(tab => {
+      if (tab.getAttribute('data-category') === category) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+
+    // Filter product cards
+    products.forEach(item => {
+      const itemCategory = item.getAttribute('data-category');
+      if (category === 'all' || itemCategory === category) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  }
+
+  // Handle Tab Click
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const category = tab.getAttribute('data-category');
+      filterCategory(category);
+      if (category !== 'all') {
+        history.replaceState(null, null, '#' + category);
+      } else {
+        history.replaceState(null, null, window.location.pathname);
+      }
+    });
+  });
+
+  // Handle Initial Hash on Load (e.g. products.html#diesel)
+  const initialHash = window.location.hash.replace('#', '').toLowerCase();
+  if (initialHash) {
+    const matchedTab = document.querySelector(`.category-tab[data-category="${initialHash}"]`);
+    if (matchedTab) {
+      filterCategory(initialHash);
+      const targetElement = document.getElementById(initialHash);
+      if (targetElement) {
+        setTimeout(() => {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
     }
   }
 
-  requestAnimationFrame(update);
-}
-
-// ============================================
-// Product Category Tabs
-// ============================================
-function initProductTabs() {
-  const tabs = document.querySelectorAll('.category-tab');
-  const products = document.querySelectorAll('.product-item');
-  if (!tabs.length || !products.length) return;
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Remove active from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const category = tab.getAttribute('data-category');
-
-      products.forEach(product => {
-        if (category === 'all' || product.getAttribute('data-category') === category) {
-          product.style.display = '';
-          product.style.animation = 'fadeInUp 0.5s ease both';
-        } else {
-          product.style.display = 'none';
-        }
-      });
-    });
-  });
-}
-
-// ============================================
-// Smooth Scroll
-// ============================================
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (href === '#') return;
-      
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-}
-
-// ============================================
-// Parallax Effects
-// ============================================
-function initParallax() {
-  const heroBg = document.querySelector('.hero-bg img');
-  if (!heroBg) return;
-
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    if (scrollY < window.innerHeight) {
-      heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+  // Listen to hash changes (e.g. user clicks footer link while on products page)
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '').toLowerCase();
+    if (hash) {
+      filterCategory(hash);
+    } else {
+      filterCategory('all');
     }
   });
 }
+initProductFilters();
 
-// ============================================
-// Contact Form Handler
-// ============================================
-const contactForm = document.querySelector('#contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Simple form validation
-    const formData = new FormData(contactForm);
-    let isValid = true;
-    
-    formData.forEach((value, key) => {
-      if (!value.trim()) {
-        isValid = false;
-        const input = contactForm.querySelector(`[name="${key}"]`);
-        if (input) {
-          input.style.borderBottomColor = '#e74c3c';
-          setTimeout(() => {
-            input.style.borderBottomColor = '';
-          }, 2000);
-        }
-      }
-    });
+// --- Contact Form Handler (contact.html) ---
+function initContactForm() {
+  const form = document.querySelector('form');
+  if (!form) return;
 
-    if (isValid) {
-      // Show success message
-      const btn = contactForm.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      btn.textContent = 'MESSAGE SENT ✓';
-      btn.style.background = '#27ae60';
-      btn.style.borderColor = '#27ae60';
-      
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-        btn.style.borderColor = '';
-        contactForm.reset();
-      }, 3000);
-    }
-  });
-
-  // Preselect product in dropdown if in URL parameter
+  // Pre-select product dropdown if passed in URL query param: ?product=ace-b-01
   const urlParams = new URLSearchParams(window.location.search);
   const selectedProduct = urlParams.get('product');
   if (selectedProduct) {
-    const selectEl = contactForm.querySelector('select[name="product"]');
-    if (selectEl) {
-      for (let option of selectEl.options) {
-        if (option.value.toLowerCase().includes(selectedProduct.toLowerCase()) || selectedProduct.toLowerCase().includes(option.value.toLowerCase())) {
+    const productSelect = form.querySelector('select[name="product"]');
+    if (productSelect) {
+      // Find matching option
+      for (const option of productSelect.options) {
+        if (option.value.toLowerCase().includes(selectedProduct.toLowerCase()) || 
+            selectedProduct.toLowerCase().includes(option.value.toLowerCase())) {
           option.selected = true;
           break;
         }
       }
     }
   }
-}
 
-// Check URL hash on page load for products tab
-window.addEventListener('load', () => {
-  const hash = window.location.hash.replace('#', '');
-  if (hash) {
-    const targetTab = document.querySelector(`.category-tab[data-category="${hash}"]`);
-    if (targetTab) {
-      targetTab.click();
+  // Handle submit feedback
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const name = formData.get('name') || '';
+    const phone = formData.get('phone') || '';
+    const company = formData.get('company') || '';
+    const product = formData.get('product') || '';
+    const message = formData.get('message') || '';
+
+    // Create a confirmation message
+    const msg = `Thank you, ${name || 'Sir/Madam'}! Your quotation request has been recorded.\n\nOur technical sales engineers from Haridwar will reach out to you within 2-4 business hours.\n\nWould you like to connect directly on WhatsApp with our sales desk right now?`;
+    
+    if (confirm(msg)) {
+      const waText = encodeURIComponent(`Hello Ariselux Team, I submitted an enquiry on your website.\n\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Product:* ${product}\n*Requirement:* ${message}`);
+      window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
     }
-  }
-});
+    form.reset();
+  });
+}
+initContactForm();
 
+// --- Smooth scroll for anchor links ---
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href');
+    if (!targetId || targetId === '#') return;
+    const targetEl = document.querySelector(targetId);
+    if (targetEl) {
+      e.preventDefault();
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
