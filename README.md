@@ -9,31 +9,6 @@
 
 ---
 
-## 🏢 About The Company
-
-**ARISELUX EQUIPMENTS PRIVATE LIMITED** (previously known as **Arise Construction Equipments**) is India's leading manufacturer of high-performance mobile lighting towers and industrial illumination systems.
-
-* **Year of Establishment**: 2014 (10+ Years of Manufacturing Leadership)
-* **Directors & Founders**: **Mr. M.S. Chauhan** and **Mr. Amit Chauhan**
-* **Registered Factory / Works**:  
-  **Khasra No. 618 Latifpur Khubbanpur - 247661, Bhagwanpur - Haridwar, Uttarakhand, India**
-* **Official Mobile / WhatsApp**: `+91-8126732502`
-* **Toll-Free Customer Care**: `1800 202 5104`
-* **Official Emails**:
-  * Sales & Quotes: [sales@ariselux.com](mailto:sales@ariselux.com)
-  * General Inquiries: [info@arise-equipments.co.in](mailto:info@arise-equipments.co.in)
-  * Technical & Support: [supports@ariselux.com](mailto:supports@ariselux.com)
-
----
-
-## 🛡️ Prestigious Clients
-
-Ariselux lighting towers are deployed by India's armed forces, Navratna PSUs, national infrastructure authorities, and global enterprises:
-
-* **Armed Forces & Security**: Indian Army, Indian Air Force, Naval Dockyard Visakhapatnam, Border Security Force (BSF), Central Reserve Police Force (CRPF), Central Industrial Security Force (CISF), National Disaster Response Force (NDRF India), Kerala Police.
-* **Energy, Oil & Power**: NTPC, ONGC, Indian Oil Corporation Limited (IOCL), Hindustan Petroleum (HP), Tata Power, Adani Power, Meja Urja Nigam (MUNPL), Sudhir Power.
-* **Mining & Heavy Industry**: Coal India Limited (Western Coalfields - WCL & Mahanadi Coalfields - MCL), NMDC, SAIL (Steel Authority of India), NLC India Limited, UltraTech Cement (Aditya Birla Group), Hindustan Aeronautics Limited (HAL).
-* **Infrastructure, Ports & Aviation**: Indian Railways, Gulf Asia Engineering, Air India SATS, DP World, U.S. Embassy & Consulates in India.
 
 ---
 
