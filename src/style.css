@@ -8,9 +8,14 @@
 
 /* --- CSS Custom Properties --- */
 :root {
-  --primary: #F7941D;
-  --primary-dark: #e07d0a;
-  --primary-light: #ffa940;
+  /* Logo Blue - Primary Brand Color */
+  --primary: #1B5FAA;
+  --primary-dark: #134a8a;
+  --primary-light: #2a7ad4;
+  /* Logo Orange - Accent Color */
+  --accent: #F47920;
+  --accent-dark: #d6640a;
+  --accent-light: #ff9540;
   --black: #000000;
   --white: #ffffff;
   --gray-100: #F8F8F8;
@@ -672,7 +677,7 @@ p { margin-bottom: 20px; }
 .product-card:hover {
   border-color: var(--primary);
   transform: translateY(-8px);
-  box-shadow: 0 25px 70px rgba(247, 148, 29, 0.2);
+  box-shadow: 0 25px 70px rgba(27, 95, 170, 0.25);
 }
 
 .product-card-image {
@@ -862,7 +867,7 @@ p { margin-bottom: 20px; }
 }
 
 .industry-card:hover .industry-card-overlay {
-  background: linear-gradient(transparent 10%, rgba(247, 148, 29, 0.3) 100%);
+  background: linear-gradient(transparent 10%, rgba(27, 95, 170, 0.35) 100%);
 }
 
 .industry-card h4 {
@@ -1007,7 +1012,7 @@ p { margin-bottom: 20px; }
 .logo-slider-item:hover {
   transform: translateY(-4px);
   border-color: var(--primary);
-  box-shadow: 0 8px 20px rgba(247, 148, 29, 0.15);
+  box-shadow: 0 8px 20px rgba(27, 95, 170, 0.18);
 }
 
 .logo-slider-item img {
@@ -1087,7 +1092,7 @@ p { margin-bottom: 20px; }
 .client-logo-item:hover {
   transform: translateY(-4px);
   border-color: var(--primary);
-  box-shadow: 0 8px 24px rgba(247, 148, 29, 0.15);
+  box-shadow: 0 8px 24px rgba(27, 95, 170, 0.18);
 }
 
 .client-logo-item img {
@@ -1232,7 +1237,7 @@ p { margin-bottom: 20px; }
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: rgba(247, 148, 29, 0.1);
+  background: rgba(27, 95, 170, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1273,7 +1278,7 @@ p { margin-bottom: 20px; }
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: rgba(247, 148, 29, 0.05);
+  background: rgba(27, 95, 170, 0.07);
 }
 
 .cta-inner {
@@ -1352,7 +1357,7 @@ p { margin-bottom: 20px; }
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(247, 148, 29, 0.1);
+  background: rgba(27, 95, 170, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1499,7 +1504,7 @@ p { margin-bottom: 20px; }
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: rgba(247, 148, 29, 0.03);
+  background: rgba(27, 95, 170, 0.05);
 }
 
 .page-header-content {
