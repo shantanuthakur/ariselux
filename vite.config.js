@@ -12,6 +12,7 @@ export default defineConfig({
         about: resolve(import.meta.dirname, 'about.html'),
         products: resolve(import.meta.dirname, 'products.html'),
         contact: resolve(import.meta.dirname, 'contact.html'),
+        productDetail: resolve(import.meta.dirname, 'product-detail.html'),
       },
     },
   },
