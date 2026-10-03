@@ -34,10 +34,10 @@ export async function createInquiry(req, res, next) {
       source: source || 'website'
     });
 
-    // Trigger asynchronous email dispatch (non-blocking for quick API response)
-    sendInquiryNotification(inquiry).catch(err => console.error('Email error:', err));
+    // Send email notification to sales desk
+    const emailResult = await sendInquiryNotification(inquiry);
     if (email) {
-      sendCustomerAcknowledgment(inquiry).catch(err => console.error('Ack error:', err));
+      sendCustomerAcknowledgment(inquiry).catch(err => console.error('Customer ack error:', err));
     }
 
     // WhatsApp direct link generator
@@ -55,6 +55,9 @@ export async function createInquiry(req, res, next) {
         product: inquiry.product,
         createdAt: inquiry.createdAt
       },
+      emailDelivery: emailResult.sent 
+        ? `Delivered to ${config.company.email}` 
+        : (emailResult.message || emailResult.error || 'SMTP credentials not configured in backend/.env'),
       whatsappDirectUrl: whatsappUrl
     });
   } catch (err) {

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { config } from './config/index.js';
+import { testSmtpConnection } from './services/emailService.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import newsletterRoutes from './routes/newsletterRoutes.js';
@@ -30,6 +31,17 @@ app.get('/api/health', (req, res) => {
     version: '1.0.0',
     timestamp: new Date().toISOString()
   });
+});
+
+// SMTP Diagnostic & Test Email Endpoint
+app.all('/api/test-email', async (req, res) => {
+  try {
+    const result = await testSmtpConnection();
+    const statusCode = result.success ? 200 : (result.configured ? 502 : 400);
+    return res.status(statusCode).json(result);
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 // API Routes
