@@ -212,9 +212,22 @@ if (detailForm) {
     const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
 
     const formData = new FormData(detailForm);
+
+    // ── Email Validation ──
+    const emailValue = (formData.get('c_email') || '').trim();
+    if (emailValue) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(emailValue)) {
+        alert('⚠️ Please enter a correct email address.\n\nExample: yourname@company.com');
+        const emailInput = detailForm.querySelector('input[name="c_email"]');
+        if (emailInput) { emailInput.focus(); emailInput.select(); }
+        return;
+      }
+    }
+
     const payload = {
       name: formData.get('c_name') || '',
-      email: formData.get('c_email') || '',
+      email: emailValue,
       phone: formData.get('c_number') || '',
       company: formData.get('c_company') || '',
       location: formData.get('c_location') || '',

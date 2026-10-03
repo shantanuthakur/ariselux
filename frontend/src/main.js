@@ -220,9 +220,22 @@ function initContactForm() {
     const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
 
     const formData = new FormData(form);
+
+    // ── Email Validation ──
+    const emailValue = (formData.get('email') || '').trim();
+    if (emailValue) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(emailValue)) {
+        alert('⚠️ Please enter a correct email address.\n\nExample: yourname@company.com');
+        const emailInput = form.querySelector('input[name="email"]');
+        if (emailInput) { emailInput.focus(); emailInput.select(); }
+        return;
+      }
+    }
+
     const payload = {
       name: formData.get('name') || '',
-      email: formData.get('email') || '',
+      email: emailValue,
       phone: formData.get('phone') || '',
       company: formData.get('company') || '',
       product: formData.get('product') || 'General Inquiry',
