@@ -610,7 +610,7 @@ export const productsData = {
         ]
       }
     ],
-    variants: ['ace-b-02', 'ace-pblt-4000', 'ace-0-5-slt-4000']
+    variants: ['ace-b-02', 'ace-pblt-4000', 'ace-2-slt-6000']
   },
 
   'ace-2-slt-6000': {
@@ -673,105 +673,7 @@ export const productsData = {
         ]
       }
     ],
-    variants: ['ace-1-3-slt-6000', 'ace-0-5-slt-4000', 'ace-lt-6000']
-  },
-
-  'ace-1-3-slt-6000': {
-    id: 'ace-1-3-slt-6000',
-    title: 'ACE 1.3 SLT 6000',
-    category: 'solar',
-    categoryName: 'Solar Powered',
-    tagline: '1320W Eco-Friendly Solar Lighting Tower',
-    description: 'An extended solar mobile lighting tower equipped with a 4-panel 1,320W sliding solar array, 2.5 kVA inverter, and 40,000 lumens output. Built for highway expansions, solar parks, and remote sites where refueling is costly or impractical.',
-    image: '/images/products/Solar Oprated/Solar powered.png',
-    gallery: [
-      '/images/products/Solar Oprated/Solar powered.png'
-    ],
-    featureImage: '/images/industries/roads.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '20 ft (6 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 10,000 Lumens LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '12+ hrs / night', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '3200 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: '1320W Solar PV (330W x 4 Sliding Array)',
-        generator: '2.5 kVA Solar Inverter System',
-        tankSize: '12V 150AH x 4 Bank',
-        sockets: '220V AC Auxiliary Output',
-        weight: '400 kg',
-        dimensions: 'Travel: 2.2 x 1.5 x 2.2 m\nOperation: 2.8 x 2.2 x 6.0 m'
-      }
-    ],
-    features: [
-      '1,320W solar array with slide-out wings for fast setup',
-      '40,000 Lumens crisp white LED illumination',
-      'Automated daylight sensing switch for hands-free operation',
-      'Towable single axle trailer with protective canopy'
-    ],
-    highlights: [
-      {
-        title: 'Solar Panels & Inverter',
-        items: [
-          '4 x 330W crystalline solar modules on heavy guide rails',
-          '2.5 kVA inverter with pure sine wave output'
-        ]
-      },
-      {
-        title: 'Mast',
-        items: [
-          '6-meter manual telescopic mast with 359-degree rotation'
-        ]
-      }
-    ],
-    variants: ['ace-2-slt-6000', 'ace-0-5-slt-4000']
-  },
-
-  'ace-0-5-slt-4000': {
-    id: 'ace-0-5-slt-4000',
-    title: 'ACE 0.5 SLT 4000',
-    category: 'solar',
-    categoryName: 'Solar Powered',
-    tagline: 'Compact 660W Solar Mobile Light Tower',
-    description: 'Compact eco-friendly mobile solar light tower featuring twin 330W sliding panels (660W total), 1.2 kVA inverter, and 28,800 lumens output. Designed for fast mobile roadwork and zero-noise night utilities.',
-    image: '/images/products/Solar Oprated/Solar powered.png',
-    gallery: [
-      '/images/products/Solar Oprated/Solar powered.png'
-    ],
-    featureImage: '/images/industries/construction.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '16 ft (5 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 7,200 Lumens LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '10 - 12 hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '2500 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: '660W Solar PV (330W x 2 Sliding Panels)',
-        generator: '1.2 kVA Inverter / 24V Controller',
-        tankSize: '12V 150AH x 2 Battery Bank',
-        sockets: '220V AC Outlet',
-        weight: '350 kg',
-        dimensions: 'Travel: 1.9 x 1.2 x 2.1 m\nOperation: 2.2 x 2.0 x 5.0 m'
-      }
-    ],
-    features: [
-      '660W solar power with 24V MPPT solar controller',
-      '28,800 Lumens energy-efficient LED light package',
-      'Zero fuel cost, zero engine maintenance, 100% clean green power',
-      'Lightweight trailer towable by small vehicles'
-    ],
-    highlights: [
-      {
-        title: 'Solar & Battery',
-        items: [
-          'High-durability solar modules rated for 25-year service life',
-          'Deep-cycle battery pack with sealed enclosure'
-        ]
-      }
-    ],
-    variants: ['ace-1-3-slt-6000', 'ace-2-slt-6000', 'ace-b-04']
+    variants: ['ace-lt-6000', 'ace-b-04', 'ace-plt-4000']
   },
 
   'without-genset': {
@@ -973,3 +875,8 @@ export const productsData = {
     variants: ['ace-b-04', 'ace-plt-4000', 'ace-lt-4000']
   }
 };
+
+// Aliases for consolidated solar model
+products['ace-0-5-slt-4000'] = products['ace-2-slt-6000'];
+products['ace-1-3-slt-6000'] = products['ace-2-slt-6000'];
+
