@@ -193,8 +193,10 @@ initProductFilters();
 
 // --- Contact Form Handler (contact.html) ---
 function initContactForm() {
-  const form = document.querySelector('form');
+  const form = document.getElementById('contact-form');
   if (!form) return;
+  if (form.__initialized) return;
+  form.__initialized = true;
 
   // Pre-select product dropdown if passed in URL query param: ?product=ace-b-01
   const urlParams = new URLSearchParams(window.location.search);
@@ -308,6 +310,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // --- Request for Quotation (RFQ) System & Modal ---
 function initRequestForQuotation() {
+  if (window.__rfqInitialized) return;
+  window.__rfqInitialized = true;
+
   const productContainers = document.querySelectorAll('.product-card-image, .product-detail-image');
   
   // Inject RFQ Modal if not already in DOM
@@ -355,6 +360,8 @@ function initRequestForQuotation() {
 
             <input type="hidden" name="product" id="rfq-hidden-product" value="">
             <input type="hidden" name="source" value="rfq-badge-modal">
+            <!-- Anti-bot honeypot field -->
+            <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
 
             <div class="rfq-form-grid">
               <!-- Full Name -->

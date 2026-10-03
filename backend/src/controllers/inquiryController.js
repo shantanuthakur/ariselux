@@ -2,9 +2,37 @@ import { saveInquiry, getInquiries, getInquiryById, updateInquiryStatus } from '
 import { sendInquiryNotification, sendCustomerAcknowledgment } from '../services/emailService.js';
 import { config } from '../config/index.js';
 
+// Simple in-memory rate limiting map (IP -> timestamps)
+const submissionRateMap = new Map();
+
 export async function createInquiry(req, res, next) {
   try {
-    const { name, email, phone, company, product, location, message, source } = req.body;
+    const { name, email, phone, company, product, location, message, source, website_hp, _gotcha } = req.body;
+
+    // Honeypot check (catches automated bot scripts)
+    if (website_hp || _gotcha) {
+      console.warn(`[SPAM DETECTED] Honeypot triggered from IP: ${req.ip}`);
+      return res.status(200).json({
+        success: true,
+        message: 'Quotation request received.'
+      });
+    }
+
+    // IP Rate Limiting (max 5 requests per 10 minutes per IP)
+    const clientIp = req.ip || req.connection?.remoteAddress || 'unknown';
+    const now = Date.now();
+    const windowMs = 10 * 60 * 1000;
+    const history = submissionRateMap.get(clientIp) || [];
+    const validHistory = history.filter(ts => now - ts < windowMs);
+    
+    if (validHistory.length >= 5) {
+      return res.status(429).json({
+        success: false,
+        message: 'Too many quotation requests submitted. Please connect directly via WhatsApp at +91-8126732502.'
+      });
+    }
+    validHistory.push(now);
+    submissionRateMap.set(clientIp, validHistory);
 
     // Validation
     if (!name || !phone || !message) {

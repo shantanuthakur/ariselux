@@ -33,9 +33,13 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// SMTP Diagnostic & Test Email Endpoint
-app.all('/api/test-email', async (req, res) => {
+// SMTP Diagnostic Endpoint (POST only to prevent accidental browser triggers)
+app.post('/api/test-email', async (req, res) => {
   try {
+    const authKey = req.headers['x-admin-key'] || req.query.key;
+    if (config.nodeEnv === 'production' && authKey !== 'ariselux-test') {
+      return res.status(403).json({ success: false, message: 'Forbidden' });
+    }
     const result = await testSmtpConnection();
     const statusCode = result.success ? 200 : (result.configured ? 502 : 400);
     return res.status(statusCode).json(result);
