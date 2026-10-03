@@ -1,26 +1,21 @@
 {
-  "name": "ariselux",
+  "name": "ariselux-workspace",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Ariselux Equipments Full-Stack Workspace (Frontend + Backend)",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "install:all": "npm install --workspace=frontend && npm install --workspace=backend",
+    "dev": "concurrently -n \"FRONTEND,BACKEND\" -c \"cyan,green\" \"npm run dev --workspace=frontend\" \"npm run dev --workspace=backend\"",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "start:backend": "npm run start --workspace=backend"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shantanuthakur/ariselux.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/shantanuthakur/ariselux/issues"
-  },
-  "homepage": "https://github.com/shantanuthakur/ariselux#readme",
   "devDependencies": {
-    "vite": "^8.3.1"
+    "concurrently": "^9.1.2"
   }
 }

@@ -213,24 +213,66 @@ function initContactForm() {
     }
   }
 
-  // Handle submit feedback
-  form.addEventListener('submit', (e) => {
+  // Handle submit with Backend API call
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const formData = new FormData(form);
-    const name = formData.get('name') || '';
-    const phone = formData.get('phone') || '';
-    const company = formData.get('company') || '';
-    const product = formData.get('product') || '';
-    const message = formData.get('message') || '';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
 
-    // Create a confirmation message
-    const msg = `Thank you, ${name || 'Sir/Madam'}! Your quotation request has been recorded.\n\nOur technical sales engineers from Haridwar will reach out to you within 2-4 business hours.\n\nWould you like to connect directly on WhatsApp with our sales desk right now?`;
-    
-    if (confirm(msg)) {
-      const waText = encodeURIComponent(`Hello Ariselux Team, I submitted an enquiry on your website.\n\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Product:* ${product}\n*Requirement:* ${message}`);
-      window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get('name') || '',
+      email: formData.get('email') || '',
+      phone: formData.get('phone') || '',
+      company: formData.get('company') || '',
+      product: formData.get('product') || 'General Inquiry',
+      message: formData.get('message') || '',
+      source: 'contact-page'
+    };
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting Request...';
     }
-    form.reset();
+
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const inqId = data.inquiry ? data.inquiry.id : 'Recorded';
+        const msg = `Thank you, ${payload.name || 'Sir/Madam'}!\n\nYour quotation request (#${inqId}) has been successfully submitted to our sales engineering desk in Haridwar.\n\nWe will reach out within 2-4 business hours.\n\nWould you like to open WhatsApp now to connect directly with our sales team?`;
+        
+        if (confirm(msg)) {
+          if (data.whatsappDirectUrl) {
+            window.open(data.whatsappDirectUrl, '_blank');
+          } else {
+            const waText = encodeURIComponent(`Hello Ariselux Team, I submitted an enquiry (Ref #${inqId}):\n*Name:* ${payload.name}\n*Product:* ${payload.product}\n*Phone:* ${payload.phone}\n*Message:* ${payload.message}`);
+            window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+          }
+        }
+        form.reset();
+      } else {
+        alert(data.message || 'There was an issue submitting your request. Please call +91-8126732502 or WhatsApp us directly.');
+      }
+    } catch (err) {
+      console.warn('API submission fallback:', err);
+      const waText = encodeURIComponent(`Hello Ariselux Team, I want to enquire:\n*Name:* ${payload.name}\n*Product:* ${payload.product}\n*Phone:* ${payload.phone}\n*Company:* ${payload.company}\n*Message:* ${payload.message}`);
+      if (confirm('Quotation request recorded. Would you like to send this directly to Ariselux WhatsApp desk right now?')) {
+        window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+      }
+      form.reset();
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
   });
 }
 initContactForm();

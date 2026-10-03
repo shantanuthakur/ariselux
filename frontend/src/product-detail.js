@@ -203,27 +203,69 @@ function renderProductDetail() {
 
 renderProductDetail();
 
-// Inquiry Form Submission
+// Inquiry Form Submission with Backend API
 const detailForm = document.getElementById('detail-inquiry-form');
 if (detailForm) {
-  detailForm.addEventListener('submit', (e) => {
+  detailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const submitBtn = detailForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+
     const formData = new FormData(detailForm);
-    const name = formData.get('c_name') || '';
-    const email = formData.get('c_email') || '';
-    const phone = formData.get('c_number') || '';
-    const company = formData.get('c_company') || '';
-    const location = formData.get('c_location') || '';
-    const message = formData.get('c_message') || '';
-    const selectedProd = product.title;
+    const payload = {
+      name: formData.get('c_name') || '',
+      email: formData.get('c_email') || '',
+      phone: formData.get('c_number') || '',
+      company: formData.get('c_company') || '',
+      location: formData.get('c_location') || '',
+      message: formData.get('c_message') || '',
+      product: product.title || 'Mobile Light Tower',
+      source: 'product-detail-page'
+    };
 
-    const msg = `Thank you, ${name}! Your quotation request for "${selectedProd}" has been received.\n\nOur engineering sales desk in Haridwar will reach out to you within 2-4 hours.\n\nWould you like to connect directly on WhatsApp with our sales team right now?`;
-
-    if (confirm(msg)) {
-      const waText = encodeURIComponent(`Hello Ariselux Team, I would like a quote for:\n\n*Product:* ${selectedProd}\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Location:* ${location}\n*Requirement:* ${message}`);
-      window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting Request...';
     }
 
-    detailForm.reset();
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const inqId = data.inquiry ? data.inquiry.id : 'Recorded';
+        const msg = `Thank you, ${payload.name || 'Sir/Madam'}!\n\nYour quotation request for "${payload.product}" (Ref #${inqId}) has been received.\n\nOur engineering sales desk in Haridwar will reach out within 2-4 hours.\n\nWould you like to connect directly on WhatsApp with our sales team right now?`;
+
+        if (confirm(msg)) {
+          if (data.whatsappDirectUrl) {
+            window.open(data.whatsappDirectUrl, '_blank');
+          } else {
+            const waText = encodeURIComponent(`Hello Ariselux Team, I would like a quote for:\n\n*Product:* ${payload.product} (Ref #${inqId})\n*Name:* ${payload.name}\n*Company:* ${payload.company}\n*Phone:* ${payload.phone}\n*Location:* ${payload.location}\n*Requirement:* ${payload.message}`);
+            window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+          }
+        }
+        detailForm.reset();
+      } else {
+        alert(data.message || 'There was an issue submitting your request. Please call +91-8126732502 or WhatsApp us directly.');
+      }
+    } catch (err) {
+      console.warn('API submission fallback:', err);
+      const waText = encodeURIComponent(`Hello Ariselux Team, I would like a quote for:\n\n*Product:* ${payload.product}\n*Name:* ${payload.name}\n*Company:* ${payload.company}\n*Phone:* ${payload.phone}\n*Location:* ${payload.location}\n*Requirement:* ${payload.message}`);
+      if (confirm(`Quotation recorded locally. Would you like to connect directly on WhatsApp with our sales desk right now?`)) {
+        window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+      }
+      detailForm.reset();
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
   });
 }
+

@@ -176,29 +176,75 @@ Production assets will be emitted cleanly into the `dist/` directory.
 
 ---
 
-## 📂 Project Directory Structure
+## 📂 Project Architecture (Separated Frontend & Backend)
 
 ```text
 ariselux/
-├── company data/              # Official company brochure scans & specification sheets
-├── MLT photos/                # Raw product photo archives by category
-├── public/                    # Static public assets
-│   └── images/
-│       ├── company/           # Standardized brochure & client portfolio images
-│       ├── hero/              # Hero background photography
-│       ├── industries/        # Industry applications (mining, construction, roads, events)
-│       └── products/          # Categorized product photography (battery, diesel, solar, etc.)
-├── src/
-│   ├── main.js                # Core interactive JavaScript
-│   └── style.css              # Global design system & layout styles
-├── about.html                 # Corporate story, leadership, vision & mission
-├── contact.html               # Factory address, quote form & Google Map
-├── index.html                 # Main landing page with full feature showcase
-├── products.html              # Complete product portfolio & technical matrix
-├── package.json               # Project manifest & build scripts
-├── vite.config.js             # Vite configuration
-└── README.md                  # Comprehensive company & repository documentation
+├── frontend/                          # Vite + Vanilla JS + CSS Client
+│   ├── public/                        # Static assets (images, icons, brochure PDF)
+│   ├── src/
+│   │   ├── main.js                    # Interactive UI logic & API form connectors
+│   │   ├── product-detail.js          # Dynamic product detail page renderer & quote form
+│   │   ├── products-data.js           # Frontend product specifications & gallery models
+│   │   └── style.css                  # Design system tokens, utilities & responsive layouts
+│   ├── index.html                     # Main landing page
+│   ├── about.html                     # Corporate story & manufacturing profile
+│   ├── products.html                  # Product portfolio & technical comparison matrix
+│   ├── product-detail.html            # Dynamic model viewer & technical spec sheets
+│   ├── contact.html                   # Factory address, quote form & Google Map
+│   ├── vite.config.js                 # Vite config (configured with /api proxy to port 5000)
+│   ├── .env                           # Frontend environment variables
+│   ├── .env.example                   # Frontend environment template
+│   └── package.json                   # Frontend scripts & dependencies
+│
+├── backend/                           # Node.js + Express REST API Service
+│   ├── src/
+│   │   ├── config/                    # Environment variables & company configuration
+│   │   ├── controllers/               # Inquiry, Product, and Newsletter controllers
+│   │   ├── routes/                    # Express route definitions (/api/inquiries, etc.)
+│   │   ├── services/                  # Persistent JSON storage & Nodemailer email dispatch
+│   │   ├── data/                      # Backend products catalog
+│   │   ├── app.js                     # Express application configuration & middlewares
+│   │   └── server.js                  # HTTP server bootstrap & graceful shutdown
+│   ├── data/                          # Persistent inquiries and subscriber storage
+│   ├── .env                           # Backend environment variables
+│   ├── .env.example                   # Backend environment template
+│   ├── package.json                   # Backend scripts & dependencies
+│   └── README.md                      # Backend API documentation
+│
+├── package.json                       # Root workspace orchestration scripts
+└── README.md                          # Repository documentation
 ```
+
+---
+
+## ⚡ Quickstart Guide
+
+### Option 1: Run Both Concurrently from Root
+```bash
+# 1. Install all dependencies across both workspaces
+npm run install:all
+
+# 2. Run both Frontend (port 3000) and Backend (port 5000) concurrently
+npm run dev
+```
+
+### Option 2: Run Separately
+```bash
+# Terminal 1 - Backend API:
+cd backend
+npm install
+npm run dev
+
+# Terminal 2 - Frontend:
+cd frontend
+npm install
+npm run dev
+```
+
+- **Frontend Application**: [http://localhost:3000](http://localhost:3000)
+- **Backend API Service**: [http://localhost:5000/api](http://localhost:5000/api)
+- **API Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
 
 ---
 
