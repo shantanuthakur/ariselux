@@ -205,9 +205,13 @@ renderProductDetail();
 
 // Inquiry Form Submission with Backend API
 const detailForm = document.getElementById('detail-inquiry-form');
+let isDetailSubmitting = false;
 if (detailForm) {
   detailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (isDetailSubmitting) return;
+    isDetailSubmitting = true;
+
     const submitBtn = detailForm.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
 
@@ -221,6 +225,7 @@ if (detailForm) {
         alert('⚠️ Please enter a correct email address.\n\nExample: yourname@company.com');
         const emailInput = detailForm.querySelector('input[name="c_email"]');
         if (emailInput) { emailInput.focus(); emailInput.select(); }
+        isDetailSubmitting = false;
         return;
       }
     }
@@ -274,6 +279,7 @@ if (detailForm) {
       }
       detailForm.reset();
     } finally {
+      isDetailSubmitting = false;
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;

@@ -5,6 +5,9 @@ import { config } from '../config/index.js';
 // Simple in-memory rate limiting map (IP -> timestamps)
 const submissionRateMap = new Map();
 
+// In-memory deduplication map (key -> { timestamp, response }) to prevent duplicate emails from rapid clicks/retries
+const recentSubmissionsMap = new Map();
+
 export async function createInquiry(req, res, next) {
   try {
     const { name, email, phone, company, product, location, message, source, website_hp, _gotcha } = req.body;
@@ -51,23 +54,47 @@ export async function createInquiry(req, res, next) {
       });
     }
 
+    const cleanEmail = (email || '').trim().toLowerCase();
+    const cleanProduct = (product || 'General Inquiry').trim();
+
+    // Deduplication check: prevent identical submissions within 60 seconds (stops duplicate emails from double-clicking/retries)
+    const dedupeKey = `${cleanPhone}_${cleanEmail}_${cleanProduct.toLowerCase()}`;
+    if (recentSubmissionsMap.has(dedupeKey)) {
+      const existing = recentSubmissionsMap.get(dedupeKey);
+      if (now - existing.timestamp < 60000) {
+        console.log(`[DEDUPE] Duplicate inquiry submission blocked for: ${dedupeKey}`);
+        return res.status(200).json(existing.response);
+      }
+    }
+
     const inquiry = await saveInquiry({
       name,
-      email: email || '',
+      email: cleanEmail,
       phone: cleanPhone,
       company: company || '',
-      product: product || 'General Inquiry',
+      product: cleanProduct,
       location: location || '',
       message,
       source: source || 'website'
     });
 
-    // Send email notification to sales desk and acknowledgment to customer
+    // Check if customer email is identical to company/sales email
+    const isCompanyEmail = cleanEmail && (
+      cleanEmail === config.company.email.toLowerCase() ||
+      cleanEmail === (config.smtp.user || '').toLowerCase()
+    );
+
+    // Send single email notification to sales desk
+    const salesEmailPromise = sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message }));
+
+    // Only send customer acknowledgment if customer email is valid and NOT the same as company email (avoids duplicate emails in same inbox)
+    const customerEmailPromise = (cleanEmail && !isCompanyEmail)
+      ? sendCustomerAcknowledgment(inquiry).catch(err => ({ sent: false, error: err.message }))
+      : Promise.resolve({ sent: false, reason: isCompanyEmail ? 'company_email_duplicate_skipped' : 'no_customer_email' });
+
     const [salesEmailResult, customerEmailResult] = await Promise.all([
-      sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message })),
-      email 
-        ? sendCustomerAcknowledgment(inquiry).catch(err => ({ sent: false, error: err.message }))
-        : Promise.resolve({ sent: false, reason: 'no_customer_email' })
+      salesEmailPromise,
+      customerEmailPromise
     ]);
 
     // WhatsApp direct link generator
@@ -76,7 +103,7 @@ export async function createInquiry(req, res, next) {
     );
     const whatsappUrl = `https://wa.me/${config.company.whatsapp}?text=${waText}`;
 
-    return res.status(201).json({
+    const responseData = {
       success: true,
       message: 'Quotation request received successfully. Our engineering desk will connect with you within 2-4 business hours.',
       inquiry: {
@@ -90,11 +117,16 @@ export async function createInquiry(req, res, next) {
           ? `Delivered to ${config.company.email}` 
           : (salesEmailResult.message || salesEmailResult.error || 'SMTP credentials not configured in backend/.env'),
         customerAck: customerEmailResult.sent
-          ? `Delivered to ${email}`
+          ? `Delivered to ${cleanEmail}`
           : (customerEmailResult.reason || customerEmailResult.error || 'Not sent')
       },
       whatsappDirectUrl: whatsappUrl
-    });
+    };
+
+    // Cache to deduplicate rapid successive calls
+    recentSubmissionsMap.set(dedupeKey, { timestamp: now, response: responseData });
+
+    return res.status(201).json(responseData);
   } catch (err) {
     next(err);
   }

@@ -3,7 +3,7 @@ import { config } from './config/index.js';
 
 const PORT = config.port;
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`\n======================================================`);
   console.log(`🚀 Ariselux Backend Server Running on port ${PORT}`);
   console.log(`📡 Environment: ${config.nodeEnv}`);
@@ -13,6 +13,10 @@ const server = app.listen(PORT, () => {
   console.log(`📦 Products:  http://localhost:${PORT}/api/products`);
   console.log(`======================================================\n`);
 });
+
+// Configure keep-alive timeouts to prevent ECONNRESET with reverse proxies
+server.keepAliveTimeout = 65000;
+server.headersTimeout = 66000;
 
 // Graceful shutdown
 process.on('SIGTERM', () => {

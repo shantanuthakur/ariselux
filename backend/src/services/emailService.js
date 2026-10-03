@@ -13,7 +13,10 @@ function createTransporter(cfg) {
     port: cfg.smtp.port,
     secure: cfg.smtp.secure,
     auth: { user: cfg.smtp.user, pass: cfg.smtp.pass },
-    tls: { rejectUnauthorized: false }
+    tls: { rejectUnauthorized: false },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000
   });
 }
 
@@ -48,22 +51,11 @@ export async function testSmtpConnection() {
 
   try {
     await transporter.verify();
-    const testResult = await transporter.sendMail({
-      from: `"${company.name}" <${smtp.fromEmail || smtp.user}>`,
-      to: company.email,
-      subject: `[Test Email] Ariselux SMTP Configuration Verified ✅`,
-      html: `
-        <div style="font-family: Arial, sans-serif; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; max-width: 550px;">
-          <h2 style="color: #27ae60; margin-top: 0;">✅ SMTP Connection Verified!</h2>
-          <p>The Ariselux backend can now deliver inquiry emails to <strong>${company.email}</strong>.</p>
-          <hr style="border: 0; border-top: 1px solid #eee;">
-          <p><strong>SMTP Host:</strong> ${smtp.host}:${smtp.port} (Secure: ${smtp.secure})</p>
-          <p><strong>Sender Account:</strong> ${smtp.user}</p>
-          <p><strong>Test Time:</strong> ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</p>
-        </div>
-      `
-    });
-    return { success: true, configured: true, message: `Test email delivered to ${company.email}!`, messageId: testResult.messageId };
+    return {
+      success: true,
+      configured: true,
+      message: `SMTP connection to ${smtp.host} verified successfully. No test email sent.`
+    };
   } catch (err) {
     let troubleshooting = '';
     if (smtp.host.includes('gmail')) {

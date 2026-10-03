@@ -219,8 +219,12 @@ function initContactForm() {
   }
 
   // Handle submit with Backend API call
+  let isContactSubmitting = false;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (isContactSubmitting) return;
+    isContactSubmitting = true;
+
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
 
@@ -234,6 +238,7 @@ function initContactForm() {
         alert('⚠️ Please enter a correct email address.\n\nExample: yourname@company.com');
         const emailInput = form.querySelector('input[name="email"]');
         if (emailInput) { emailInput.focus(); emailInput.select(); }
+        isContactSubmitting = false;
         return;
       }
     }
@@ -286,6 +291,7 @@ function initContactForm() {
       }
       form.reset();
     } finally {
+      isContactSubmitting = false;
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;
@@ -473,6 +479,7 @@ function initRequestForQuotation() {
     rfqMessageArea.value = '';
 
     // Reset views
+    isRfqSubmitting = false;
     rfqForm.style.display = 'block';
     rfqSuccessView.style.display = 'none';
     if (rfqSubmitBtn) {
@@ -581,9 +588,12 @@ function initRequestForQuotation() {
   });
 
   // Handle Form Submission
+  let isRfqSubmitting = false;
   if (rfqForm) {
     rfqForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (isRfqSubmitting) return;
+      isRfqSubmitting = true;
 
       const formData = new FormData(rfqForm);
       const name = formData.get('name') || '';
@@ -673,6 +683,7 @@ function initRequestForQuotation() {
 
         rfqForm.reset();
       } finally {
+        isRfqSubmitting = false;
         if (rfqSubmitBtn) {
           rfqSubmitBtn.disabled = false;
         }

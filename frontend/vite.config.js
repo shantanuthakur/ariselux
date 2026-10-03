@@ -21,8 +21,20 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://127.0.0.1:5000',
         changeOrigin: true,
+        secure: false,
+        timeout: 60000,
+        proxyTimeout: 60000,
+        configure: (proxy, _options) => {
+          proxy.on('error', (err, _req, res) => {
+            console.warn('[vite-proxy-warning]', err.message);
+            if (res && !res.headersSent) {
+              res.writeHead(502, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, message: 'Backend proxy error', error: err.message }));
+            }
+          });
+        }
       },
     },
   },
