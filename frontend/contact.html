@@ -133,16 +133,47 @@
 
             <div class="form-group">
               <select name="product" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;">
-                <option value="">-- Select Product / Category of Interest --</option>
-                <option value="battery">Battery Light Towers (ACE B-01 / B-02 / B-04)</option>
-                <option value="diesel">Diesel Light Towers (ACE LT 4000 / 6000 / 9000 / 12000)</option>
-                <option value="hybrid">Battery-Petrol Hybrid (ACE PBLT 3000 / 4000)</option>
-                <option value="solar">Solar Light Towers (ACE SLT Series 4000 / 6000)</option>
-                <option value="without-genset">Mobile Tower Without Genset (Grid 220V 2400W)</option>
-                <option value="petrol">Petrol Light Tower (ACE PLT 4000 Honda)</option>
-                <option value="inflatable">Inflatable 360° Balloon Tower (ACE 1.2 IT 4500)</option>
-                <option value="tender">Defense / PSU / Government Tender</option>
-                <option value="custom">Custom Engineered Tower</option>
+                <option value="">-- Select Product Variant / Model of Interest --</option>
+                
+                <optgroup label="🔋 Battery Powered Series (Zero-Emission & Portable)">
+                  <option value="ACE B-01 (12V Battery Light Tower 5000 Lumens)" data-id="ace-b-01">ACE B-01 — 12V Battery Light Tower (5,000 Lumens, 1.5M Telescopic)</option>
+                  <option value="ACE B-02 (50AH Lithium Battery Tower 15000 Lumens)" data-id="ace-b-02">ACE B-02 — 50AH Lithium Battery Tower (15,000 Lumens, Twin LED)</option>
+                  <option value="ACE B-04 (70AH Lithium Battery Trolley 25000 Lumens)" data-id="ace-b-04">ACE B-04 — 70AH Lithium Battery Trolley Tower (25,000 Lumens, 2M Mast)</option>
+                </optgroup>
+
+                <optgroup label="⛽ Diesel Engine Series (Heavy-Duty Industrial)">
+                  <option value="ACE LT 4000 (Diesel 5 HP Air-Cooled)" data-id="ace-lt-4000">ACE LT 4000 — 5 HP Air-Cooled Diesel (4.5M - 6M Mast, 4,000 Sq.M)</option>
+                  <option value="ACE LT 6000 (Diesel 8 HP 40L Tank)" data-id="ace-lt-6000">ACE LT 6000 — 8 HP Diesel Light Tower (40L Tank, 7,000 Sq.M)</option>
+                  <option value="ACE LT 9000 (Lombardini Kohler 8 HP Diesel)" data-id="ace-lt-9000">ACE LT 9000 — Lombardini Kohler 8 HP Diesel (10,000 Sq.M)</option>
+                  <option value="ACE LT 12000 (Escort Kubota 14.5 HP 12M Mast)" data-id="ace-lt-12000">ACE LT 12000 — Escort Kubota 14.5 HP Diesel Flagship (12M Mast, 2,40,000 Lumens)</option>
+                </optgroup>
+
+                <optgroup label="☀️ Solar Powered Series (100% Off-Grid)">
+                  <option value="ACE 0.5 SLT 4000 (500W Solar Off-Grid)" data-id="ace-0-5-slt-4000">ACE 0.5 SLT 4000 — 500W Solar Off-Grid Mobile Tower</option>
+                  <option value="ACE 2 SLT 6000 (2340W Solar Heavy Array)" data-id="ace-2-slt-6000">ACE 2 SLT 6000 — 2,340W Solar Array Heavy Mobile Tower (1,20,000 Lumens, 7M Tilt Mast)</option>
+                </optgroup>
+
+                <optgroup label="🔌 External Grid Powered (Without Genset)">
+                  <option value="Mobile Light Tower Without Genset (Grid 220V 2400W)" data-id="without-genset">Mobile Light Tower Without Genset (External 220V Grid, 2,40,000 Lumens, 12M Mast)</option>
+                </optgroup>
+
+                <optgroup label="⚡ Petrol Powered Series">
+                  <option value="ACE PLT 4000 (Honda EP 1000 Petrol)" data-id="ace-plt-4000">ACE PLT 4000 — Honda EP 1000 Petrol Light Tower (50,000 Lumens, 4M Mast)</option>
+                </optgroup>
+
+                <optgroup label="🔄 Battery-Petrol Hybrid Series">
+                  <option value="ACE PBLT 3000 (Battery-Petrol Hybrid 3.0M)" data-id="ace-pblt-3000">ACE PBLT 3000 — Battery-Petrol Hybrid Tower (3.0M Mast)</option>
+                  <option value="ACE PBLT 4000 (Battery-Petrol Hybrid 4.5M)" data-id="ace-pblt-4000">ACE PBLT 4000 — Battery-Petrol Hybrid Tower (16+ Hrs Runtime, 4.5M - 6M Mast)</option>
+                </optgroup>
+
+                <optgroup label="🎈 Inflatable Balloon Series (360° Glare-Free)">
+                  <option value="ACE 1.2 IT 4500 (Inflatable 360 Glare-Free Balloon Tower)" data-id="ace-1-2-it-4500">ACE 1.2 IT 4500 — Inflatable 360° Glare-Free Balloon Tower (4.5M Height, 10,000 Sq.M)</option>
+                </optgroup>
+
+                <optgroup label="🏢 Defense, Government & Custom Projects">
+                  <option value="Defense / PSU / Military Specification Tender Order" data-id="tender">Defense / PSU / Military Specification Tender Order</option>
+                  <option value="Custom Engineered Mobile Lighting Tower" data-id="custom">Custom Engineered Mobile Lighting Tower Solution</option>
+                </optgroup>
               </select>
             </div>
 

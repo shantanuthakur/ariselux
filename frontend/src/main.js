@@ -204,8 +204,11 @@ function initContactForm() {
     if (productSelect) {
       // Find matching option
       for (const option of productSelect.options) {
-        if (option.value.toLowerCase().includes(selectedProduct.toLowerCase()) || 
-            selectedProduct.toLowerCase().includes(option.value.toLowerCase())) {
+        const optVal = (option.value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const optId = (option.getAttribute('data-id') || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const targetSlug = selectedProduct.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if ((optId && (optId === targetSlug || optId.includes(targetSlug) || targetSlug.includes(optId))) ||
+            (optVal && (optVal === targetSlug || optVal.includes(targetSlug) || targetSlug.includes(optVal)))) {
           option.selected = true;
           break;
         }
