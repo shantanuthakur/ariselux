@@ -34,11 +34,13 @@ export async function createInquiry(req, res, next) {
       source: source || 'website'
     });
 
-    // Send email notification to sales desk
-    const emailResult = await sendInquiryNotification(inquiry);
-    if (email) {
-      sendCustomerAcknowledgment(inquiry).catch(err => console.error('Customer ack error:', err));
-    }
+    // Send email notification to sales desk and acknowledgment to customer
+    const [salesEmailResult, customerEmailResult] = await Promise.all([
+      sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message })),
+      email 
+        ? sendCustomerAcknowledgment(inquiry).catch(err => ({ sent: false, error: err.message }))
+        : Promise.resolve({ sent: false, reason: 'no_customer_email' })
+    ]);
 
     // WhatsApp direct link generator
     const waText = encodeURIComponent(
@@ -55,9 +57,14 @@ export async function createInquiry(req, res, next) {
         product: inquiry.product,
         createdAt: inquiry.createdAt
       },
-      emailDelivery: emailResult.sent 
-        ? `Delivered to ${config.company.email}` 
-        : (emailResult.message || emailResult.error || 'SMTP credentials not configured in backend/.env'),
+      emailDelivery: {
+        salesDesk: salesEmailResult.sent 
+          ? `Delivered to ${config.company.email}` 
+          : (salesEmailResult.message || salesEmailResult.error || 'SMTP credentials not configured in backend/.env'),
+        customerAck: customerEmailResult.sent
+          ? `Delivered to ${email}`
+          : (customerEmailResult.reason || customerEmailResult.error || 'Not sent')
+      },
       whatsappDirectUrl: whatsappUrl
     });
   } catch (err) {

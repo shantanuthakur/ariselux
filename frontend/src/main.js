@@ -369,13 +369,13 @@ function initRequestForQuotation() {
               <!-- Work Email -->
               <div class="rfq-form-group">
                 <label class="rfq-label" for="rfq-input-email">Work Email <span class="req">*</span></label>
-                <input type="email" id="rfq-input-email" name="email" class="rfq-input" placeholder="name@company.com" required>
+                <input type="email" id="rfq-input-email" name="email" class="rfq-input" placeholder="e.g. name@company.com" required>
               </div>
 
               <!-- Phone Number -->
               <div class="rfq-form-group">
                 <label class="rfq-label" for="rfq-input-phone">Phone / WhatsApp <span class="req">*</span></label>
-                <input type="tel" id="rfq-input-phone" name="phone" class="rfq-input" placeholder="+91 98765 43210" required>
+                <input type="tel" id="rfq-input-phone" name="phone" class="rfq-input" placeholder="e.g. +91 98765 43210" required>
               </div>
 
               <!-- Quantity Required -->
@@ -395,10 +395,10 @@ function initRequestForQuotation() {
                 <input type="text" id="rfq-input-location" name="location" class="rfq-input" placeholder="e.g. Haridwar, Gujarat, Delhi NCR">
               </div>
 
-              <!-- Requirement / Specifications -->
+              <!-- Requirement / Specifications (Optional) -->
               <div class="rfq-form-group full-width">
-                <label class="rfq-label" for="rfq-textarea-message">Requirement Details & Specifications <span class="req">*</span></label>
-                <textarea id="rfq-textarea-message" name="message" class="rfq-textarea" rows="3" placeholder="Please specify your project site, power requirements, or delivery schedule..." required></textarea>
+                <label class="rfq-label" for="rfq-textarea-message">Requirement Details & Specifications <span style="font-weight: 400; color: #64748b; font-size: 11px;">(Optional)</span></label>
+                <textarea id="rfq-textarea-message" name="message" class="rfq-textarea" rows="3" placeholder="Fill your requirement..."></textarea>
               </div>
             </div>
 
@@ -460,7 +460,7 @@ function initRequestForQuotation() {
     rfqProductThumb.alt = title;
     rfqProductSub.textContent = specs || 'Direct Haridwar Works OEM Dispatch • Industrial Heavy Duty Spec';
     rfqHiddenProduct.value = title;
-    rfqMessageArea.value = `Please share official price quotation, technical specification sheet, and delivery lead time for ${title}.`;
+    rfqMessageArea.value = '';
 
     // Reset views
     rfqForm.style.display = 'block';
@@ -583,9 +583,10 @@ function initRequestForQuotation() {
       const product = formData.get('product') || 'Ariselux Light Tower';
       const quantity = formData.get('quantity') || '1 Unit';
       const location = formData.get('location') || '';
-      const messageNotes = formData.get('message') || '';
+      const userNotes = (formData.get('message') || '').trim();
+      const requirementText = userNotes || `Please share official price quotation and technical specifications for ${product}.`;
 
-      const fullMessage = `Quantity Required: ${quantity}\nDelivery Location: ${location || 'Not specified'}\n\n${messageNotes}`;
+      const fullMessage = `Quantity Required: ${quantity}\nDelivery Location: ${location || 'Not specified'}\n\nRequirement / Specifications: ${requirementText}`;
 
       const payload = {
         name,
@@ -624,12 +625,13 @@ function initRequestForQuotation() {
 
           const successMsg = document.getElementById('rfq-success-msg');
           if (successMsg) {
-            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your quotation request for <strong>${product}</strong> has been received by our engineering sales team in Haridwar.<br><br>An official commercial quotation and technical proposal will be sent to <strong>${email}</strong> and <strong>${phone}</strong> within 2-4 business hours.`;
+            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your quotation request for <strong>${product}</strong> has been received by our sales engineering team in Haridwar.<br><br>📧 A confirmation email has been sent to <strong>${email}</strong>. We will share your official commercial quotation and technical datasheet within 2-4 business hours.`;
           }
 
           const waBtn = document.getElementById('rfq-wa-direct-btn');
           if (waBtn) {
-            const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I requested a quote (Ref #${inqId}):\n*Product:* ${product}\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Quantity:* ${quantity}\n*Details:* ${messageNotes}`);
+            const waNotes = userNotes || 'Official quotation requested.';
+            const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I requested a quote (Ref #${inqId}):\n*Product:* ${product}\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Quantity:* ${quantity}\n*Details:* ${waNotes}`);
             waBtn.href = data.whatsappDirectUrl || data.whatsappUrl || `https://wa.me/918126732502?text=${waText}`;
           }
 
@@ -639,7 +641,8 @@ function initRequestForQuotation() {
         }
       } catch (err) {
         console.warn('RFQ API submission fallback:', err);
-        const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I would like to request a quotation:\n*Product:* ${product}\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Quantity:* ${quantity}\n*Details:* ${messageNotes}`);
+        const waNotes = userNotes || 'Official quotation requested.';
+        const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I would like to request a quotation:\n*Product:* ${product}\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Quantity:* ${quantity}\n*Details:* ${waNotes}`);
         
         // Show Success with direct WhatsApp option
         rfqForm.style.display = 'none';
