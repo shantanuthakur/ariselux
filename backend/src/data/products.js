@@ -42,20 +42,6 @@ export const products = [
     weight: '240 kg'
   },
   {
-    id: 'ace-lt-4000',
-    title: 'ACE LT 4000',
-    category: 'diesel',
-    categoryName: 'Diesel Powered',
-    tagline: 'Compact High-Efficiency Diesel Lighting Tower',
-    power: '4 x 250W LED (or 4 x 1000W Metal Halide)',
-    lumens: '1,40,000 Lumens',
-    height: '6.0 Meters (Manual Winch)',
-    runtime: '60+ Hours on Single Tank',
-    coverage: '3,800 Sq. M',
-    engine: 'Single Cylinder 4-Stroke Air-Cooled Diesel',
-    weight: '480 kg'
-  },
-  {
     id: 'ace-lt-6000',
     title: 'ACE LT 6000',
     category: 'diesel',
@@ -98,8 +84,8 @@ export const products = [
     weight: '980 kg'
   },
   {
-    id: 'ace-2-slt-6000',
-    title: 'ACE 2 SLT 6000',
+    id: 'ace-5-slt-6000',
+    title: 'ACE 5 SLT 6000',
     category: 'solar',
     categoryName: 'Solar Powered',
     tagline: 'Heavy-Duty Zero-Emission Solar Lighting Tower',

@@ -1,21 +1,817 @@
 // Products Data for Ariselux Light Towers
-// Matching the structure of lightingtowers.in (e.g. Qube Power Max)
+// Extracted from official factory technical specification brochures (company product information)
+// Structured matching modern lightingtowers.in engineering layouts
 
 export const productsData = {
+  // ── 1. DIESEL POWERED ──────────────────────────────────────────────
   'ace-lt-12000': {
     id: 'ace-lt-12000',
     title: 'ACE LT 12000',
     category: 'diesel',
     categoryName: 'Diesel Powered',
-    tagline: 'Heavy-Duty Industrial Diesel Lighting Tower',
-    description: 'The ACE LT 12000 is meticulously designed to thrive in a spectrum of demanding applications. Featuring a robust Escort Kubota water-cooled diesel engine, a massive fuel tank, and a certified heavy-duty chassis, this equipment stands as a testament to durability and reliability. It finds its niche in the fields of mining and quarry, oil and gas, as well as large-scale infrastructure projects such as dams, bridges, and expressways. Furthermore, it is well-suited for the exacting requirements of military, defense, and disaster relief applications. Its power and adaptability position it as an indispensable asset for heavy industry.',
-    image: '/images/products/Diesel oprated/ACLT 12000.png',
+    tagline: 'High-Voltage 240,000 Lumens Heavy Diesel Mobile Lighting Tower',
+    description: 'Ariselux Equipment Company proudly presents its advanced LED Flood Light solution - engineered for maximum brightness, energy efficiency, and durability. Recently, we completed the successful installation of 4 high-voltage LED Flood Lights, delivering a combined luminous output of 240,000 lumens (40,000 to 60,000 lumens per light). With a total power range of 300W to 500W, powered by a genuine Japanese Escort Kubota 14.5 HP water-cooled diesel engine operating at 1500 RPM and an automated 12.0-meter telescopic mast, these towers are designed to perform in the most demanding mining, infrastructure, and heavy industrial environments.',
+    image: '/images/products/Diesel oprated/aclt-12000-view1.jpg',
     gallery: [
-      '/images/products/Diesel oprated/ACLT 12000.png',
-      '/images/products/Diesel oprated/ACLT 9000.png',
-      '/images/products/Diesel oprated/ACLT 6000.png'
+      '/images/products/Diesel oprated/aclt-12000-view1.jpg',
+      '/images/products/Diesel oprated/aclt-12000-view2.jpg',
+      '/images/products/Diesel oprated/aclt-12000-view3.jpg'
     ],
     featureImage: '/images/industries/mining.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '39 ft (12.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 300W-500W LED (2,40,000 Lumens)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '80+ Hours (Kubota Diesel)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '8000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Escort Kubota 14.5 HP (1500 R.P.M) Water-Cooled Diesel',
+        generator: '220 Volts Connection Board Output',
+        tankSize: '100 Liters (Diesel)',
+        sockets: 'Industrial Weatherproof Sockets with MCB Protection',
+        weight: '600 - 700 KG',
+        dimensions: 'Travel: 2.3 x 1.4 x 2.4 m\nOperation: 2.6 x 2.4 x 12.0 m'
+      }
+    ],
+    features: [
+      'Combined luminous output of 240,000 lumens (40,000 - 60,000 lumens per light)',
+      'High-voltage LED flood lights with power range 300W to 500W',
+      'Illumination coverage up to 8,000 square meters',
+      'Japanese Escort Kubota 14.5 H.P 1500 R.P.M water-cooled diesel engine',
+      '12.0-meter heavy-duty vertical telescopic mast (ground level to lights)',
+      'Single-axle trailer chassis with 4 heavy-duty outrigger leveling jacks'
+    ],
+    highlights: [
+      {
+        title: 'Lights & Optics',
+        items: [
+          'High-voltage modular LED floodlights delivering 2,40,000 total lumens',
+          'Heavy-duty cast aluminum IP67/IP68 luminaire housings with vibration dampers',
+          'Independent 3-axis manual angle orientation for targeted perimeter coverage',
+          'Optical polycarbonate lenses ensuring uniform luminous distribution'
+        ]
+      },
+      {
+        title: 'Mast & Winch',
+        items: [
+          '12.0-meter heavy-duty galvanized steel telescopic mast',
+          'Smooth self-locking worm winch with stainless steel aircraft-grade cable',
+          '355-degree mast rotation with positive locking pin at any orientation',
+          'Sealed deep-groove bearing pulleys with zinc plating for long service life'
+        ]
+      },
+      {
+        title: 'Mobility & Towing',
+        items: [
+          'Heavy-duty trailer chassis with pneumatic all-terrain 14" tires',
+          'Universal tow hitch drawbar convertible for NATO eye or ball coupler',
+          'Integrated central crane lifting eye and 3-way forklift pockets',
+          'Certified highway speed towing up to 80 km/h with leaf spring suspension'
+        ]
+      },
+      {
+        title: 'Stability & Safety',
+        items: [
+          '4 independent heavy-duty wind-down outrigger stabilizer jacks with footpads',
+          'Tested and certified for stability in high winds up to 100 km/h',
+          'Integrated spirit bubble levels for rapid field leveling on unpaved terrain'
+        ]
+      },
+      {
+        title: 'Power & Controls',
+        items: [
+          'Standard 220 Volts output connection board for auxiliary site tools',
+          'Dual changeover switch enables operating lights directly from grid utility',
+          'Safety shutdown sensors for low engine oil pressure and high coolant temperature'
+        ]
+      }
+    ],
+    variants: ['ace-lt-9000', 'ace-lt-6000', 'without-genset']
+  },
+
+  'ace-lt-9000': {
+    id: 'ace-lt-9000',
+    title: 'ACE LT 9000',
+    category: 'diesel',
+    categoryName: 'Diesel Powered',
+    tagline: 'High-Efficiency Air-Cooled Diesel Mobile Lighting Tower',
+    description: 'At Ariselux, we specialize in providing top-tier LED Flood Light solutions designed to deliver powerful, efficient, and long-lasting illumination. Our recent installation showcases the strength of our Technology - 4 high-voltage LED flood lights, with Power Ratings Ranging from 200W to 500W, engineered to cover an expansive Area of up to 10,000 square mt. Powered by a durable Lombardini (Kohler) 8 HP Air-Cooled diesel engine operating at 3000 R.P.M with an ultra-economical 900 ml/hr fuel consumption and 40-liter tank.',
+    image: '/images/products/Diesel oprated/aclt-9000-view1.jpg',
+    gallery: [
+      '/images/products/Diesel oprated/aclt-9000-view1.jpg',
+      '/images/products/Diesel oprated/aclt-9000-view2.jpg',
+      '/images/products/Diesel oprated/aclt-9000-view3.jpg'
+    ],
+    featureImage: '/images/industries/roads.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '30 ft (9.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 200W-500W LED', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '44+ Hours (40L / 900ml/hr)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '4500 - 10000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Lombardini (Kohler) 8 H.P Air-Cooled Diesel (3000 R.P.M)',
+        generator: '220 Volts Connection Board Output',
+        tankSize: '40 LTR CAPACITY (Consumption: 900 ml/hr)',
+        sockets: '12 Volts 35 AH Starting Battery | Sockets with MCB',
+        weight: '550 - 600 KG',
+        dimensions: 'Travel: 2.2 x 1.3 x 2.3 m\nOperation: 2.5 x 2.2 x 9.0 m'
+      }
+    ],
+    features: [
+      'Expansive illumination area coverage up to 10,000 square meters',
+      '4 high-voltage LED flood lights with power ratings ranging from 200W to 500W',
+      'Genuine Lombardini (Kohler) 8 HP air-cooled diesel engine running at 3000 R.P.M',
+      '40-liter diesel tank capacity with fuel consumption of only 900 ml per hour',
+      '12 Volts 35 AH battery with heavy-duty electric starter motor',
+      'Standard 220 Volts connection board output for auxiliary job site power'
+    ],
+    highlights: [
+      {
+        title: 'Lights',
+        items: [
+          'High-intensity multi-wattage LED array (200W to 500W per head)',
+          'Instant on/off with zero restrike delay or warm-up time required',
+          'Heavy cast aluminum housings sealed to IP66 weatherproof rating'
+        ]
+      },
+      {
+        title: 'Mast',
+        items: [
+          '9.0-meter galvanized steel telescopic mast with cable guides',
+          'Dual manual safety lock pins preventing unexpected mast lowering',
+          'Manual worm gear winch with automatic friction braking mechanism'
+        ]
+      },
+      {
+        title: 'Mobility & Dimensions',
+        items: [
+          'Compact transport footprint of 550 - 600 kg weight',
+          'Road-worthy suspension with pneumatic tires and foldaway tow bar',
+          'Central crane lifting point and dual forklift pockets'
+        ]
+      },
+      {
+        title: 'Stability',
+        items: [
+          '4 retractable outrigger stabilizer arms extending wide for solid footing',
+          'Stable in wind gusts up to 80 km/h with mast fully deployed'
+        ]
+      }
+    ],
+    variants: ['ace-lt-12000', 'ace-lt-6000']
+  },
+
+  'ace-lt-6000': {
+    id: 'ace-lt-6000',
+    title: 'ACE LT 6000',
+    category: 'diesel',
+    categoryName: 'Diesel Powered',
+    tagline: 'Reliable 4-Light Diesel Mobile Lighting Tower',
+    description: 'The ACE LT 6000 is engineered for continuous night operations on highways, construction jobs, and municipal maintenance. Powered by an air-cooled Kohler / Kubota 8 HP diesel engine running at 3000 RPM with a 40-liter tank (900 ml/hr consumption), it drives 4 LED floodlights (200W-450W) covering up to 7,000 square meters.',
+    image: '/images/products/Diesel oprated/aclt-6000-view1.jpg',
+    gallery: [
+      '/images/products/Diesel oprated/aclt-6000-view1.jpg',
+      '/images/products/Diesel oprated/aclt-6000-view2.jpg',
+      '/images/products/Diesel oprated/aclt-6000-view3.jpg'
+    ],
+    featureImage: '/images/industries/construction.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '23 ft (7.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 200W-450W LED', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '44+ Hours (40L / 900ml/hr)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: 'Up to 7000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Kohler / Kubota (Air Cooled) 3000 R.P.M / 8 H.P',
+        generator: '220 Volts Connection Board Output',
+        tankSize: '40 LTR CAPACITY (900 ml/hr consumption)',
+        sockets: '12 Volts 35 AH Starting Battery | Weatherproof Sockets',
+        weight: '650 - 700 KG',
+        dimensions: 'Travel: 2.1 x 1.3 x 2.2 m\nOperation: 2.4 x 2.0 x 7.0 m'
+      }
+    ],
+    features: [
+      'Area illumination coverage up to 7,000 square meters',
+      '4 high-output LED floodlights (200W - 450W)',
+      'Kohler / Kubota 8 HP air-cooled diesel engine at 3000 RPM',
+      '40-liter fuel tank delivering over 44 continuous operating hours',
+      'Output connection board providing auxiliary 220 Volts',
+      'Heavy-duty 650-700 kg chassis with 4 leveling outriggers'
+    ],
+    highlights: [
+      {
+        title: 'Lights',
+        items: [
+          '4 x 200W - 450W LED floodlights with IP66 weatherproof rating',
+          'Vibration-resistant bracketry designed for towed mobile trailers',
+          'Individual lamp orientation for rectangular or circular light spread'
+        ]
+      },
+      {
+        title: 'Mast',
+        items: [
+          '7.0-meter galvanized steel telescopic mast',
+          'Quick-raising manual winch system with automatic safety brake',
+          '360-degree mast rotation with locking pin'
+        ]
+      },
+      {
+        title: 'Engine & Fuel',
+        items: [
+          'Air-cooled 8 HP Kohler / Kubota industrial diesel engine',
+          'Large 40-liter tank requiring refueling only once every 44+ hours',
+          'Fuel water separator and heavy-duty air filter'
+        ]
+      }
+    ],
+    variants: ['ace-lt-12000', 'ace-lt-9000']
+  },
+
+  // ── 2. MOBILE TOWER WITHOUT GENSET ─────────────────────────────────
+  'without-genset': {
+    id: 'without-genset',
+    title: 'Mobile Light Tower without Genset',
+    category: 'without-genset',
+    categoryName: 'Mobile Tower Without Genset',
+    tagline: 'High-Performance 2,40,000 Lumens Grid-Powered Mobile Tower',
+    description: 'The Mobile light tower without Genset is a high-performance mobile light tower designed for powerful illumination without the need for an onboard generator. Ideal for construction sites, outdoor events, emergency response, and mining operations, this unit delivers robust lighting while remaining compact, zero-emission, and easy to transport.',
+    image: '/images/products/Mobile Tower Without Genset/withoutgenset-angle1.jpg',
+    gallery: [
+      '/images/products/Mobile Tower Without Genset/withoutgenset-angle1.jpg',
+      '/images/products/Mobile Tower Without Genset/withoutgenset-angle2.jpg',
+      '/images/products/Mobile Tower Without Genset/withoutgenset-angle3.jpg'
+    ],
+    featureImage: '/images/industries/construction.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '39 ft (12.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '6 x 400W LED = 2400W', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: 'Continuous Grid / External Power', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '7000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'External 220V Grid / Onsite Genset Input',
+        generator: 'Output Connection Board: 220 Volts',
+        tankSize: 'Direct Power Supply (Zero Fuel Required)',
+        sockets: 'Power (of Lights): 6 x 400W = 2400W | Brightness: 2,40,000 Lumens',
+        weight: '600 - 700 KG (Approx)',
+        dimensions: 'Travel: 2.2 x 1.3 x 2.4 m\nOperation: 2.6 x 2.4 x 12.0 m'
+      }
+    ],
+    features: [
+      '6 x 400W high-intensity LED floodlights delivering a massive 2,400W total power',
+      'Combined brightness of 2,40,000 Lumens (40,000 lumens x 6 fixtures)',
+      'Illumination area coverage up to 7,000 square meters',
+      'Heavy-duty 12.0-meter telescopic mast extension',
+      'Direct connection to 220V site grid or external central generator',
+      'Applications: Road construction & maintenance, mining & oil fields, emergency & disaster response, outdoor events, airport & military operations'
+    ],
+    highlights: [
+      {
+        title: 'Zero-Emission Lighting',
+        items: [
+          'No onboard engine or fuel maintenance required',
+          'Zero fumes, zero engine noise, and zero carbon footprint on site',
+          'Plug-and-play operation directly from any 220V industrial power distribution box'
+        ]
+      },
+      {
+        title: 'Lights & Hexagonal Array',
+        items: [
+          'Hexagonal light bracket array holding 6 x 400W LED luminaires',
+          'Individual light tilt adjustment for 360-degree or focused directional lighting',
+          'IP66 rated waterproof luminaire housings'
+        ]
+      },
+      {
+        title: 'Mast & Winch',
+        items: [
+          'Heavy-duty 12-meter telescopic steel mast with cable guides',
+          'Winch-operated elevation with positive safety pin locking mechanism'
+        ]
+      },
+      {
+        title: 'Chassis & Stability',
+        items: [
+          '4-wheel site mobile trailer frame with heavy pneumatic tires',
+          'Multiple outrigger leveling jacks providing certified stability'
+        ]
+      }
+    ],
+    variants: ['ace-lt-12000', 'ace-5-slt-6000', 'ace-1-2-it-4500']
+  },
+
+  // ── 3. PETROL POWERED ──────────────────────────────────────────────
+  'ace-plt-4000': {
+    id: 'ace-plt-4000',
+    title: 'ACE PLT 4000',
+    category: 'petrol',
+    categoryName: 'Petrol Operated',
+    tagline: 'Compact Portable Honda-Powered Petrol Light Tower',
+    description: 'The ACE PLT 4000 is a lightweight, ultra-portable mobile lighting tower powered by a genuine Honda EP 1000 generator. Delivering 50,000 lumens from 6 energy-efficient 50W LED floodlights with a 4-meter mast, it is ideal for rapid emergency deployment, municipal maintenance, and nighttime utility repair crews.',
+    image: '/images/products/Petrol oprated/petrol-angle1.jpeg',
+    gallery: [
+      '/images/products/Petrol oprated/petrol-angle1.jpeg',
+      '/images/products/Petrol oprated/petrol-angle2.jpg',
+      '/images/products/Petrol oprated/petrol-angle3.jpg'
+    ],
+    featureImage: '/images/industries/roads.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '13 ft (4.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '6 x 50W LED (50,000 Lumens)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '5 Hours (3.6 Ltr Tank)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '4000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Honda EP 1000 4-Stroke Petrol Genset',
+        generator: 'Integrated Honda Alternator (230V / 50Hz)',
+        tankSize: 'PETROL TANK: 3.6 Ltr (Continuous Run: 5 Hours)',
+        sockets: 'Light Power: 50W x 6 Nos | Brightness: 50,000 Lumens',
+        weight: '60 KG (Ultra Lightweight)',
+        dimensions: 'Travel: 0.9 x 0.8 x 1.6 m\nOperation: 1.4 x 1.4 x 4.0 m'
+      }
+    ],
+    features: [
+      'Genuine Honda EP 1000 portable petrol genset',
+      '6 x 50W LED floodlights delivering 50,000 lumens of brightness',
+      '4.0-meter telescopic mast from ground level to light',
+      '3.6-liter petrol tank delivering 5 hours of continuous runtime',
+      'Total machine weight only 60 kg, easy for two people to lift into a pickup',
+      'Compact foldable outrigger base with rapid setup in under 3 minutes'
+    ],
+    highlights: [
+      {
+        title: 'Honda Engine Reliability',
+        items: [
+          'Legendary Honda 4-stroke OHV petrol engine for easy pull-starting',
+          'Low emissions and quiet operation suitable for residential zones'
+        ]
+      },
+      {
+        title: 'Lights & Mast',
+        items: [
+          '6 high-efficiency 50W LED fixtures mounted on a circular or linear crossbar',
+          '4-meter telescopic mast with quick-action clamp collars'
+        ]
+      }
+    ],
+    variants: ['ace-b-04', 'ace-1-2-it-4500']
+  },
+
+  'ace-pblt-4000': {
+    id: 'ace-pblt-4000',
+    title: 'ACE PBLT 4000',
+    category: 'hybrid',
+    categoryName: 'Battery & Petrol Operated',
+    tagline: 'Hybrid Petrol-Battery Dual Power Light Tower',
+    description: 'The ACE PBLT 4000 combines petrol engine generation with a built-in lithium battery bank for hybrid silent night running and instant backup power on demanding remote work sites.',
+    image: '/images/products/Petrol oprated/petrol-angle1.jpeg',
+    gallery: [
+      '/images/products/Petrol oprated/petrol-angle1.jpeg',
+      '/images/products/Petrol oprated/petrol-angle2.jpg',
+      '/images/products/Petrol oprated/petrol-angle3.jpg'
+    ],
+    featureImage: '/images/industries/events.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '15 ft (4.5 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 100W LED (40,000 Lumens)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '12+ Hours (Hybrid)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '3500 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Honda Petrol Generator + Integrated Lithium Battery Bank',
+        generator: 'Dual Mode 220V Inverter & Alternator',
+        tankSize: '5 Ltr Petrol Tank + 12V 100AH Lithium',
+        sockets: '230V Auxiliary Outlet with Dual Mode Selector',
+        weight: '110 KG',
+        dimensions: 'Travel: 1.1 x 0.9 x 1.8 m\nOperation: 1.6 x 1.6 x 4.5 m'
+      }
+    ],
+    features: [
+      'Hybrid dual-source operation: engine run or silent battery backup',
+      '4 x 100W high-efficiency LED lights',
+      '4.5-meter telescopic mast',
+      'Seamless switchover between battery and engine mode'
+    ],
+    highlights: [
+      {
+        title: 'Hybrid Benefits',
+        items: ['Allows silent nighttime operation in residential areas on battery power']
+      }
+    ],
+    variants: ['ace-plt-4000', 'ace-b-04', 'ace-3-slt-6000']
+  },
+
+  // ── 4. INFLATABLE TOWER ────────────────────────────────────────────
+  'ace-1-2-it-4500': {
+    id: 'ace-1-2-it-4500',
+    title: 'ACE 1.2 IT 4500',
+    category: 'inflatable',
+    categoryName: 'Inflatable Tower',
+    tagline: '360° Glare-Free 42,000 Lumens Inflatable Balloon Light Tower',
+    description: 'The ACE 1.2 IT 4500 is a revolutionary inflatable column light tower providing 360-degree glare-free diffused illumination across 10,000 square meters. Featuring an onboard 230V 1200VA power system with an 8-liter fuel tank and automatic air blower, the cylinder inflates to 4.5 meters in under 60 seconds, eliminating shadows and driver blinding on highway paving, night rail work, and emergency disaster relief operations.',
+    image: '/images/products/Inflatable tower/inflatable-angle1.jpg',
+    gallery: [
+      '/images/products/Inflatable tower/inflatable-angle1.jpg',
+      '/images/products/Inflatable tower/inflatable-angle2.jpg',
+      '/images/products/Inflatable tower/inflatable-angle3.png'
+    ],
+    featureImage: '/images/industries/events.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Tower height', value: '15 ft (4.5 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Brightness', value: '42,000 Lumens (360° Glare-Free)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '10-12 Hours (8 Ltr Tank)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '10,000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: '230 VOLT 1200VA SINGLE PHASE +-5 VOLT',
+        generator: 'Integrated High-Pressure Inflation Blower',
+        tankSize: 'TANK CAPACITY: 8 Ltr | LUBE OIL CAPACITY: 400 ml',
+        sockets: 'Brightness: 42,000 Lumens | Area Illumination: 10,000 sq/m',
+        weight: '50 KG',
+        dimensions: 'Tower Height: 4.5 mtr\nTravel: 0.6 x 0.5 x 0.8 m | Operation: 0.6 x 0.5 x 4.5 m'
+      }
+    ],
+    features: [
+      'Massive 10,000 square meter area illumination with 360-degree diffusion',
+      '42,000 lumens total brightness eliminating dark shadows and driver blinding',
+      '230 Volt 1200VA single-phase electrical power base',
+      '8-liter fuel tank capacity delivering all-night runtime with 400ml lube oil capacity',
+      'Rapid inflation to 4.5 meters in less than 60 seconds via internal blower fan',
+      'Compact 50 kg total weight, easily loaded into the boot of an SUV or utility truck'
+    ],
+    highlights: [
+      {
+        title: '360° Glare-Free Optical Balloon',
+        items: [
+          'High-durability translucent ripstop nylon balloon envelope',
+          'Diffuses light evenly across 360 degrees without harsh blinding glare',
+          'Meets highway and rail safety standards for driver and operator vision'
+        ]
+      },
+      {
+        title: 'Rapid Automated Deployment',
+        items: [
+          'Integrated electric blower fan inflates the column in under 60 seconds',
+          'Guy lines and ground anchor pegs secure the tower in wind speeds up to 60 km/h',
+          'Deflates and packs into a protective carry container in under 2 minutes'
+        ]
+      },
+      {
+        title: 'Power & Fuel Economy',
+        items: [
+          '8-liter tank provides 10-12 hours of continuous all-night illumination',
+          'Low fuel consumption with 400 ml lube oil capacity for reliable continuous duty'
+        ]
+      }
+    ],
+    variants: ['ace-plt-4000', 'ace-b-04']
+  },
+
+  // ── 5. SOLAR OPERATED ──────────────────────────────────────────────
+  'ace-5-slt-6000': {
+    id: 'ace-5-slt-6000',
+    title: 'ACE 2 SLT 6000',
+    category: 'solar',
+    categoryName: 'Solar Operated',
+    tagline: 'Zero-Emission 1,20,000 Lumens Heavy Solar Mobile Light Tower',
+    description: 'The ACE 2 SLT 6000 is our flagship zero-fuel, zero-emission heavy solar mobile lighting tower. Equipped with 4 sliding monocrystalline solar panels (585W x 4 = 2,340W), a 5.0 KVA pure sine wave inverter, 48V solar controller, and heavy-duty 12V 200AH x 2 battery bank, it powers 4 LED floodlights generating 1,20,000 lumens across 5,000 square meters on a tiltable 7.0-meter mast with 359° rotation.',
+    image: '/images/products/Solar Oprated/solar-angle1.png',
+    gallery: [
+      '/images/products/Solar Oprated/solar-angle1.png',
+      '/images/products/Solar Oprated/solar-angle2.jpg',
+      '/images/products/Solar Oprated/solar-angle3.jpg'
+    ],
+    featureImage: '/images/industries/mining.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '23 ft (7.0 MTR Tiltable)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 30,000 = 1,20,000 Lumens', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '100% Solar Autonomous (48V)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '5000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Solar Panel / Power: (585W x 4 = 2340W) Sliding Type',
+        generator: '5.0 KVA Inverter | AC Output: 220 V',
+        tankSize: 'Solar Controller: 48 V | Battery: 12V 200AH x 2',
+        sockets: 'Brightness: 30000 x 4 = 1,20,000 Lumens | LED Lamps with Canopy',
+        weight: '800 - 900 KG',
+        dimensions: 'Tower Height: 7.0 mtr from G.L to Light (Tiltable & 359° Rotate)\nTravel: 2.6 x 1.6 x 2.4 m | Operation: 3.2 x 2.8 x 7.0 m'
+      }
+    ],
+    features: [
+      '2,340W total solar generation via 4 x 585W sliding monocrystalline panels',
+      'Combined brightness of 1,20,000 Lumens (30,000 lumens x 4 LED luminaires)',
+      'Illumination area coverage of 5,000 square meters',
+      'Heavy-duty 5.0 KVA pure sine wave inverter and 48V solar controller',
+      '7.0-meter telescopic mast with tiltable mechanism and full 359° rotation',
+      'Zero fuel consumption, zero carbon emissions, and zero engine noise'
+    ],
+    highlights: [
+      {
+        title: 'Sliding Solar Photovoltaic Array',
+        items: [
+          '4 x 585W monocrystalline panels mounted on a sliding pull-out frame',
+          'Optimized tilt angle for maximum solar harvest throughout the day',
+          'Durable aluminum framing with tempered anti-reflective solar glass'
+        ]
+      },
+      {
+        title: 'Energy Storage & Inverter',
+        items: [
+          '48V intelligent MPPT solar charge controller with smart charging logic',
+          'High-capacity deep-cycle battery bank providing all-night continuous runtime',
+          '5.0 KVA pure sine wave inverter with 220V auxiliary AC output'
+        ]
+      },
+      {
+        title: 'Tiltable Mast & Azimuth Rotation',
+        items: [
+          '7.0-meter mast with hydraulic/mechanical tilt for compact low-clearance transport',
+          'Full 359-degree continuous mast rotation for precise light targeting',
+          '4 heavy outriggers providing structural stability in high winds'
+        ]
+      }
+    ],
+    variants: ['ace-3-slt-6000', 'ace-3-slt-6000', 'without-genset', 'ace-lt-12000']
+  },
+
+  'ace-3-slt-6000': {
+    id: 'ace-3-slt-6000',
+    title: 'ACE 1.3 SLT 6000',
+    category: 'solar',
+    categoryName: 'Solar Operated',
+    tagline: '1,320W Sliding Panel Commercial Solar Light Tower',
+    description: 'The ACE 1.3 SLT 6000 features 4 sliding 330W solar panels (1320W), a 3 KVA inverter, 24V solar controller, and 4 x 12V 150AH battery bank. Delivering 40,000 lumens across 3,200 sq. meters on a 6.0-meter 359° rotating mast.',
+    image: '/images/products/Solar Oprated/solar-angle1.png',
+    gallery: [
+      '/images/products/Solar Oprated/solar-angle1.png',
+      '/images/products/Solar Oprated/solar-angle2.jpg',
+      '/images/products/Solar Oprated/solar-angle3.jpg'
+    ],
+    featureImage: '/images/industries/roads.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '20 ft (6.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 10,000 = 40,000 Lumens', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: 'All-Night Solar Storage (24V)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '3200 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Solar Panel / Power: (330W x 4 = 1320W) Sliding Type',
+        generator: '3 KVA Inverter | AC Output: 220 V',
+        tankSize: 'Solar Controller: 24 V | Battery: 12V 150AH x 4',
+        sockets: 'Brightness: 10,000 x 4 = 40,000 Lumens | LED with Canopy',
+        weight: '350 - 400 KG',
+        dimensions: 'Tower Height: 6.0 mtr from G.L to Light (359° Rotate)\nTravel: 2.2 x 1.4 x 2.2 m | Operation: 2.8 x 2.4 x 6.0 m'
+      }
+    ],
+    features: [
+      '1,320W solar array with sliding deployment mechanism (330W x 4)',
+      '40,000 lumens brightness covering 3,200 square meters',
+      '3 KVA inverter and 24V smart solar MPPT controller',
+      '6.0-meter telescopic mast with 359° rotation',
+      '4 x 12V 150AH deep-cycle battery power bank',
+      'Compact mobile chassis weighing 350-400 kg'
+    ],
+    highlights: [
+      {
+        title: 'Solar System',
+        items: ['High-efficiency solar sliding mechanism for easy transit and rapid setup']
+      }
+    ],
+    variants: ['ace-5-slt-6000', 'ace-3-slt-6000']
+  },
+
+  'ace-3-slt-6000': {
+    id: 'ace-3-slt-6000',
+    title: 'ACE 0.5 SLT 4000',
+    category: 'solar',
+    categoryName: 'Solar Operated',
+    tagline: 'Compact 660W Solar Mobile Light Tower',
+    description: 'The ACE 0.5 SLT 4000 is a compact, highly portable solar light tower featuring 2 sliding 330W panels (660W), 1.2 KVA inverter, 24V solar controller, and 2 x 12V 150AH batteries. Illuminates 1,500 sq. meters with 28,800 lumens.',
+    image: '/images/products/Solar Oprated/solar-angle1.png',
+    gallery: [
+      '/images/products/Solar Oprated/solar-angle1.png',
+      '/images/products/Solar Oprated/solar-angle2.jpg',
+      '/images/products/Solar Oprated/solar-angle3.jpg'
+    ],
+    featureImage: '/images/industries/construction.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '16 ft (5.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 7,200 = 28,800 Lumens', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: 'All-Night Solar Battery', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '1500 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Solar Panel / Power: 330W x 2 = 660W (Sliding Type)',
+        generator: '1.2 KVA Inverter | AC Output: 220 V',
+        tankSize: 'Solar Controller: 24 V | Battery: 12V 150AH x 2',
+        sockets: 'Brightness: 7200 x 4 = 28,800 Lumens | LED with Canopy',
+        weight: '300 - 400 KG',
+        dimensions: 'Tower Height: 5.0 mtr from G.L to Light (359° Rotate)\nTravel: 2.0 x 1.2 x 2.0 m | Operation: 2.4 x 2.0 x 5.0 m'
+      }
+    ],
+    features: [
+      '660W solar power via 2 x 330W sliding panels',
+      '28,800 lumens brightness covering 1,500 square meters',
+      '1.2 KVA inverter with 24V solar controller',
+      '5.0-meter telescopic mast with 359° rotation',
+      '2 x 12V 150AH battery bank',
+      'Lightweight 300-400 kg mobile chassis'
+    ],
+    highlights: [
+      {
+        title: 'Eco Mobility',
+        items: ['Zero emissions, zero fuel consumption, perfectly silent operation']
+      }
+    ],
+    variants: ['ace-5-slt-6000', 'ace-3-slt-6000', 'ace-b-04']
+  },
+
+  // ── 6. BATTERY OPERATED ───────────────────────────────────────────
+  'ace-b-04': {
+    id: 'ace-b-04',
+    title: 'ACE B-04',
+    category: 'battery',
+    categoryName: 'Battery Operated',
+    tagline: 'Portable 4-Light Lithium Industrial Light Tower',
+    description: 'Ariselux provides high-quality LED Flood Lights for powerful, energy-efficient lighting. We recently installed 4 high-voltage lights (50W each) delivering 20,000-25,000 lumens of brightness. Ideal for outdoor and industrial use, these durable lights offer wide coverage and long-lasting performance with a 70AH Lithium battery delivering 6-8 hours backup.',
+    image: '/images/products/Battery oprated/b04-angle1.jpg',
+    gallery: [
+      '/images/products/Battery oprated/b04-angle1.jpg',
+      '/images/products/Battery oprated/b04-angle2.jpg',
+      '/images/products/Battery oprated/b04-angle3.jpg'
+    ],
+    featureImage: '/images/industries/construction.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Tower height', value: '6.5 ft (2.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 50W LED (25,000 Lumens)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '6 - 8 Hours (70AH Lithium)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '2000 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: '70AH X1 (Lithium) Battery Capacity | 12 Volts',
+        generator: 'Internal Solid-State Battery Inverter & Charger',
+        tankSize: '6 - 8 Hrs Battery Backup',
+        sockets: '50W X 4 nos Light Power | Brightness: 20,000 - 25,000 Lumens',
+        weight: '30 KG Weight (Waterproof Pelican Style)',
+        dimensions: 'Tower Height: 2 Meter Telescopic MS Rod Tower\nTravel: 0.5 x 0.4 x 0.7 m | Operation: 0.8 x 0.8 x 2.0 m'
+      }
+    ],
+    features: [
+      '4 x 50W high-voltage LED flood lights delivering 20,000 to 25,000 lumens',
+      '70AH x 1 high-density Lithium battery capacity at 12 Volts',
+      '6 to 8 hours of uninterrupted battery backup',
+      '2.0-meter telescopic MS rod tower with quick-twist extension locks',
+      'Rugged waterproof case construction with built-in wheels and pull handle',
+      'Total weight only 30 kg, easily transported by one person anywhere'
+    ],
+    highlights: [
+      {
+        title: 'Lithium Battery System',
+        items: [
+          'High cycle life 70AH Lithium cell bank with smart Battery Management System (BMS)',
+          'Over-charge, over-discharge, and thermal runaway protection',
+          'Fast recharge time of 4-5 hours from 220V AC wall outlet or vehicle 12V'
+        ]
+      },
+      {
+        title: 'Tactical Waterproof Case',
+        items: [
+          'Heavy-duty industrial polymer Pelican-style suitcase with sealed rubber O-ring',
+          'IP66 waterproof and dustproof protection against extreme weather',
+          'Retractable luggage handle and durable polyurethane all-terrain roller wheels'
+        ]
+      }
+    ],
+    variants: ['ace-b-02', 'ace-b-01', 'ace-1-2-it-4500']
+  },
+
+  'ace-b-02': {
+    id: 'ace-b-02',
+    title: 'ACE B -02',
+    category: 'battery',
+    categoryName: 'Battery Operated',
+    tagline: 'Dual-Light Portable Lithium Battery Tower',
+    description: 'Ariselux offers high-quality LED Flood Lights designed for powerful illumination and energy efficiency. We recently installed 2 high-voltage LED lights, each with a brightness of 10,000-15,000 lumens and power of 50W x 2 units (100W total), backed by a 50AH Lithium battery delivering 6-8 hours backup.',
+    image: '/images/products/Battery oprated/b02-angle1.jpg',
+    gallery: [
+      '/images/products/Battery oprated/b02-angle1.jpg',
+      '/images/products/Battery oprated/b02-angle2.jpg',
+      '/images/products/Battery oprated/b02-angle3.jpg'
+    ],
+    featureImage: '/images/industries/roads.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Tower height', value: '6 ft (1.8 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '2 x 50W LED (15,000 Lumens)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '6 - 8 Hours (50AH Lithium)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '1500 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: '50AH X1 (Lithium) Battery Capacity | 12 Volts',
+        generator: 'Built-in Electronic Battery Controller',
+        tankSize: '6 - 8 Hrs Battery Backup',
+        sockets: '50W X 2 nos Light Power | Brightness: 10,000 - 15,000 Lumens',
+        weight: '25 KG Weight (Waterproof)',
+        dimensions: 'Telescopic MS Rod Tower\nTravel: 0.5 x 0.35 x 0.65 m | Operation: 0.7 x 0.7 x 1.8 m'
+      }
+    ],
+    features: [
+      '2 x 50W LED floodlights delivering 10,000 to 15,000 lumens of brightness',
+      '50AH x 1 Lithium battery capacity at 12 Volts',
+      '6 to 8 hours of continuous battery backup',
+      'Telescopic MS rod tower with dual directional heads',
+      'Fully waterproof heavy-duty portable case design',
+      'Lightweight 25 kg construction with convenient transport wheels'
+    ],
+    highlights: [
+      {
+        title: 'Portable Illumination',
+        items: [
+          'Instant deployment for emergency response, railway repairs, and night maintenance',
+          'No engine noise, no exhaust fumes, completely safe for indoor or tunnel use'
+        ]
+      }
+    ],
+    variants: ['ace-b-04', 'ace-b-01', 'ace-plt-4000']
+  },
+
+  'ace-b-01': {
+    id: 'ace-b-01',
+    title: 'ACE B -01',
+    category: 'battery',
+    categoryName: 'Battery Operated',
+    tagline: 'Ultra-Compact 5,000 Lumens Portable Light Tower',
+    description: 'At Ariselux, we pride ourselves on delivering high-quality, energy-efficient lighting solutions that stand the test of time. Our LED Flood Light is designed to provide exceptional brightness, durability, and performance for a wide range of outdoor and industrial applications with 8-9 hours battery backup and ultra-light 12 kg weight.',
+    image: '/images/products/Battery oprated/b01-angle1.jpg',
+    gallery: [
+      '/images/products/Battery oprated/b01-angle1.jpg',
+      '/images/products/Battery oprated/b01-angle2.jpg',
+      '/images/products/Battery oprated/b01-angle3.jpg'
+    ],
+    featureImage: '/images/industries/events.jpg',
+    quickSpecs: {
+      mastHeight: { title: 'Tower height', value: '5 ft (1.0 - 1.5 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '1 x 50W LED (5,000 Lumens)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '8 - 9 Hours Battery Backup', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '800 sq. m', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Rechargeable 12 Volts Battery System',
+        generator: 'Solid-State Battery Circuit with Protection',
+        tankSize: '8 - 9 Hours Battery Backup',
+        sockets: '50 W Light Power | Brightness: 5000 Lumens',
+        weight: '12 KG Approx Weight (Compact Tactical Case)',
+        dimensions: 'Tower Height: 1 - 1.5 Meter Telescopic MS Rod Tower\nTravel: 0.45 x 0.3 x 0.5 m | Operation: 0.6 x 0.6 x 1.5 m'
+      }
+    ],
+    features: [
+      '5,000 lumens brightness from high-output 50W LED fixture',
+      'Extended 8 to 9 hours of battery backup time',
+      'Rechargeable 12 Volts battery system',
+      '1 to 1.5-meter telescopic MS rod tower',
+      'Ultra-compact 12 kg approximate weight, easily carried with one hand',
+      'Heavy-duty tactical case enclosure with integrated carry handle'
+    ],
+    highlights: [
+      {
+        title: 'Grab-and-Go Portability',
+        items: [
+          'Ultra-compact form factor fits easily in vehicle footwells or small toolboxes',
+          'Instant one-switch illumination for night patrol, security, and quick repairs'
+        ]
+      }
+    ],
+    variants: ['ace-b-02', 'ace-b-04', 'ace-1-2-it-4500']
+  },
+
+  // Legacy alias for qube-power-max
+  'qube-power-max': {
+    id: 'qube-power-max',
+    title: 'ACE LT 12000 (Qube Power Max)',
+    category: 'diesel',
+    categoryName: 'Diesel Powered',
+    tagline: 'Heavy-Duty Industrial Diesel Lighting Tower',
+    description: 'Ariselux Equipment Company proudly presents its advanced LED Flood Light solution - engineered for maximum brightness, energy efficiency, and durability. Powered by an Escort Kubota diesel engine and 12-meter mast delivering 240,000 lumens.',
+    image: '/images/products/Diesel oprated/diesel-angle1.jpg',
+    gallery: [
+      '/images/products/Diesel oprated/diesel-angle1.jpg',
+      '/images/products/Diesel oprated/diesel-angle2.jpg',
+      '/images/products/Diesel oprated/diesel-angle3.jpg'
+    ],
+    featureImage: '/images/industries/events.jpg',
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '39 ft (12 m)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 420W / 500W LED', icon: '/images/icons/led-light.svg' },
@@ -24,859 +820,30 @@ export const productsData = {
     },
     tableSpecs: [
       {
-        engine: 'Escort Kubota 14.5 HP (1500 / 1800 rpm) Water-Cooled',
-        generator: 'NSM / Linz Brushless (6 kW @ 50 Hz / 7.5 kW @ 60 Hz)',
+        engine: 'Escort Kubota 14.5 HP Water-Cooled Diesel',
+        generator: '220 Volts Connection Board Output',
         tankSize: '100 Liters (Diesel)',
-        sockets: 'Output: 2 x 16A 3-pin IP65 | Input: 1 x 16A 3-pin',
-        weight: '980 kg',
+        sockets: 'Weatherproof Output Sockets',
+        weight: '600 - 700 KG',
         dimensions: 'Travel: 2.3 x 1.4 x 2.4 m\nOperation: 2.6 x 2.4 x 12.0 m'
-      },
-      {
-        engine: 'Lombardini / Mitsubishi Multi-Cylinder Diesel',
-        generator: 'Linz Electric Synchronous (8 kW @ 50 Hz)',
-        tankSize: '120 Liters (Diesel with Level Sensor)',
-        sockets: 'Output: 3 x 16A Sockets with MCB Protection',
-        weight: '1050 kg',
-        dimensions: 'Travel: 2.4 x 1.4 x 2.5 m\nOperation: 2.8 x 2.6 x 12.0 m'
       }
     ],
     features: [
-      'Ideal for large-scale mining, port terminals, and round-the-clock infrastructure works',
-      'Heavy-duty hot-dip galvanized 12-meter telescopic mast with automatic locking',
-      'Longer run time allows up to 80+ hours of continuous operation between refueling',
-      'Water-cooled Escort Kubota engine enables peak continuous duty in extreme ambient temperatures (-10°C to +50°C)',
-      'Certified wind resistance tested up to 100 km/h with 4 heavy-duty outrigger leveling jacks',
-      'Single axle trailer with leaf spring suspension and NATO eye / 2" ball coupler for highway towing'
+      '240,000 lumens total brightness',
+      'Japanese Escort Kubota 14.5 HP engine',
+      '12-meter telescopic mast'
     ],
     highlights: [
       {
         title: 'Lights',
-        items: [
-          'High-efficacy modular LED floodlights delivering 1,60,000 to 2,40,000 lumens',
-          'Heavy-duty cast aluminum IP67/IP68 fixtures engineered for high vibration resistance',
-          'Individual light head manual 3-angle tilt adjustment for targeted perimeter coverage',
-          'Optical polycarbonate lenses ensuring uniform lumen distribution without harsh glare or blind spots'
-        ]
-      },
-      {
-        title: 'Mast',
-        items: [
-          '12.0-meter galvanized steel telescopic mast with multi-stage extension',
-          'Smooth self-locking worm winch system reducing operator load to raise and lower the tower',
-          'Full 355-degree mast rotation with quick locking mechanism at desired azimuth',
-          'All pulleys equipped with sealed deep-groove bearings and zinc plating for maximum working life',
-          'Corrosion-proof stainless steel aircraft-grade wire ropes rated for heavy safety margins'
-        ]
-      },
-      {
-        title: 'Mobility',
-        items: [
-          'Single heavy axle fitted with 14" pneumatic off-road tires and leaf-spring suspension',
-          'Towing drawbar convertible between NATO standard towing eye and 2-inch ball coupler',
-          'Central balanced crane lifting hook for overhead crane handling on site',
-          'Reinforced 3-way forklift pockets allowing safe handling from any side',
-          'Integrated tie-down anchors for secure transport on flatbed trucks and rail wagons'
-        ]
-      },
-      {
-        title: 'Stability',
-        items: [
-          '4 independent heavy-duty outrigger stabilizer jacks plus 1 jockey wheel jack on drawbar',
-          'Certified structural stability in extreme winds up to 100 km/h with fully extended 12m mast',
-          'Sidewind ergonomic leveling jacks with integrated bubble spirit levels for rapid setup on rough terrain'
-        ]
-      },
-      {
-        title: 'Power In/Out & Electrical',
-        items: [
-          'IP65 rated weatherproof auxiliary output sockets providing auxiliary 220V site power',
-          'Dual changeover switch enables operating the lights directly from site utility grid supply',
-          'Individual circuit breakers (MCBs) protect all lighting circuits and auxiliary outlets',
-          'Comprehensive digital control panel with hour counter, fuel gauge, and safety auto-shutdown'
-        ]
+        items: ['High-efficacy modular LED floodlights delivering up to 2,40,000 lumens']
       }
     ],
-    variants: ['ace-lt-9000', 'ace-lt-6000', 'ace-lt-4000', 'ace-2-slt-6000']
-  },
-
-  'ace-lt-9000': {
-    id: 'ace-lt-9000',
-    title: 'ACE LT 9000',
-    category: 'diesel',
-    categoryName: 'Diesel Powered',
-    tagline: 'High-Lumen Diesel Mobile Lighting Tower',
-    description: 'The ACE LT 9000 is engineered for severe site conditions where uncompromising brightness and fuel efficiency are paramount. Powered by a Lombardini (Kohler) 8 HP diesel engine, this mobile light tower illuminates up to 10,000 square meters. Its sturdy canopy and compact footprint deliver rapid maneuverability across highways, rail yards, and extraction facilities.',
-    image: '/images/products/Diesel oprated/ACLT 9000.png',
-    gallery: [
-      '/images/products/Diesel oprated/ACLT 9000.png',
-      '/images/products/Diesel oprated/ACLT 12000.png',
-      '/images/products/Diesel oprated/ACLT 6000.png'
-    ],
-    featureImage: '/images/industries/roads.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '30 ft (9 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 350W / 450W LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '45+ hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '10000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: 'Lombardini (Kohler) 8 HP Air-Cooled Diesel',
-        generator: 'Linz Electric Synchronous (4.5 kW @ 50 Hz)',
-        tankSize: '40 Liters (Diesel)',
-        sockets: 'Output: 2 x 16A IP65 Weatherproof',
-        weight: '580 kg',
-        dimensions: 'Travel: 2.1 x 1.3 x 2.3 m\nOperation: 2.4 x 2.2 x 9.0 m'
-      }
-    ],
-    features: [
-      'Genuine Lombardini Kohler Italian diesel engine with low fuel consumption (900 ml/hr)',
-      'Broad 10,000 sq. meter illuminated coverage for extensive construction sectors',
-      'Rapid deployment mast raised with heavy-duty mechanical winch in less than 2 minutes',
-      'Sound-attenuated weatherproof canopy protecting all interior components from rain and dust',
-      '4 outrigger stabilizer jacks for wind stability up to 90 km/h'
-    ],
-    highlights: [
-      {
-        title: 'Lights',
-        items: [
-          '4 high-efficiency LED modules producing up to 1,60,000 total lumens',
-          'Instant on/off with zero restrike delay or warm-up time required',
-          'Heavy-duty IP66 weatherproof housing with corrosion-resistant powder coating'
-        ]
-      },
-      {
-        title: 'Mast',
-        items: [
-          '9-meter telescopic mast fabricated with high-yield structural steel',
-          'Hot-dip galvanized sections for lifelong corrosion resistance',
-          'Smooth manual winch with internal brake mechanism and safety ratchet'
-        ]
-      },
-      {
-        title: 'Mobility & Towing',
-        items: [
-          'Road-ready chassis with heavy-duty suspension and all-terrain pneumatic tires',
-          'Forklift pockets on two sides and integrated crane lifting eye'
-        ]
-      },
-      {
-        title: 'Stability',
-        items: [
-          '4 extendable outriggers with heavy-duty screw jacks for rock-solid stability',
-          'Engineered for maximum stability in harsh outdoor winds'
-        ]
-      },
-      {
-        title: 'Controls & Electrical',
-        items: [
-          'Central control panel with key-start switch and digital hour run counter',
-          'Circuit breaker protection and auxiliary 220V power take-off'
-        ]
-      }
-    ],
-    variants: ['ace-lt-12000', 'ace-lt-6000', 'ace-lt-4000']
-  },
-
-  'ace-lt-6000': {
-    id: 'ace-lt-6000',
-    title: 'ACE LT 6000',
-    category: 'diesel',
-    categoryName: 'Diesel Powered',
-    tagline: 'Versatile Mid-Range Diesel Lighting Tower',
-    description: 'The ACE LT 6000 is our most versatile diesel workhorse, combining a reliable 8 HP diesel engine with a 40-liter fuel tank that burns only 900ml per hour. Ideal for construction, quarries, road paving, and public events, it illuminates up to 7,000 square meters with minimal operating costs.',
-    image: '/images/products/Diesel oprated/ACLT 6000.png',
-    gallery: [
-      '/images/products/Diesel oprated/ACLT 6000.png',
-      '/images/products/Diesel oprated/ACLT 4000.png',
-      '/images/products/Diesel oprated/ACLT 9000.png'
-    ],
-    featureImage: '/images/industries/construction.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '26 ft (8 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 350W LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '44+ hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '7000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: '8 HP Air-Cooled Diesel Engine (3000 RPM)',
-        generator: '3.5 kVA Synchronous Alternator',
-        tankSize: '40 Liters (Diesel)',
-        sockets: 'Output: 16A 3-pin 220V',
-        weight: '650 kg',
-        dimensions: 'Travel: 2.0 x 1.2 x 2.2 m\nOperation: 2.2 x 2.0 x 8.0 m'
-      }
-    ],
-    features: [
-      'Economical fuel consumption: only 900 ml per hour',
-      '40-liter diesel capacity providing uninterrupted two-night operation',
-      '4 high-intensity LED floodlights covering 7,000 sq. meters',
-      'Full 355-degree manual mast rotation for all-around job-site illumination',
-      'Compact footprint easily towed by pickup trucks and light utility vehicles'
-    ],
-    highlights: [
-      {
-        title: 'Lights',
-        items: [
-          '4 x 350W LED floodlights generating 1,40,000 lumens',
-          'Vibration-damped brackets designed for continuous job-site duty',
-          'Independent lamp angle adjustment'
-        ]
-      },
-      {
-        title: 'Mast & Winch',
-        items: [
-          '8.0-meter galvanized steel telescopic mast',
-          'Manual brake winch with safety pawl mechanism',
-          '355-degree mast rotation with position clamp'
-        ]
-      },
-      {
-        title: 'Mobility & Handling',
-        items: [
-          'Single axle chassis with 13-inch pneumatic tires',
-          'Forklift pockets, crane lifting eye, and folding drawbar'
-        ]
-      },
-      {
-        title: 'Stability & Outriggers',
-        items: [
-          '4 manual outriggers with leveling feet for quick leveling on slopes',
-          'Wind resistance rated to 80 km/h'
-        ]
-      },
-      {
-        title: 'Electrical & Genset',
-        items: [
-          'Key electric start with emergency recoil start backup',
-          'Integrated distribution board with circuit breaker protection'
-        ]
-      }
-    ],
-    variants: ['ace-lt-4000', 'ace-lt-9000', 'ace-lt-12000']
-  },
-
-  'ace-lt-4000': {
-    id: 'ace-lt-4000',
-    title: 'ACE LT 4000',
-    category: 'diesel',
-    categoryName: 'Diesel Powered',
-    tagline: 'Compact & Agile Diesel Light Tower',
-    description: 'The ACE LT 4000 is built for rapid-response municipal works, urban road repairs, utility trenching, and emergency breakdowns. Featuring an ultra-compact chassis weighing under 400 kg, it consumes only 600ml of diesel per hour and can be placed in tight spots where larger rigs cannot fit.',
-    image: '/images/products/Diesel oprated/ACLT 4000.png',
-    gallery: [
-      '/images/products/Diesel oprated/ACLT 4000.png',
-      '/images/products/Diesel oprated/ACLT 6000.png'
-    ],
-    featureImage: '/images/industries/roads.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '20 ft (6 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '2 to 4 x 250W LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '30+ hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '4000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: '4.5 - 5.0 HP Air-Cooled Diesel (3000 RPM)',
-        generator: '2.5 kVA Synchronous Alternator',
-        tankSize: '15 - 20 Liters',
-        sockets: 'Output: 16A 220V IP55',
-        weight: '380 kg',
-        dimensions: 'Travel: 1.8 x 1.0 x 2.0 m\nOperation: 2.0 x 1.8 x 6.0 m'
-      }
-    ],
-    features: [
-      'Ultra-compact trailer maneuverable by a single operator',
-      'Extremely economical 600 ml/hr fuel burn rate',
-      'Illuminates up to 4,000 sq. meters with 2 to 4 LED lamps',
-      'Telescopic mast with quick-raise mechanism',
-      'Ideal for city road maintenance and emergency pipeline repairs'
-    ],
-    highlights: [
-      {
-        title: 'Lights',
-        items: [
-          'High-lumen LED lamps producing instant daylight illumination',
-          'Shock-proof mounting brackets'
-        ]
-      },
-      {
-        title: 'Mast',
-        items: [
-          '6-meter telescopic mast with galvanized finish',
-          'Lightweight winch for effortless single-person operation'
-        ]
-      },
-      {
-        title: 'Mobility',
-        items: [
-          'Lightweight chassis towable by any small car or van',
-          'Heavy-duty jockey wheel with parking brake'
-        ]
-      },
-      {
-        title: 'Stability',
-        items: [
-          '3 stabilizing jacks providing surefooted base on uneven ground',
-          'Compact storage footprint'
-        ]
-      },
-      {
-        title: 'Electrical',
-        items: [
-          'Low-oil auto shutdown protection for engine',
-          'Weather-protected control switches'
-        ]
-      }
-    ],
-    variants: ['ace-lt-6000', 'ace-lt-9000', 'ace-pblt-4000']
-  },
-
-  'qube-power-max': {
-    id: 'qube-power-max',
-    title: 'Qube Power MAX',
-    category: 'diesel',
-    categoryName: 'Diesel Powered',
-    tagline: 'Heavy-Duty Diesel Lighting Tower Manufacturer & Supplier',
-    description: 'QUBEpower Max is meticulously designed to thrive in a spectrum of demanding applications. Featuring a robust water-cooled engine, a large diesel tank, and a weight of less than 1000 kilograms, this equipment stands as a testament to durability and reliability. It finds its niche in the fields of mining and oil, as well as large-scale infrastructure projects such as dams, bridges, and extensive highways. Furthermore, it is well-suited for the exacting requirements of military and defense applications. Its power and adaptability position it as an indispensable asset for a broad range of industries and projects.',
-    image: '/images/products/Diesel oprated/ACLT 12000.png',
-    gallery: [
-      '/images/products/Diesel oprated/ACLT 12000.png',
-      '/images/products/Diesel oprated/ACLT 9000.png',
-      '/images/products/Diesel oprated/ACLT 6000.png'
-    ],
-    featureImage: '/images/industries/mining.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '26 ft (8 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 350 W LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '100 hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '7500 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: 'Mitsubishi L2E (1500 rpm) / (1800 rpm) / (3000 rpm)',
-        generator: 'NSM / Linz (3.5 kW @ 50 Hz) (4 kW @ 60 Hz)(6 kW @ 50 Hz)',
-        tankSize: '100 liters\n(Diesel)',
-        sockets: 'Output : 16 A, 3-pin female\nInput : 16 A, 3-pin male',
-        weight: '750 kg',
-        dimensions: 'Travel: 2 x 1.1 x 2.3 m\nOperation: 2 x 2.2 x 8 m'
-      },
-      {
-        engine: 'Mitsubishi L3E (1500 rpm) / (1800 rpm) / (3000 rpm)',
-        generator: 'NSM / Linz (5.5 kW @ 50 Hz) (6.5 kW @ 60 Hz) (10 kW @ 50 Hz)',
-        tankSize: '170 liters\n(Diesel)',
-        sockets: 'Output : 12 x 16 A sockets\nInput : 1 x 16 A 3-pin',
-        weight: '890 kg',
-        dimensions: 'Travel: 2 x 1.8 x 2.3 m\nOperation: 2 x 2.4 x 8 m'
-      }
-    ],
-    features: [
-      'Ideal for large-sized work',
-      'Easy to be towed by small vehicles',
-      'Longer run time allows for a longer duration between refueling',
-      'Radiator cooling enables usage in extreme temperatures'
-    ],
-    highlights: [
-      {
-        title: 'Lights',
-        items: [
-          'Unique modular LED fixture with special lenses for even light distribution',
-          'Rugged fixtures that can withstand the rigors of site conditions',
-          'Custom-built for durability in challenging work conditions'
-        ]
-      },
-      {
-        title: 'Mast',
-        items: [
-          'Hot-dip galvanized mast ensures superior protection against rusting and abrasions',
-          'Unique worm winch reduces the load on the winch handle to raise and lower the mast',
-          'Light arm can be tilted manually to 3 different angles',
-          'All pulleys are plated and fitted with sealed bearings to give a long life',
-          'All wire ropes are stainless steel',
-          'Mast can be rotated 355 degrees from the base'
-        ]
-      },
-      {
-        title: 'Mobility',
-        items: [
-          'Single axle with two 13" pneumatic tires and leaf spring suspension',
-          'Easily towed with a NATO eye or a 2" ball hitch coupler',
-          'Central mast hook for crane lifting',
-          'Three-sided forklift pockets for forklift trucks',
-          'Four tie-down slots for secure transport',
-          'Folding drawbar for compact transport'
-        ]
-      },
-      {
-        title: 'Stability',
-        items: [
-          'There are 4 stabilizer jacks on outriggers and an additional stabilizer jack on the drawbar',
-          'This offers superior stability to the machine in wind speeds up to 100 kph',
-          'The sidewind jacks make it easy to level the machine during setup'
-        ]
-      },
-      {
-        title: 'Power In/Out',
-        items: [
-          'Power output, depending on the configuration, is available through 1 or 2 female socket(s) that are IP65-rated',
-          'Optionally, a power input socket can be provided to run the equipment',
-          'Changeover switch allows for switching of the power supply between the genset and the grid supply',
-          'Circuit breakers are provided to protect the power into and from the sockets'
-        ]
-      }
-    ],
-    variants: ['ace-lt-12000', 'ace-lt-6000', 'ace-lt-9000']
-  },
-
-  'ace-b-01': {
-    id: 'ace-b-01',
-    title: 'ACE B-01',
-    category: 'battery',
-    categoryName: 'Battery Powered',
-    tagline: 'Suitcase-Portable Rechargeable LED Light System',
-    description: 'The ACE B-01 is a compact, ultra-lightweight suitcase-portable LED floodlight system designed for rapid zero-emission deployment. Ideal for railway nighttime inspections, tunnel maintenance, confined space operations, and disaster rescue where combustion engines are strictly prohibited.',
-    image: '/images/products/Battery oprated/ACE B01.jpeg',
-    gallery: [
-      '/images/products/Battery oprated/ACE B01.jpeg',
-      '/images/products/Battery oprated/ACE B02.jpeg'
-    ],
-    featureImage: '/images/industries/events.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '5 ft (1.5 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '50W High-Output LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '8 - 9 hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '1000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: 'Zero-Emission 12V Battery Pack',
-        generator: 'Internal Smart Charging Circuit',
-        tankSize: '12V Sealed Rechargeable Battery',
-        sockets: '12V DC Auxiliary / USB Out',
-        weight: '12 kg (Ultra Portable)',
-        dimensions: 'Packed: 0.5 x 0.3 x 0.2 m\nDeployed: 0.6 x 0.6 x 1.5 m'
-      }
-    ],
-    features: [
-      'Ultra-light 12 kg weight can be hand-carried by a single person anywhere',
-      'Zero emissions and 100% silent operation — safe for indoor & tunnel use',
-      '8 to 9 hours continuous run time on a single full charge',
-      'Waterproof, rugged copolymer suitcase housing (IP65 rated)',
-      'Telescopic stainless/aluminum mast with instant latch system'
-    ],
-    highlights: [
-      {
-        title: 'Lights',
-        items: [
-          '50W premium LED chip delivering 5,000 lumens',
-          'Diffused optical lens for glare-free working illumination'
-        ]
-      },
-      {
-        title: 'Battery & Runtime',
-        items: [
-          'High cycle-life 12V battery with overcharge and discharge protection',
-          'Fast AC mains charging in 4-5 hours'
-        ]
-      },
-      {
-        title: 'Mobility',
-        items: [
-          'Heavy-duty ergonomic carry handle and built-in wheels',
-          'Easily stowed in car trunks or emergency response vehicles'
-        ]
-      },
-      {
-        title: 'Durability',
-        items: [
-          'Impact-resistant casing with pressure release valve',
-          'Water, mud, and dust resistant'
-        ]
-      }
-    ],
-    variants: ['ace-b-02', 'ace-b-04', 'ace-pblt-4000']
-  },
-
-  'ace-b-02': {
-    id: 'ace-b-02',
-    title: 'ACE B-02',
-    category: 'battery',
-    categoryName: 'Battery Powered',
-    tagline: 'Lithium Battery High-Intensity Mobile Floodlight',
-    description: 'Equipped with a 50AH lithium-ion battery bank and dual high-efficiency LED heads, the ACE B-02 delivers up to 15,000 lumens with zero fumes, noise, or vibrations. Perfect for track work, aircraft maintenance, telecommunications, and indoor industrial turnaround projects.',
-    image: '/images/products/Battery oprated/ACE B02.jpeg',
-    gallery: [
-      '/images/products/Battery oprated/ACE B02.jpeg',
-      '/images/products/Battery oprated/ACE B04.jpeg'
-    ],
-    featureImage: '/images/industries/construction.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '7 ft (2.2 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '2 x 50W LED (100W)', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '8 hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '2000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: '12V 50AH Advanced Lithium Battery',
-        generator: 'Built-in 220V Fast Charger',
-        tankSize: '50AH Lithium Power Cell',
-        sockets: '12V DC Out & USB Port',
-        weight: '25 kg',
-        dimensions: 'Travel: 0.6 x 0.4 x 0.3 m\nOperation: 0.8 x 0.8 x 2.2 m'
-      }
-    ],
-    features: [
-      '50AH long-life Lithium battery bank with 2000+ charge cycles',
-      'Dual 50W LED floodlights delivering 15,000 lumens',
-      'Zero fuel, zero exhaust, and whisper-silent operation',
-      'Waterproof IP66 enclosure with all-terrain transport wheels'
-    ],
-    highlights: [
-      {
-        title: 'Lights & Optics',
-        items: [
-          'Dual LED heads with independent pivot and 180-degree tilt',
-          'High CRI light rendering for precise nighttime engineering work'
-        ]
-      },
-      {
-        title: 'Lithium Power Core',
-        items: [
-          'Integrated BMS (Battery Management System) with thermal cutoff',
-          'Digital LED display for accurate battery percentage and runtime'
-        ]
-      },
-      {
-        title: 'Chassis & Portability',
-        items: [
-          'Retractable luggage-style trolley handle and heavy-duty wheels',
-          'Quick-release tripod outriggers for wind stability'
-        ]
-      }
-    ],
-    variants: ['ace-b-01', 'ace-b-04', 'ace-pblt-4000']
-  },
-
-  'ace-b-04': {
-    id: 'ace-b-04',
-    title: 'ACE B-04',
-    category: 'battery',
-    categoryName: 'Battery Powered',
-    tagline: 'Quad-LED 70AH Lithium Floodlight Trolley',
-    description: 'The ACE B-04 is our most powerful pure battery lighting system, featuring 4 high-output LED lamps and an industrial 70AH lithium battery. Offering up to 25,000 lumens, it replaces noisy small petrol generators with clean, silent, reliable green power.',
-    image: '/images/products/Battery oprated/ACE B04.jpeg',
-    gallery: [
-      '/images/products/Battery oprated/ACE B04.jpeg',
-      '/images/products/Battery oprated/ACE B02.jpeg'
-    ],
-    featureImage: '/images/industries/events.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '8 ft (2.5 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 50W LED (200W)', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '8 hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '3500 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: '12V 70AH Lithium-Iron Phosphate (LiFePO4)',
-        generator: 'Automatic Multi-Stage Fast Charger',
-        tankSize: '70AH Lithium Battery',
-        sockets: '12V DC Heavy-Duty Sockets',
-        weight: '30 kg',
-        dimensions: 'Travel: 0.7 x 0.5 x 0.4 m\nOperation: 1.0 x 1.0 x 2.5 m'
-      }
-    ],
-    features: [
-      'Four 50W LED heads produce 25,000 Lumens across 3,500 sq. meters',
-      '70AH Lithium battery with rapid recharge capability',
-      '100% eco-friendly and zero carbon footprint',
-      'Reinforced mobile trolley with high-impact protective casing'
-    ],
-    highlights: [
-      {
-        title: 'Lights',
-        items: [
-          '4 directional floodlights with 360-degree directional coverage',
-          'Instant full brightness without warming delays'
-        ]
-      },
-      {
-        title: 'Battery Core',
-        items: [
-          'High safety LiFePO4 cells with smart monitoring',
-          '8 hours continuous duration at 100% brightness'
-        ]
-      }
-    ],
-    variants: ['ace-b-02', 'ace-pblt-4000', 'ace-2-slt-6000']
-  },
-
-  'ace-2-slt-6000': {
-    id: 'ace-2-slt-6000',
-    title: 'ACE 2 SLT 6000',
-    category: 'solar',
-    categoryName: 'Solar Powered',
-    tagline: 'Heavy-Duty Zero-Emission Solar Lighting Tower',
-    description: 'The ACE 2 SLT 6000 is our flagship renewable lighting tower, packing 2,340 Watts of sliding monocrystalline solar PV panels and a 48V battery bank. Delivering 1,20,000 lumens across 5,000 square meters, it provides continuous 365-day solar lighting with zero fuel costs, zero carbon emissions, and virtually zero maintenance.',
-    image: '/images/products/Solar Oprated/Solar powered.png',
-    gallery: [
-      '/images/products/Solar Oprated/Solar powered.png'
-    ],
-    featureImage: '/images/industries/mining.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '23 ft (7 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 30,000 Lumens LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '14+ hrs / night', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '5000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: '2340W Monocrystalline Solar Array (585W x 4)',
-        generator: '5.0 kVA Intelligent Solar Inverter System',
-        tankSize: '12V 200AH x 2 / 48V Deep Cycle Bank',
-        sockets: '220V Pure Sine Wave Auxiliary Out',
-        weight: '850 - 900 kg',
-        dimensions: 'Travel: 2.4 x 1.8 x 2.4 m\nOperation: 3.5 x 2.4 x 7.0 m'
-      }
-    ],
-    features: [
-      'Massive 2,340W high-efficiency sliding solar array',
-      '1,20,000 Lumens output with 4 precision optics LED heads',
-      'Zero fuel expense and zero carbon emissions — 100% sustainable',
-      'Tiltable 7-meter mast with 359-degree rotation',
-      'Smart MPPT solar charge controller with auto dusk-to-dawn sensor'
-    ],
-    highlights: [
-      {
-        title: 'Solar PV Array',
-        items: [
-          '4 x 585W high-efficiency tier-1 monocrystalline panels',
-          'Heavy-duty sliding rail system for quick deployment and transport',
-          'Optimal tilt angle for maximum solar irradiation capture'
-        ]
-      },
-      {
-        title: 'Battery & Solar Controller',
-        items: [
-          'Industrial deep-cycle battery bank with 3-day autonomy backup',
-          'Advanced MPPT solar tracking achieving 98% efficiency',
-          'Automatic dusk-to-dawn lighting timer'
-        ]
-      },
-      {
-        title: 'Mast & Stability',
-        items: [
-          '7.0-meter galvanized telescopic mast with tiltable capability',
-          '4 stabilizer outriggers rated for 100 km/h wind resistance'
-        ]
-      }
-    ],
-    variants: ['ace-lt-6000', 'ace-b-04', 'ace-plt-4000']
-  },
-
-  'without-genset': {
-    id: 'without-genset',
-    title: 'Mobile Light Tower (Without Genset)',
-    category: 'without-genset',
-    categoryName: 'Without Genset',
-    tagline: 'Grid-Connected 220V Ultra-High Lumen Tower',
-    description: 'Engineered for industrial plants, shipyards, railway terminals, sports arenas, and infrastructure job sites with existing AC power supply. Eliminates engine maintenance and fuel logistics while delivering an astounding 2,40,000 Lumens from a massive 12-meter mast.',
-    image: '/images/products/Mobile Tower Without Genset/Mobile tower without genset.jpeg',
-    gallery: [
-      '/images/products/Mobile Tower Without Genset/Mobile tower without genset.jpeg'
-    ],
-    featureImage: '/images/industries/construction.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '39 ft (12 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '6 x 400W LED (2400W)', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '24/7 Unlimited', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '7000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: 'Direct 220V Single-Phase Grid Supply',
-        generator: 'External Site Distribution / Main Board',
-        tankSize: 'None (Zero Fuel Required)',
-        sockets: 'Input: 32A Industrial IP67 Plug',
-        weight: '650 kg',
-        dimensions: 'Travel: 2.2 x 1.4 x 2.4 m\nOperation: 2.5 x 2.4 x 12.0 m'
-      }
-    ],
-    features: [
-      'Plugs directly into site 220V grid supply — runs 24/7 with zero fuel logistics',
-      'Massive 2,40,000 Lumens from six 400W industrial floodlights',
-      '12-meter hot-dip galvanized mast for wide-area coverage',
-      'Zero diesel emissions, zero noise, and lowest cost of ownership',
-      'Towing trailer with outriggers for wind stability up to 100 km/h'
-    ],
-    highlights: [
-      {
-        title: 'Lights',
-        items: [
-          '6 x 400W high-output LED floodlights (2,400W total array)',
-          'Modular fixtures with individual aiming and rotation'
-        ]
-      },
-      {
-        title: 'Mast',
-        items: [
-          '12.0-meter galvanized heavy-duty telescopic mast',
-          'Double mechanical winch system with safety locking'
-        ]
-      }
-    ],
-    variants: ['ace-lt-12000', 'ace-lt-9000']
-  },
-
-  'ace-plt-4000': {
-    id: 'ace-plt-4000',
-    title: 'ACE PLT 4000 (Petrol Genset)',
-    category: 'petrol',
-    categoryName: 'Petrol Powered',
-    tagline: 'Ultra-Portable Petrol Light Tower with Honda EP 1000',
-    description: 'The ACE PLT 4000 features a genuine Honda EP 1000 4-stroke petrol generator paired with 6 high-intensity LED floodlights. Weighing just 60 kg, it offers unbeatable portability for road maintenance crews, municipal utility repairs, and temporary outdoor markets.',
-    image: '/images/products/Petrol oprated/petrol oprated.jpeg',
-    gallery: [
-      '/images/products/Petrol oprated/petrol oprated.jpeg'
-    ],
-    featureImage: '/images/industries/roads.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '13 ft (4 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '6 x 50W LED (300W)', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '5 - 6 hours / tank', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '3000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: 'Honda EP 1000 4-Stroke OHV Petrol Engine',
-        generator: 'Honda High-Reliability Alternator',
-        tankSize: '3.6 Liters Petrol Tank',
-        sockets: '220V Domestic 3-Pin Socket',
-        weight: '60 kg (Ultra Lightweight)',
-        dimensions: 'Travel: 1.2 x 0.8 x 1.6 m\nOperation: 1.5 x 1.5 x 4.0 m'
-      }
-    ],
-    features: [
-      'Genuine Honda EP 1000 petrol genset renowned for easy starting and reliability',
-      'Ultra-light 60 kg weight easily loaded onto small utility vehicles or pickups',
-      '50,000 Lumens output from six 50W LED heads',
-      '4-meter telescopic mast with quick-lock clamp rings'
-    ],
-    highlights: [
-      {
-        title: 'Engine',
-        items: [
-          'Honda 4-stroke engine with low oil alert and quiet muffler',
-          'Fuel-efficient operation with 3.6L tank providing 5-6 hours runtime'
-        ]
-      }
-    ],
-    variants: ['ace-pblt-4000', 'ace-lt-4000', 'ace-b-04']
-  },
-
-  'ace-pblt-4000': {
-    id: 'ace-pblt-4000',
-    title: 'ACE PBLT 4000 (Hybrid Power)',
-    category: 'hybrid',
-    categoryName: 'Battery-Petrol Hybrid',
-    tagline: 'Dual Fuel Intelligent Hybrid Lighting Tower',
-    description: 'The ACE PBLT 4000 combines the best of both worlds: silent lithium battery power for nighttime residential and noise-restricted zones, coupled with an automatic petrol generator that recharges the battery bank when needed. Provides up to 16+ hours of uninterrupted light.',
-    image: '/images/products/baterry petrol oprated/battery petrol oprated.jpeg',
-    gallery: [
-      '/images/products/baterry petrol oprated/battery petrol oprated.jpeg'
-    ],
-    featureImage: '/images/industries/events.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '20 ft (6 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 100W / 150W LED', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: '16+ hours', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '5000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: 'Honda / Kohler Petrol Engine + Smart Lithium Bank',
-        generator: 'Dual-Mode Hybrid Inverter / Charger',
-        tankSize: 'Petrol + 100AH Lithium Pack',
-        sockets: '16A 220V Out & USB Out',
-        weight: '280 kg',
-        dimensions: 'Travel: 1.8 x 1.1 x 2.1 m\nOperation: 2.0 x 2.0 x 6.0 m'
-      }
-    ],
-    features: [
-      'Dual-mode hybrid powertrain: switch seamlessly between silent battery and engine',
-      'Over 16 hours total continuous runtime for multi-shift work',
-      'Silent battery night mode complies with city noise curfews',
-      'Compact mobile trailer with 6-meter telescopic mast'
-    ],
-    highlights: [
-      {
-        title: 'Hybrid Management',
-        items: [
-          'Intelligent controller automatically cycles engine to recharge battery',
-          'Enables zero noise operation during sensitive night hours'
-        ]
-      }
-    ],
-    variants: ['ace-plt-4000', 'ace-b-04', 'ace-lt-4000']
-  },
-
-  'ace-1-2-it-4500': {
-    id: 'ace-1-2-it-4500',
-    title: 'ACE 1.2 IT 4500 (Inflatable Balloon Tower)',
-    category: 'inflatable',
-    categoryName: 'Inflatable Tower',
-    tagline: '360-Degree Glare-Free Balloon Light Tower',
-    description: 'The ACE 1.2 IT 4500 is an aerodynamic cylindrical inflatable light tower providing uniform 360-degree glare-free illumination. Designed specifically for highway paving, emergency disaster response, accident scenes, and nighttime VIP events where harsh shadows and direct blinding glare must be completely avoided.',
-    image: '/images/products/Inflatable tower/Inflatable tower.png',
-    gallery: [
-      '/images/products/Inflatable tower/Inflatable tower.png'
-    ],
-    featureImage: '/images/industries/events.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '15 ft (4.5 m)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '1000W / 1200W Balloon', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: 'Continuous / 8L Tank', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '10000 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
-      {
-        engine: 'Integrated 4-Stroke Air-Cooled Generator',
-        generator: '1200VA Single Phase 230V ±5V',
-        tankSize: '8 Liters Fuel Tank',
-        sockets: '230V Auxiliary Outlet',
-        weight: '50 kg',
-        dimensions: 'Packed: 0.8 x 0.6 x 0.8 m\nInflated: 0.8 x 0.8 x 4.5 m'
-      }
-    ],
-    features: [
-      '360-degree shadow-free, non-glare diffused illumination covering 10,000 sq. meters',
-      'Inflates to full 4.5-meter height in less than 60 seconds with internal fan',
-      'Ultra-light 50 kg total weight in a compact wheeled carry case',
-      'Ideal for night highway paving, rescue operations, and crowd security'
-    ],
-    highlights: [
-      {
-        title: 'Balloon & Light Optics',
-        items: [
-          'High-strength translucent ripstop nylon balloon envelope',
-          '360-degree diffusion prevents driver blinding and harsh shadows'
-        ]
-      },
-      {
-        title: 'Rapid Deployment',
-        items: [
-          'Integrated air blower raises the column in under 60 seconds',
-          'Guy lines and ground pegs secure tower in winds up to 60 km/h'
-        ]
-      }
-    ],
-    variants: ['ace-b-04', 'ace-plt-4000', 'ace-lt-4000']
+    variants: ['ace-lt-12000', 'ace-lt-9000', 'ace-lt-6000']
   }
 };
 
-// Aliases for consolidated solar model
-products['ace-0-5-slt-4000'] = products['ace-2-slt-6000'];
-products['ace-1-3-slt-6000'] = products['ace-2-slt-6000'];
-
+// Backward compatibility aliases
+productsData['ace-2-slt-6000'] = productsData['ace-5-slt-6000'];
+productsData['ace-1-3-slt-6000'] = productsData['ace-3-slt-6000'];
+productsData['ace-0-5-slt-4000'] = productsData['ace-3-slt-6000'];

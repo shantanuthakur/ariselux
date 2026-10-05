@@ -81,7 +81,12 @@ function renderProductDetail() {
         galleryThumbs.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');
         if (mainImg) {
-          mainImg.src = thumb.getAttribute('data-src');
+          mainImg.style.opacity = '0.3';
+          mainImg.style.transition = 'opacity 0.15s ease-in-out';
+          setTimeout(() => {
+            mainImg.src = thumb.getAttribute('data-src');
+            mainImg.style.opacity = '1';
+          }, 120);
         }
       });
     });
