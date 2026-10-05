@@ -645,7 +645,7 @@ function initRequestForQuotation() {
 
           const successMsg = document.getElementById('rfq-success-msg');
           if (successMsg) {
-            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your quotation request for <strong>${product}</strong> has been received by our sales engineering team in Haridwar.<br><br>We will share your official commercial quotation and technical datasheet within 2-4 business hours.`;
+            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your quotation request for <strong>${product}</strong> has been received by our sales engineering team in Haridwar.<br><br>📧 A confirmation email has been sent to <strong>${email}</strong>. We will share your official commercial quotation and technical datasheet within 2-4 business hours.`;
           }
 
           const waBtn = document.getElementById('rfq-wa-direct-btn');

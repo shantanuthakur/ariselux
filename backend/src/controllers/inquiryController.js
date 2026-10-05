@@ -78,8 +78,13 @@ export async function createInquiry(req, res, next) {
       source: source || 'website'
     });
 
-    // Send email notification to sales desk only (no customer acknowledgment email)
+    // Send email notification to sales desk (internal alert)
     const salesEmailResult = await sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message }));
+
+    // Send customer acknowledgment email ("We have received your quotation request")
+    const customerEmailResult = cleanEmail
+      ? await sendCustomerAcknowledgment(inquiry).catch(err => ({ sent: false, error: err.message }))
+      : { sent: false, reason: 'no_customer_email' };
 
     // WhatsApp direct link generator
     const waText = encodeURIComponent(
@@ -99,7 +104,10 @@ export async function createInquiry(req, res, next) {
       emailDelivery: {
         salesDesk: salesEmailResult.sent 
           ? `Delivered to ${config.company.email}` 
-          : (salesEmailResult.message || salesEmailResult.error || 'SMTP credentials not configured in backend/.env')
+          : (salesEmailResult.message || salesEmailResult.error || 'SMTP credentials not configured in backend/.env'),
+        customerAck: customerEmailResult.sent
+          ? `Delivered to ${cleanEmail}`
+          : (customerEmailResult.reason || customerEmailResult.error || 'Not sent')
       },
       whatsappDirectUrl: whatsappUrl
     };
