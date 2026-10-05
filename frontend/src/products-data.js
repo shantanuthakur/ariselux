@@ -1,5 +1,5 @@
 // Products Data for Ariselux Light Towers
-// Extracted from official factory technical specification brochures (company product information)
+// Extracted from official factory technical specification brochures
 // Structured matching modern lightingtowers.in engineering layouts
 
 export const productsData = {
@@ -17,7 +17,29 @@ export const productsData = {
       '/images/products/Diesel oprated/aclt-12000-view2.jpg',
       '/images/products/Diesel oprated/aclt-12000-view3.jpg'
     ],
-    featureImage: '/images/industries/mining.jpg',
+    featureImage: '/images/features/features-diesel-12000.jpg',
+    bestFor: [
+      {
+        title: 'Open-Cast Mining & Heavy Quarrying',
+        desc: 'Deep open pit excavation, mineral extraction, and haul road illumination.',
+        image: '/images/bestfor/diesel-mining.jpg'
+      },
+      {
+        title: 'National Highway & Expressway Night Paving',
+        desc: 'Continuous asphalt paving, road roller compaction, and worker safety.',
+        image: '/images/bestfor/diesel-highway.jpg'
+      },
+      {
+        title: 'Bridge & Heavy Civil Infrastructure Engineering',
+        desc: 'Pier construction, concrete foundation pours, and crane operations.',
+        image: '/images/bestfor/diesel-bridge.jpg'
+      },
+      {
+        title: 'Mega Industrial Plants & Port Logistics',
+        desc: '24/7 dry docks, freight container yards, and industrial manufacturing.',
+        image: '/images/bestfor/diesel-ports.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '39 ft (12.0 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 300W-500W LED (2,40,000 Lumens)', icon: '/images/icons/led-light.svg' },
@@ -64,7 +86,7 @@ export const productsData = {
       {
         title: 'Mobility & Towing',
         items: [
-          'Heavy-duty trailer chassis with pneumatic all-terrain 14" tires',
+          'Heavy-duty trailer chassis with pneumatic all-terrain 14\" tires',
           'Universal tow hitch drawbar convertible for NATO eye or ball coupler',
           'Integrated central crane lifting eye and 3-way forklift pockets',
           'Certified highway speed towing up to 80 km/h with leaf spring suspension'
@@ -103,7 +125,29 @@ export const productsData = {
       '/images/products/Diesel oprated/aclt-9000-view2.jpg',
       '/images/products/Diesel oprated/aclt-9000-view3.jpg'
     ],
-    featureImage: '/images/industries/roads.jpg',
+    featureImage: '/images/features/features-diesel-9000.jpg',
+    bestFor: [
+      {
+        title: 'National Highway & Expressway Night Paving',
+        desc: 'Continuous asphalt paving, road roller compaction, and worker safety.',
+        image: '/images/bestfor/diesel-highway.jpg'
+      },
+      {
+        title: 'Open-Cast Mining & Heavy Quarrying',
+        desc: 'Deep open pit excavation, mineral extraction, and haul road illumination.',
+        image: '/images/bestfor/diesel-mining.jpg'
+      },
+      {
+        title: 'Bridge & Heavy Civil Infrastructure Engineering',
+        desc: 'Pier construction, concrete foundation pours, and crane operations.',
+        image: '/images/bestfor/diesel-bridge.jpg'
+      },
+      {
+        title: 'Mega Industrial Plants & Port Logistics',
+        desc: '24/7 dry docks, freight container yards, and industrial manufacturing.',
+        image: '/images/bestfor/diesel-ports.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '30 ft (9.0 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 200W-500W LED', icon: '/images/icons/led-light.svg' },
@@ -177,7 +221,29 @@ export const productsData = {
       '/images/products/Diesel oprated/aclt-6000-view2.jpg',
       '/images/products/Diesel oprated/aclt-6000-view3.jpg'
     ],
-    featureImage: '/images/industries/construction.jpg',
+    featureImage: '/images/features/features-diesel-6000.jpg',
+    bestFor: [
+      {
+        title: 'Bridge & Heavy Civil Infrastructure Engineering',
+        desc: 'Pier construction, concrete foundation pours, and crane operations.',
+        image: '/images/bestfor/diesel-bridge.jpg'
+      },
+      {
+        title: 'National Highway & Expressway Night Paving',
+        desc: 'Continuous asphalt paving, road roller compaction, and worker safety.',
+        image: '/images/bestfor/diesel-highway.jpg'
+      },
+      {
+        title: 'Open-Cast Mining & Heavy Quarrying',
+        desc: 'Deep open pit excavation, mineral extraction, and haul road illumination.',
+        image: '/images/bestfor/diesel-mining.jpg'
+      },
+      {
+        title: 'Mega Industrial Plants & Port Logistics',
+        desc: '24/7 dry docks, freight container yards, and industrial manufacturing.',
+        image: '/images/bestfor/diesel-ports.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '23 ft (7.0 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 200W-450W LED', icon: '/images/icons/led-light.svg' },
@@ -245,7 +311,29 @@ export const productsData = {
       '/images/products/Mobile Tower Without Genset/withoutgenset-angle2.jpg',
       '/images/products/Mobile Tower Without Genset/withoutgenset-angle3.jpg'
     ],
-    featureImage: '/images/industries/construction.jpg',
+    featureImage: '/images/features/features-grid.jpg',
+    bestFor: [
+      {
+        title: 'High-Rise & Commercial Building Foundations',
+        desc: 'Direct connection to site distribution board for continuous foundation builds.',
+        image: '/images/bestfor/grid-construction.jpg'
+      },
+      {
+        title: 'Concrete Batching Plants & Precast Yards',
+        desc: 'Zero-emission illumination for concrete mix transit and aggregate handling.',
+        image: '/images/bestfor/grid-batching.jpg'
+      },
+      {
+        title: 'Shipbuilding Docks & Marine Terminals',
+        desc: 'Safe, fume-free illumination for enclosed dry docks and vessel hull repair.',
+        image: '/images/bestfor/grid-shipyard.jpg'
+      },
+      {
+        title: 'Continuous Grid-Connected Rail Freight Hubs',
+        desc: '24/7 container handling and locomotive marshaling yards with grid power.',
+        image: '/images/bestfor/grid-freight.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '39 ft (12.0 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '6 x 400W LED = 2400W', icon: '/images/icons/led-light.svg' },
@@ -319,7 +407,29 @@ export const productsData = {
       '/images/products/Petrol oprated/petrol-angle2.jpg',
       '/images/products/Petrol oprated/petrol-angle3.jpg'
     ],
-    featureImage: '/images/industries/roads.jpg',
+    featureImage: '/images/features/features-petrol.jpg',
+    bestFor: [
+      {
+        title: 'Railway Track Night Repairs & Maintenance Crews',
+        desc: 'Lightweight setup for quick pickup-truck transport along railway track lines.',
+        image: '/images/bestfor/petrol-railway.jpg'
+      },
+      {
+        title: 'Municipal Water & Gas Pipeline Emergencies',
+        desc: 'Fast-response deployment beside urban utility excavations and street breaks.',
+        image: '/images/bestfor/petrol-pipeline.jpg'
+      },
+      {
+        title: 'Fast-Response Highway Paving & Asphalt Repairs',
+        desc: 'Quick setup on emergency road patchwork and temporary nighttime lane closures.',
+        image: '/images/bestfor/petrol-roadworks.jpg'
+      },
+      {
+        title: 'Perimeter Security & Remote Field Camps',
+        desc: 'Instant pull-start Honda power for security checkpoints and border patrols.',
+        image: '/images/bestfor/petrol-perimeter.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '13 ft (4.0 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '6 x 50W LED (50,000 Lumens)', icon: '/images/icons/led-light.svg' },
@@ -376,7 +486,29 @@ export const productsData = {
       '/images/products/Petrol oprated/petrol-angle2.jpg',
       '/images/products/Petrol oprated/petrol-angle3.jpg'
     ],
-    featureImage: '/images/industries/events.jpg',
+    featureImage: '/images/features/features-petrol.jpg',
+    bestFor: [
+      {
+        title: 'Fast-Response Highway Paving & Asphalt Repairs',
+        desc: 'Hybrid silent running allows early morning road works without noise pollution.',
+        image: '/images/bestfor/petrol-roadworks.jpg'
+      },
+      {
+        title: 'Municipal Water & Gas Pipeline Emergencies',
+        desc: 'Continuous dual-power system ensures uninterrupted lighting during long repair jobs.',
+        image: '/images/bestfor/petrol-pipeline.jpg'
+      },
+      {
+        title: 'Railway Track Night Repairs & Maintenance Crews',
+        desc: 'Ultra-flexible petrol/battery power for remote track sections with no grid.',
+        image: '/images/bestfor/petrol-railway.jpg'
+      },
+      {
+        title: 'Perimeter Security & Remote Field Camps',
+        desc: 'Battery mode for silent covert operations; petrol mode for high-power floodlighting.',
+        image: '/images/bestfor/petrol-perimeter.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '15 ft (4.5 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 100W LED (40,000 Lumens)', icon: '/images/icons/led-light.svg' },
@@ -422,7 +554,29 @@ export const productsData = {
       '/images/products/Inflatable tower/inflatable-angle2.jpg',
       '/images/products/Inflatable tower/inflatable-angle3.png'
     ],
-    featureImage: '/images/industries/events.jpg',
+    featureImage: '/images/features/features-inflatable.jpg',
+    bestFor: [
+      {
+        title: '360° Glare-Free Highway Roadworks & Traffic Diversion',
+        desc: 'Diffused shadow-free illumination that prevents blinding oncoming drivers on active roadways.',
+        image: '/images/bestfor/inflatable-highway.jpg'
+      },
+      {
+        title: 'Disaster Relief, Emergency Rescue & Field Hospitals',
+        desc: 'Rapid 60-second automatic inflation provides immediate 360-degree emergency light coverage.',
+        image: '/images/bestfor/inflatable-rescue.jpg'
+      },
+      {
+        title: 'Night Municipal Utility & Pipeline Maintenance',
+        desc: 'Complete circular lighting coverage without harsh shadows, ideal for municipal work crews.',
+        image: '/images/bestfor/inflatable-pipeline.jpg'
+      },
+      {
+        title: 'Outdoor Events, Sports Arenas & Perimeter Security',
+        desc: 'Pleasant, soft non-glare ambiance perfect for large festival entrances and night gatherings.',
+        image: '/images/bestfor/inflatable-events.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Tower height', value: '15 ft (4.5 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Brightness', value: '42,000 Lumens (360° Glare-Free)', icon: '/images/icons/led-light.svg' },
@@ -478,18 +632,40 @@ export const productsData = {
   // ── 5. SOLAR OPERATED ──────────────────────────────────────────────
   'ace-5-slt-6000': {
     id: 'ace-5-slt-6000',
-    title: 'ACE 2 SLT 6000',
+    title: 'ACE 5 SLT 6000',
     category: 'solar',
     categoryName: 'Solar Operated',
-    tagline: 'Zero-Emission 1,20,000 Lumens Heavy Solar Mobile Light Tower',
-    description: 'The ACE 2 SLT 6000 is our flagship zero-fuel, zero-emission heavy solar mobile lighting tower. Equipped with 4 sliding monocrystalline solar panels (585W x 4 = 2,340W), a 5.0 KVA pure sine wave inverter, 48V solar controller, and heavy-duty 12V 200AH x 2 battery bank, it powers 4 LED floodlights generating 1,20,000 lumens across 5,000 square meters on a tiltable 7.0-meter mast with 359° rotation.',
+    tagline: '5.0 KVA Inverter 1,20,000 Lumens Heavy Solar Mobile Light Tower',
+    description: 'The ACE 5 SLT 6000 is our heavy-duty zero-fuel, zero-emission solar mobile lighting tower equipped with a heavy-duty 5.0 KVA pure sine wave inverter. Featuring 4 sliding monocrystalline solar panels (585W x 4 = 2,340W), a 48V smart MPPT solar controller, and heavy-duty 12V 200AH x 2 battery bank, it powers 4 LED floodlights generating 1,20,000 lumens across 5,000 square meters on a tiltable 7.0-meter mast with 359° rotation.',
     image: '/images/products/Solar Oprated/solar-angle1.png',
     gallery: [
       '/images/products/Solar Oprated/solar-angle1.png',
       '/images/products/Solar Oprated/solar-angle2.jpg',
       '/images/products/Solar Oprated/solar-angle3.jpg'
     ],
-    featureImage: '/images/industries/mining.jpg',
+    featureImage: '/images/features/features-solar.jpg',
+    bestFor: [
+      {
+        title: 'Eco-Sensitive Infrastructure & Green Construction Sites',
+        desc: '100% emission-free, silent lighting compliant with strict environmental city regulations.',
+        image: '/images/bestfor/solar-eco-construction.jpg'
+      },
+      {
+        title: 'Remote Off-Grid Mining & Desert Exploration',
+        desc: 'Self-sufficient daily solar harvesting eliminates diesel refueling trips in remote desert mines.',
+        image: '/images/bestfor/solar-remote-mining.jpg'
+      },
+      {
+        title: 'Zero-Emission Urban Highway & Residential Nightworks',
+        desc: 'Zero engine exhaust fumes and silent battery discharge for quiet neighborhood repairs.',
+        image: '/images/bestfor/solar-urban-highway.jpg'
+      },
+      {
+        title: 'Solar Parks & Renewable Energy Sub-Stations',
+        desc: 'Natural power pairing for utility-scale solar farms, wind parks, and green power grids.',
+        image: '/images/bestfor/solar-renewables.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '23 ft (7.0 MTR Tiltable)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 30,000 = 1,20,000 Lumens', icon: '/images/icons/led-light.svg' },
@@ -502,7 +678,7 @@ export const productsData = {
         generator: '5.0 KVA Inverter | AC Output: 220 V',
         tankSize: 'Solar Controller: 48 V | Battery: 12V 200AH x 2',
         sockets: 'Brightness: 30000 x 4 = 1,20,000 Lumens | LED Lamps with Canopy',
-        weight: '800 - 900 KG',
+        weight: '850 - 900 KG',
         dimensions: 'Tower Height: 7.0 mtr from G.L to Light (Tiltable & 359° Rotate)\nTravel: 2.6 x 1.6 x 2.4 m | Operation: 3.2 x 2.8 x 7.0 m'
       }
     ],
@@ -540,107 +716,102 @@ export const productsData = {
         ]
       }
     ],
-    variants: ['ace-3-slt-6000', 'ace-3-slt-6000', 'without-genset', 'ace-lt-12000']
+    variants: ['ace-3-slt-6000', 'without-genset', 'ace-lt-12000']
   },
 
   'ace-3-slt-6000': {
     id: 'ace-3-slt-6000',
-    title: 'ACE 1.3 SLT 6000',
+    title: 'ACE 3 SLT 6000',
     category: 'solar',
     categoryName: 'Solar Operated',
-    tagline: '1,320W Sliding Panel Commercial Solar Light Tower',
-    description: 'The ACE 1.3 SLT 6000 features 4 sliding 330W solar panels (1320W), a 3 KVA inverter, 24V solar controller, and 4 x 12V 150AH battery bank. Delivering 40,000 lumens across 3,200 sq. meters on a 6.0-meter 359° rotating mast.',
+    tagline: '3.0 KVA Inverter 1,20,000 Lumens Heavy Solar Mobile Light Tower',
+    description: 'The ACE 3 SLT 6000 is our heavy-duty zero-fuel, zero-emission solar mobile lighting tower equipped with a 3.0 KVA pure sine wave inverter. Featuring 4 sliding monocrystalline solar panels (585W x 4 = 2,340W), a 48V smart MPPT solar controller, and heavy-duty 12V 200AH x 2 battery bank, it powers 4 LED floodlights generating 1,20,000 lumens across 5,000 square meters on a tiltable 7.0-meter mast with 359° rotation.',
     image: '/images/products/Solar Oprated/solar-angle1.png',
     gallery: [
       '/images/products/Solar Oprated/solar-angle1.png',
       '/images/products/Solar Oprated/solar-angle2.jpg',
       '/images/products/Solar Oprated/solar-angle3.jpg'
     ],
-    featureImage: '/images/industries/roads.jpg',
+    featureImage: '/images/features/features-solar.jpg',
+    bestFor: [
+      {
+        title: 'Eco-Sensitive Infrastructure & Green Construction Sites',
+        desc: '100% emission-free, silent lighting compliant with strict environmental city regulations.',
+        image: '/images/bestfor/solar-eco-construction.jpg'
+      },
+      {
+        title: 'Remote Off-Grid Mining & Desert Exploration',
+        desc: 'Self-sufficient daily solar harvesting eliminates diesel refueling trips in remote desert mines.',
+        image: '/images/bestfor/solar-remote-mining.jpg'
+      },
+      {
+        title: 'Zero-Emission Urban Highway & Residential Nightworks',
+        desc: 'Zero engine exhaust fumes and silent battery discharge for quiet neighborhood repairs.',
+        image: '/images/bestfor/solar-urban-highway.jpg'
+      },
+      {
+        title: 'Solar Parks & Renewable Energy Sub-Stations',
+        desc: 'Natural power pairing for utility-scale solar farms, wind parks, and green power grids.',
+        image: '/images/bestfor/solar-renewables.jpg'
+      }
+    ],
     quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '20 ft (6.0 MTR)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 10,000 = 40,000 Lumens', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: 'All-Night Solar Storage (24V)', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '3200 sq. m', icon: '/images/icons/light-coverage.svg' }
+      mastHeight: { title: 'Mast height', value: '23 ft (7.0 MTR Tiltable)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Light', value: '4 x 30,000 = 1,20,000 Lumens', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Runtime', value: '100% Solar Autonomous (48V)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Light coverage', value: '5000 sq. m', icon: '/images/icons/light-coverage.svg' }
     },
     tableSpecs: [
       {
-        engine: 'Solar Panel / Power: (330W x 4 = 1320W) Sliding Type',
-        generator: '3 KVA Inverter | AC Output: 220 V',
-        tankSize: 'Solar Controller: 24 V | Battery: 12V 150AH x 4',
-        sockets: 'Brightness: 10,000 x 4 = 40,000 Lumens | LED with Canopy',
-        weight: '350 - 400 KG',
-        dimensions: 'Tower Height: 6.0 mtr from G.L to Light (359° Rotate)\nTravel: 2.2 x 1.4 x 2.2 m | Operation: 2.8 x 2.4 x 6.0 m'
+        engine: 'Solar Panel / Power: (585W x 4 = 2340W) Sliding Type',
+        generator: '3.0 KVA Inverter | AC Output: 220 V',
+        tankSize: 'Solar Controller: 48 V | Battery: 12V 200AH x 2',
+        sockets: 'Brightness: 30000 x 4 = 1,20,000 Lumens | LED Lamps with Canopy',
+        weight: '800 - 850 KG',
+        dimensions: 'Tower Height: 7.0 mtr from G.L to Light (Tiltable & 359° Rotate)\nTravel: 2.6 x 1.6 x 2.4 m | Operation: 3.2 x 2.8 x 7.0 m'
       }
     ],
     features: [
-      '1,320W solar array with sliding deployment mechanism (330W x 4)',
-      '40,000 lumens brightness covering 3,200 square meters',
-      '3 KVA inverter and 24V smart solar MPPT controller',
-      '6.0-meter telescopic mast with 359° rotation',
-      '4 x 12V 150AH deep-cycle battery power bank',
-      'Compact mobile chassis weighing 350-400 kg'
+      '2,340W total solar generation via 4 x 585W sliding monocrystalline panels',
+      'Combined brightness of 1,20,000 Lumens (30,000 lumens x 4 LED luminaires)',
+      'Illumination area coverage of 5,000 square meters',
+      'Heavy-duty 3.0 KVA pure sine wave inverter and 48V solar controller',
+      '7.0-meter telescopic mast with tiltable mechanism and full 359° rotation',
+      'Zero fuel consumption, zero carbon emissions, and zero engine noise'
     ],
     highlights: [
       {
-        title: 'Solar System',
-        items: ['High-efficiency solar sliding mechanism for easy transit and rapid setup']
-      }
-    ],
-    variants: ['ace-5-slt-6000', 'ace-3-slt-6000']
-  },
-
-  'ace-3-slt-6000': {
-    id: 'ace-3-slt-6000',
-    title: 'ACE 0.5 SLT 4000',
-    category: 'solar',
-    categoryName: 'Solar Operated',
-    tagline: 'Compact 660W Solar Mobile Light Tower',
-    description: 'The ACE 0.5 SLT 4000 is a compact, highly portable solar light tower featuring 2 sliding 330W panels (660W), 1.2 KVA inverter, 24V solar controller, and 2 x 12V 150AH batteries. Illuminates 1,500 sq. meters with 28,800 lumens.',
-    image: '/images/products/Solar Oprated/solar-angle1.png',
-    gallery: [
-      '/images/products/Solar Oprated/solar-angle1.png',
-      '/images/products/Solar Oprated/solar-angle2.jpg',
-      '/images/products/Solar Oprated/solar-angle3.jpg'
-    ],
-    featureImage: '/images/industries/construction.jpg',
-    quickSpecs: {
-      mastHeight: { title: 'Mast height', value: '16 ft (5.0 MTR)', icon: '/images/icons/mast-height.svg' },
-      light: { title: 'Light', value: '4 x 7,200 = 28,800 Lumens', icon: '/images/icons/led-light.svg' },
-      runtime: { title: 'Runtime', value: 'All-Night Solar Battery', icon: '/images/icons/runtime-in-hours.svg' },
-      coverage: { title: 'Light coverage', value: '1500 sq. m', icon: '/images/icons/light-coverage.svg' }
-    },
-    tableSpecs: [
+        title: 'Sliding Solar Photovoltaic Array',
+        items: [
+          '4 x 585W monocrystalline panels mounted on a sliding pull-out frame',
+          'Optimized tilt angle for maximum solar harvest throughout the day',
+          'Durable aluminum framing with tempered anti-reflective solar glass'
+        ]
+      },
       {
-        engine: 'Solar Panel / Power: 330W x 2 = 660W (Sliding Type)',
-        generator: '1.2 KVA Inverter | AC Output: 220 V',
-        tankSize: 'Solar Controller: 24 V | Battery: 12V 150AH x 2',
-        sockets: 'Brightness: 7200 x 4 = 28,800 Lumens | LED with Canopy',
-        weight: '300 - 400 KG',
-        dimensions: 'Tower Height: 5.0 mtr from G.L to Light (359° Rotate)\nTravel: 2.0 x 1.2 x 2.0 m | Operation: 2.4 x 2.0 x 5.0 m'
-      }
-    ],
-    features: [
-      '660W solar power via 2 x 330W sliding panels',
-      '28,800 lumens brightness covering 1,500 square meters',
-      '1.2 KVA inverter with 24V solar controller',
-      '5.0-meter telescopic mast with 359° rotation',
-      '2 x 12V 150AH battery bank',
-      'Lightweight 300-400 kg mobile chassis'
-    ],
-    highlights: [
+        title: 'Energy Storage & Inverter',
+        items: [
+          '48V intelligent MPPT solar charge controller with smart charging logic',
+          'High-capacity deep-cycle battery bank providing all-night continuous runtime',
+          '3.0 KVA pure sine wave inverter with 220V auxiliary AC output'
+        ]
+      },
       {
-        title: 'Eco Mobility',
-        items: ['Zero emissions, zero fuel consumption, perfectly silent operation']
+        title: 'Tiltable Mast & Azimuth Rotation',
+        items: [
+          '7.0-meter mast with hydraulic/mechanical tilt for compact low-clearance transport',
+          'Full 359-degree continuous mast rotation for precise light targeting',
+          '4 heavy outriggers providing structural stability in high winds'
+        ]
       }
     ],
-    variants: ['ace-5-slt-6000', 'ace-3-slt-6000', 'ace-b-04']
+    variants: ['ace-5-slt-6000', 'without-genset', 'ace-lt-12000']
   },
 
   // ── 6. BATTERY OPERATED ───────────────────────────────────────────
   'ace-b-04': {
     id: 'ace-b-04',
-    title: 'ACE B-04',
+    title: 'ACE B -04',
     category: 'battery',
     categoryName: 'Battery Operated',
     tagline: 'Portable 4-Light Lithium Industrial Light Tower',
@@ -651,7 +822,29 @@ export const productsData = {
       '/images/products/Battery oprated/b04-angle2.jpg',
       '/images/products/Battery oprated/b04-angle3.jpg'
     ],
-    featureImage: '/images/industries/construction.jpg',
+    featureImage: '/images/features/features-battery.jpg',
+    bestFor: [
+      {
+        title: 'Underground Metro & Tunnel Maintenance (Zero Fumes)',
+        desc: '100% emission-free battery operation safe for confined underground railway tunnels.',
+        image: '/images/bestfor/battery-tunnel.jpg'
+      },
+      {
+        title: 'Tactical Night Inspection & Emergency Vehicle Breakdown',
+        desc: 'Instant grab-and-go quad LED floodlight deployment for roadside highway emergencies.',
+        image: '/images/bestfor/battery-inspection.jpg'
+      },
+      {
+        title: 'Confined Space & Indoor Industrial Plants',
+        desc: 'Zero noise and zero fuel risk for pharmaceutical, food processing, and chemical factories.',
+        image: '/images/bestfor/battery-plant.jpg'
+      },
+      {
+        title: 'Rapid Roadside Trench & Water Pipeline Repairs',
+        desc: 'Portable Pelican suitcase trolley with wheels for easy one-man maneuverability.',
+        image: '/images/bestfor/battery-trench.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Tower height', value: '6.5 ft (2.0 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 50W LED (25,000 Lumens)', icon: '/images/icons/led-light.svg' },
@@ -710,7 +903,29 @@ export const productsData = {
       '/images/products/Battery oprated/b02-angle2.jpg',
       '/images/products/Battery oprated/b02-angle3.jpg'
     ],
-    featureImage: '/images/industries/roads.jpg',
+    featureImage: '/images/features/features-battery.jpg',
+    bestFor: [
+      {
+        title: 'Tactical Night Inspection & Emergency Vehicle Breakdown',
+        desc: 'Instant grab-and-go twin LED floodlight deployment for roadside highway emergencies.',
+        image: '/images/bestfor/battery-inspection.jpg'
+      },
+      {
+        title: 'Underground Metro & Tunnel Maintenance (Zero Fumes)',
+        desc: '100% emission-free battery operation safe for confined underground railway tunnels.',
+        image: '/images/bestfor/battery-tunnel.jpg'
+      },
+      {
+        title: 'Confined Space & Indoor Industrial Plants',
+        desc: 'Zero noise and zero fuel risk for pharmaceutical, food processing, and chemical factories.',
+        image: '/images/bestfor/battery-plant.jpg'
+      },
+      {
+        title: 'Rapid Roadside Trench & Water Pipeline Repairs',
+        desc: 'Portable Pelican suitcase trolley with wheels for easy one-man maneuverability.',
+        image: '/images/bestfor/battery-trench.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Tower height', value: '6 ft (1.8 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '2 x 50W LED (15,000 Lumens)', icon: '/images/icons/led-light.svg' },
@@ -760,7 +975,29 @@ export const productsData = {
       '/images/products/Battery oprated/b01-angle2.jpg',
       '/images/products/Battery oprated/b01-angle3.jpg'
     ],
-    featureImage: '/images/industries/events.jpg',
+    featureImage: '/images/features/features-battery.jpg',
+    bestFor: [
+      {
+        title: 'Rapid Roadside Trench & Water Pipeline Repairs',
+        desc: 'Ultra-compact 12 kg carry system for fast municipal pipeline inspections.',
+        image: '/images/bestfor/battery-trench.jpg'
+      },
+      {
+        title: 'Tactical Night Inspection & Emergency Vehicle Breakdown',
+        desc: 'Single high-power 50W LED fixture for immediate targeted work zone lighting.',
+        image: '/images/bestfor/battery-inspection.jpg'
+      },
+      {
+        title: 'Underground Metro & Tunnel Maintenance (Zero Fumes)',
+        desc: 'Hand-portable suitcase light tower that fits into tight manholes and shafts.',
+        image: '/images/bestfor/battery-tunnel.jpg'
+      },
+      {
+        title: 'Confined Space & Indoor Industrial Plants',
+        desc: '8-9 hours of clean, silent battery illumination for indoor electrical rooms.',
+        image: '/images/bestfor/battery-plant.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Tower height', value: '5 ft (1.0 - 1.5 MTR)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '1 x 50W LED (5,000 Lumens)', icon: '/images/icons/led-light.svg' },
@@ -805,13 +1042,35 @@ export const productsData = {
     categoryName: 'Diesel Powered',
     tagline: 'Heavy-Duty Industrial Diesel Lighting Tower',
     description: 'Ariselux Equipment Company proudly presents its advanced LED Flood Light solution - engineered for maximum brightness, energy efficiency, and durability. Powered by an Escort Kubota diesel engine and 12-meter mast delivering 240,000 lumens.',
-    image: '/images/products/Diesel oprated/diesel-angle1.jpg',
+    image: '/images/products/Diesel oprated/aclt-12000-view1.jpg',
     gallery: [
-      '/images/products/Diesel oprated/diesel-angle1.jpg',
-      '/images/products/Diesel oprated/diesel-angle2.jpg',
-      '/images/products/Diesel oprated/diesel-angle3.jpg'
+      '/images/products/Diesel oprated/aclt-12000-view1.jpg',
+      '/images/products/Diesel oprated/aclt-12000-view2.jpg',
+      '/images/products/Diesel oprated/aclt-12000-view3.jpg'
     ],
-    featureImage: '/images/industries/events.jpg',
+    featureImage: '/images/features/features-diesel-12000.jpg',
+    bestFor: [
+      {
+        title: 'Open-Cast Mining & Heavy Quarrying',
+        desc: 'Deep open pit excavation, mineral extraction, and haul road illumination.',
+        image: '/images/bestfor/diesel-mining.jpg'
+      },
+      {
+        title: 'National Highway & Expressway Night Paving',
+        desc: 'Continuous asphalt paving, road roller compaction, and worker safety.',
+        image: '/images/bestfor/diesel-highway.jpg'
+      },
+      {
+        title: 'Bridge & Heavy Civil Infrastructure Engineering',
+        desc: 'Pier construction, concrete foundation pours, and crane operations.',
+        image: '/images/bestfor/diesel-bridge.jpg'
+      },
+      {
+        title: 'Mega Industrial Plants & Port Logistics',
+        desc: '24/7 dry docks, freight container yards, and industrial manufacturing.',
+        image: '/images/bestfor/diesel-ports.jpg'
+      }
+    ],
     quickSpecs: {
       mastHeight: { title: 'Mast height', value: '39 ft (12 m)', icon: '/images/icons/mast-height.svg' },
       light: { title: 'Light', value: '4 x 420W / 500W LED', icon: '/images/icons/led-light.svg' },

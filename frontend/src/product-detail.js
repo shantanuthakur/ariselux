@@ -159,17 +159,31 @@ function renderProductDetail() {
   // "Best For" interactive hover/click image slider
   const bestforList = document.getElementById('bestfor-list');
   const bestforImg = document.getElementById('bestfor-main-img');
-  if (bestforList && bestforImg) {
+  if (bestforList && bestforImg && product.bestFor && product.bestFor.length > 0) {
+    bestforList.innerHTML = product.bestFor.map((item, idx) => `
+      <li class="${idx === 0 ? 'active' : ''}" data-img="${item.image}">
+        <div class="bestfor-text-group" style="display: flex; flex-direction: column; gap: 4px; width: 100%;">
+          <span>${item.title}</span>
+          ${item.desc ? `<p class="bestfor-desc" style="font-size: 13.5px; font-weight: 400; color: #94a3b8; margin: 0; line-height: 1.45;">${item.desc}</p>` : ''}
+        </div>
+      </li>
+    `).join('');
+
+    bestforImg.src = product.bestFor[0].image;
+    bestforImg.alt = product.bestFor[0].title;
+
     const items = bestforList.querySelectorAll('li');
     items.forEach(item => {
       const handleSelect = () => {
         items.forEach(i => i.classList.remove('active'));
         item.classList.add('active');
         const imgSrc = item.getAttribute('data-img');
-        if (imgSrc && bestforImg.src !== imgSrc) {
-          bestforImg.style.opacity = '0.4';
+        if (imgSrc && bestforImg.getAttribute('src') !== imgSrc) {
+          bestforImg.style.opacity = '0.35';
+          bestforImg.style.transition = 'opacity 0.2s ease-in-out';
           setTimeout(() => {
             bestforImg.src = imgSrc;
+            bestforImg.alt = item.querySelector('span') ? item.querySelector('span').textContent : product.title;
             bestforImg.style.opacity = '1';
           }, 150);
         }
