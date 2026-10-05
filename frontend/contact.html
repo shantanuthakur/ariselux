@@ -104,92 +104,233 @@
   <section class="contact-section">
     <div class="container">
       <div class="contact-inner">
-        <!-- Contact Form -->
+        <!-- Dual Forms: Enquiry & Quotation -->
         <div class="reveal">
-          <span class="section-label">Direct Factory Enquiries</span>
-          <h2 class="section-title" style="font-size: clamp(30px, 4vw, 48px);">
-            Request A <strong>Quote</strong>
+          <span class="section-label">Haridwar Direct Desk</span>
+          <h2 class="section-title" style="font-size: clamp(30px, 4vw, 48px); margin-bottom: 8px;">
+            Factory <strong>Desk</strong>
           </h2>
-          <p>Connect with our engineering and sales executives for tenders, standard pricing, or custom fabrication requirements.</p>
+          <p style="color: var(--gray-600); margin-bottom: 25px;">Select whether you wish to submit a technical/general enquiry or request an official commercial quotation.</p>
 
-          <form id="contact-form" class="contact-form" style="margin-top: 35px;">
-            <!-- Anti-bot honeypot trap -->
-            <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
-              <div class="form-group">
-                <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
+          <!-- Contact Tabs -->
+          <div class="contact-tab-switcher" style="display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; flex-wrap: wrap;">
+            <button type="button" class="contact-tab-btn active" id="c-tab-enquiry" data-target="c-pane-enquiry" style="padding: 10px 20px; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; background: var(--primary); color: #fff; font-size: 14px; display: inline-flex; align-items: center; gap: 8px;">
+              <span>💬 Technical &amp; General Enquiry</span>
+            </button>
+            <button type="button" class="contact-tab-btn" id="c-tab-quote" data-target="c-pane-quote" style="padding: 10px 20px; font-weight: 700; border-radius: 6px; border: 1px solid #cbd5e1; cursor: pointer; background: #f8fafc; color: #334155; font-size: 14px; display: inline-flex; align-items: center; gap: 8px;">
+              <span>📋 Request Commercial Quotation (RFQ)</span>
+            </button>
+          </div>
+
+          <!-- PANE 1: TECHNICAL ENQUIRY FORM -->
+          <div class="contact-pane active" id="c-pane-enquiry">
+            <form id="contact-enquiry-form" class="contact-form">
+              <!-- Anti-bot honeypot trap -->
+              <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
+              <input type="hidden" name="entryType" value="enquiry">
+              <input type="hidden" name="source" value="contact-page-enquiry">
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
+                </div>
+                <div class="form-group">
+                  <input type="tel" name="phone" class="form-control" placeholder="Contact Mobile / WhatsApp *" required>
+                </div>
               </div>
-              <div class="form-group">
-                <input type="email" name="email" class="form-control" placeholder="Official Email Address *" required>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <input type="email" name="email" class="form-control" placeholder="Work / Personal Email *" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="company" class="form-control" placeholder="Company / Organization">
+                </div>
               </div>
-            </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
-              <div class="form-group">
-                <input type="tel" name="phone" class="form-control" placeholder="Contact Mobile Number *" required>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <select name="enquiryType" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;" required>
+                    <option value="">-- Nature of Enquiry * --</option>
+                    <option value="Technical Specifications & Consultation">Technical Specifications &amp; Consultation</option>
+                    <option value="Photometric Lux Simulation & Lighting Plan">Photometric Lux Simulation &amp; Lighting Plan</option>
+                    <option value="Price & Availability Query">Price &amp; Availability Query</option>
+                    <option value="Dealership & Distribution Inquiry">Dealership &amp; Distribution Inquiry</option>
+                    <option value="Custom Engineering & Mast Fabrication">Custom Engineering &amp; Mast Fabrication</option>
+                    <option value="After-Sales Service & Spare Parts">After-Sales Service &amp; Spare Parts</option>
+                    <option value="Government Tender / Bulk Purchase">Government Tender / Bulk Purchase</option>
+                    <option value="General Question / Other">General Question / Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select name="projectType" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;">
+                    <option value="Highway & Road Construction">Project: Highway &amp; Road Construction</option>
+                    <option value="Mining & Open Cast Excavation">Project: Mining &amp; Quarry Excavation</option>
+                    <option value="Infrastructure / Metro / Rail">Project: Infrastructure / Metro / Rail</option>
+                    <option value="Industrial Plant / Shutdown">Project: Industrial Plant / Shutdown</option>
+                    <option value="Defense & Border Security">Project: Defense &amp; Security</option>
+                    <option value="Event & Rental Fleet">Project: Rental / Event Fleet</option>
+                    <option value="General Industrial">Project: General Industrial</option>
+                  </select>
+                </div>
               </div>
+
               <div class="form-group">
-                <input type="text" name="company" class="form-control" placeholder="Company / Organization Name">
+                <select name="product" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;">
+                  <option value="">-- Select Product Variant / Series of Interest --</option>
+                  <optgroup label="🔋 Battery Powered Series (Zero-Emission & Portable)">
+                    <option value="ACE B-01 (12V Battery Light Tower 5000 Lumens)">ACE B-01 — 12V Battery Light Tower</option>
+                    <option value="ACE B-02 (50AH Lithium Battery Tower 15000 Lumens)">ACE B-02 — 50AH Lithium Battery Tower</option>
+                    <option value="ACE B-04 (70AH Lithium Battery Trolley 25000 Lumens)">ACE B-04 — 70AH Lithium Battery Trolley Tower</option>
+                  </optgroup>
+                  <optgroup label="⛽ Diesel Engine Series (Heavy-Duty Industrial)">
+                    <option value="ACE LT 4000 (Diesel 5 HP Air-Cooled)">ACE LT 4000 — 5 HP Air-Cooled Diesel</option>
+                    <option value="ACE LT 6000 (Diesel 8 HP 40L Tank)">ACE LT 6000 — 8 HP Diesel Light Tower</option>
+                    <option value="ACE LT 9000 (Lombardini Kohler 8 HP Diesel)">ACE LT 9000 — Lombardini Kohler 8 HP Diesel</option>
+                    <option value="ACE LT 12000 (Escort Kubota 14.5 HP 12M Mast)">ACE LT 12000 — Escort Kubota 14.5 HP Diesel Flagship</option>
+                  </optgroup>
+                  <optgroup label="☀️ Solar Powered Series (100% Off-Grid)">
+                    <option value="ACE 0.5 SLT 4000 (500W Solar Off-Grid)">ACE 0.5 SLT 4000 — 500W Solar Off-Grid Mobile Tower</option>
+                    <option value="ACE 2 SLT 6000 (2340W Solar Heavy Array)">ACE 2 SLT 6000 — 2,340W Solar Array Heavy Mobile Tower</option>
+                  </optgroup>
+                  <optgroup label="🔌 External Grid Powered (Without Genset)">
+                    <option value="Mobile Light Tower Without Genset (Grid 220V 2400W)">Mobile Light Tower Without Genset (External 220V Grid)</option>
+                  </optgroup>
+                  <optgroup label="⚡ Petrol Powered Series">
+                    <option value="ACE PLT 4000 (Honda EP 1000 Petrol)">ACE PLT 4000 — Honda EP 1000 Petrol Light Tower</option>
+                  </optgroup>
+                  <optgroup label="🔄 Battery-Petrol Hybrid Series">
+                    <option value="ACE PBLT 3000 (Battery-Petrol Hybrid 3.0M)">ACE PBLT 3000 — Battery-Petrol Hybrid Tower</option>
+                    <option value="ACE PBLT 4000 (Battery-Petrol Hybrid 4.5M)">ACE PBLT 4000 — Battery-Petrol Hybrid Tower (16+ Hrs)</option>
+                  </optgroup>
+                  <optgroup label="🎈 Inflatable Balloon Series (360° Glare-Free)">
+                    <option value="ACE 1.2 IT 4500 (Inflatable 360 Glare-Free Balloon Tower)">ACE 1.2 IT 4500 — Inflatable 360° Glare-Free Balloon Tower</option>
+                  </optgroup>
+                  <optgroup label="🏢 Defense, Government & Custom Projects">
+                    <option value="Defense / PSU / Military Specification Tender Order">Defense / PSU / Military Tender Order</option>
+                    <option value="Custom Engineered Mobile Lighting Tower">Custom Engineered Mobile Lighting Tower</option>
+                  </optgroup>
+                </select>
               </div>
-            </div>
 
-            <div class="form-group">
-              <select name="product" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;">
-                <option value="">-- Select Product Variant / Model of Interest --</option>
-                
-                <optgroup label="🔋 Battery Powered Series (Zero-Emission & Portable)">
-                  <option value="ACE B-01 (12V Battery Light Tower 5000 Lumens)" data-id="ace-b-01">ACE B-01 — 12V Battery Light Tower (5,000 Lumens, 1.5M Telescopic)</option>
-                  <option value="ACE B-02 (50AH Lithium Battery Tower 15000 Lumens)" data-id="ace-b-02">ACE B-02 — 50AH Lithium Battery Tower (15,000 Lumens, Twin LED)</option>
-                  <option value="ACE B-04 (70AH Lithium Battery Trolley 25000 Lumens)" data-id="ace-b-04">ACE B-04 — 70AH Lithium Battery Trolley Tower (25,000 Lumens, 2M Mast)</option>
-                </optgroup>
+              <!-- Preferred Channel -->
+              <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display:block;font-size:12px;font-weight:700;color:#64748b;margin-bottom:8px;text-transform:uppercase;">Preferred Response Channel:</label>
+                <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:14px;">
+                  <label style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;"><input type="radio" name="preferredChannel" value="WhatsApp" checked> 💬 WhatsApp</label>
+                  <label style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;"><input type="radio" name="preferredChannel" value="Phone Call"> 📞 Phone Call</label>
+                  <label style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;"><input type="radio" name="preferredChannel" value="Email"> ✉️ Email</label>
+                </div>
+              </div>
 
-                <optgroup label="⛽ Diesel Engine Series (Heavy-Duty Industrial)">
-                  <option value="ACE LT 4000 (Diesel 5 HP Air-Cooled)" data-id="ace-lt-4000">ACE LT 4000 — 5 HP Air-Cooled Diesel (4.5M - 6M Mast, 4,000 Sq.M)</option>
-                  <option value="ACE LT 6000 (Diesel 8 HP 40L Tank)" data-id="ace-lt-6000">ACE LT 6000 — 8 HP Diesel Light Tower (40L Tank, 7,000 Sq.M)</option>
-                  <option value="ACE LT 9000 (Lombardini Kohler 8 HP Diesel)" data-id="ace-lt-9000">ACE LT 9000 — Lombardini Kohler 8 HP Diesel (10,000 Sq.M)</option>
-                  <option value="ACE LT 12000 (Escort Kubota 14.5 HP 12M Mast)" data-id="ace-lt-12000">ACE LT 12000 — Escort Kubota 14.5 HP Diesel Flagship (12M Mast, 2,40,000 Lumens)</option>
-                </optgroup>
+              <div class="form-group">
+                <textarea name="message" class="form-control" placeholder="Please describe your requirements, questions, site conditions, or technical specifications *" required rows="4"></textarea>
+              </div>
 
-                <optgroup label="☀️ Solar Powered Series (100% Off-Grid)">
-                  <option value="ACE 0.5 SLT 4000 (500W Solar Off-Grid)" data-id="ace-0-5-slt-4000">ACE 0.5 SLT 4000 — 500W Solar Off-Grid Mobile Tower</option>
-                  <option value="ACE 2 SLT 6000 (2340W Solar Heavy Array)" data-id="ace-2-slt-6000">ACE 2 SLT 6000 — 2,340W Solar Array Heavy Mobile Tower (1,20,000 Lumens, 7M Tilt Mast)</option>
-                </optgroup>
+              <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <button type="submit" class="btn-solid" style="padding: 14px 28px;">Submit Technical Enquiry 💬</button>
+                <a href="https://wa.me/918126732502?text=Hello%20Ariselux%20Team%2C%20I%20want%20to%20enquire%20about%20mobile%20lighting%20towers" target="_blank" class="btn-theme" style="color: #25D366; font-weight: 700;">
+                  Or Chat Directly on WhatsApp →
+                </a>
+              </div>
+            </form>
+          </div>
 
-                <optgroup label="🔌 External Grid Powered (Without Genset)">
-                  <option value="Mobile Light Tower Without Genset (Grid 220V 2400W)" data-id="without-genset">Mobile Light Tower Without Genset (External 220V Grid, 2,40,000 Lumens, 12M Mast)</option>
-                </optgroup>
+          <!-- PANE 2: COMMERCIAL QUOTATION FORM -->
+          <div class="contact-pane" id="c-pane-quote" style="display: none;">
+            <form id="contact-quotation-form" class="contact-form">
+              <!-- Anti-bot honeypot trap -->
+              <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
+              <input type="hidden" name="entryType" value="quotation">
+              <input type="hidden" name="source" value="contact-page-quotation">
 
-                <optgroup label="⚡ Petrol Powered Series">
-                  <option value="ACE PLT 4000 (Honda EP 1000 Petrol)" data-id="ace-plt-4000">ACE PLT 4000 — Honda EP 1000 Petrol Light Tower (50,000 Lumens, 4M Mast)</option>
-                </optgroup>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <input type="text" name="name" class="form-control" placeholder="Full Name *" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="company" class="form-control" placeholder="Company / Organization Name *" required>
+                </div>
+              </div>
 
-                <optgroup label="🔄 Battery-Petrol Hybrid Series">
-                  <option value="ACE PBLT 3000 (Battery-Petrol Hybrid 3.0M)" data-id="ace-pblt-3000">ACE PBLT 3000 — Battery-Petrol Hybrid Tower (3.0M Mast)</option>
-                  <option value="ACE PBLT 4000 (Battery-Petrol Hybrid 4.5M)" data-id="ace-pblt-4000">ACE PBLT 4000 — Battery-Petrol Hybrid Tower (16+ Hrs Runtime, 4.5M - 6M Mast)</option>
-                </optgroup>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <input type="email" name="email" class="form-control" placeholder="Official / Work Email Address *" required>
+                </div>
+                <div class="form-group">
+                  <input type="tel" name="phone" class="form-control" placeholder="Contact Mobile / WhatsApp *" required>
+                </div>
+              </div>
 
-                <optgroup label="🎈 Inflatable Balloon Series (360° Glare-Free)">
-                  <option value="ACE 1.2 IT 4500 (Inflatable 360 Glare-Free Balloon Tower)" data-id="ace-1-2-it-4500">ACE 1.2 IT 4500 — Inflatable 360° Glare-Free Balloon Tower (4.5M Height, 10,000 Sq.M)</option>
-                </optgroup>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <select name="quantity" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;" required>
+                    <option value="1 Unit">Quantity: 1 Unit (Standard Deployment)</option>
+                    <option value="2 - 5 Units">Quantity: 2 - 5 Units (Fleet Deployment)</option>
+                    <option value="6 - 10 Units">Quantity: 6 - 10 Units (Bulk Order)</option>
+                    <option value="10+ Units">Quantity: 10+ Units (Tender / Institutional)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select name="deliveryTimeline" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;">
+                    <option value="Immediate Dispatch">Timeline: Immediate Dispatch (Ready Stock)</option>
+                    <option value="Within 1 - 2 Weeks">Timeline: Within 1 - 2 Weeks</option>
+                    <option value="Within 1 Month">Timeline: Within 1 Month</option>
+                    <option value="Bidding / Tender Stage">Timeline: Bidding / Tender Stage</option>
+                  </select>
+                </div>
+              </div>
 
-                <optgroup label="🏢 Defense, Government & Custom Projects">
-                  <option value="Defense / PSU / Military Specification Tender Order" data-id="tender">Defense / PSU / Military Specification Tender Order</option>
-                  <option value="Custom Engineered Mobile Lighting Tower" data-id="custom">Custom Engineered Mobile Lighting Tower Solution</option>
-                </optgroup>
-              </select>
-            </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                  <input type="text" name="deliveryLocation" class="form-control" placeholder="Delivery Destination (City / State / Site) *" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="gstin" class="form-control" placeholder="Company GSTIN (Optional - for tax quote)">
+                </div>
+              </div>
 
-            <div class="form-group">
-              <textarea name="message" class="form-control" placeholder="Project details, required quantity, location, or technical requirements *" required rows="4"></textarea>
-            </div>
+              <div class="form-group">
+                <select name="product" class="form-control" style="border-bottom: 1px solid #000; cursor: pointer;" required>
+                  <option value="">-- Select Model to Quote * --</option>
+                  <optgroup label="⛽ Diesel Series (Heavy-Duty Industrial)">
+                    <option value="ACE LT 12000 (Escort Kubota 14.5 HP 12M Mast)" selected>ACE LT 12000 — Escort Kubota 14.5 HP Diesel Flagship (12M Mast)</option>
+                    <option value="ACE LT 9000 (Lombardini Kohler 8 HP Diesel)">ACE LT 9000 — Lombardini Kohler 8 HP Diesel (9M Mast)</option>
+                    <option value="ACE LT 6000 (Diesel 8 HP 40L Tank)">ACE LT 6000 — 8 HP Diesel Light Tower (6M Mast)</option>
+                    <option value="ACE LT 4000 (Diesel 5 HP Air-Cooled)">ACE LT 4000 — 5 HP Air-Cooled Diesel (4.5M Mast)</option>
+                  </optgroup>
+                  <optgroup label="🔋 Battery Powered Series (Zero-Emission)">
+                    <option value="ACE B-04 (70AH Lithium Battery Trolley 25000 Lumens)">ACE B-04 — 70AH Lithium Battery Trolley Tower</option>
+                    <option value="ACE B-02 (50AH Lithium Battery Tower 15000 Lumens)">ACE B-02 — 50AH Lithium Battery Tower</option>
+                    <option value="ACE B-01 (12V Battery Light Tower 5000 Lumens)">ACE B-01 — 12V Battery Light Tower</option>
+                  </optgroup>
+                  <optgroup label="☀️ Solar Powered Series (100% Off-Grid)">
+                    <option value="ACE 2 SLT 6000 (2340W Solar Heavy Array)">ACE 2 SLT 6000 — 2,340W Solar Array Heavy Mobile Tower</option>
+                    <option value="ACE 0.5 SLT 4000 (500W Solar Off-Grid)">ACE 0.5 SLT 4000 — 500W Solar Off-Grid Mobile Tower</option>
+                  </optgroup>
+                  <optgroup label="🔌 External Grid Powered (Without Genset)">
+                    <option value="Mobile Light Tower Without Genset (Grid 220V 2400W)">Mobile Light Tower Without Genset (External 220V Grid)</option>
+                  </optgroup>
+                  <optgroup label="⚡ Petrol & Hybrid Series">
+                    <option value="ACE PLT 4000 (Honda EP 1000 Petrol)">ACE PLT 4000 — Honda EP 1000 Petrol Light Tower</option>
+                    <option value="ACE PBLT 4000 (Battery-Petrol Hybrid 4.5M)">ACE PBLT 4000 — Battery-Petrol Hybrid Tower</option>
+                  </optgroup>
+                  <optgroup label="🎈 Inflatable Balloon Series (360° Glare-Free)">
+                    <option value="ACE 1.2 IT 4500 (Inflatable 360 Glare-Free Balloon Tower)">ACE 1.2 IT 4500 — Inflatable 360° Balloon Tower</option>
+                  </optgroup>
+                </select>
+              </div>
 
-            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-              <button type="submit" class="btn-solid">Submit Quotation Request</button>
-              <a href="https://wa.me/918126732502?text=Hello%20Ariselux%20Team%2C%20I%20want%20to%20enquire%20about%20mobile%20lighting%20towers" target="_blank" class="btn-theme" style="color: #25D366; font-weight: 700;">
-                Or Chat Directly on WhatsApp →
-              </a>
-            </div>
-          </form>
+              <div class="form-group">
+                <textarea name="specifications" class="form-control" placeholder="Custom Mast Height, Engine Brand Preferences, or Commercial Requirements..." rows="3"></textarea>
+              </div>
+
+              <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <button type="submit" class="btn-solid" style="background:#000;border-color:#000;padding: 14px 28px;">Submit Quotation Request 📋</button>
+                <span style="font-size:13px;color:var(--gray-600);">Official quotation with unit pricing, GST, and freight delivered within 2-4 business hours.</span>
+              </div>
+            </form>
+          </div>
         </div>
 
         <!-- Contact Info Box -->

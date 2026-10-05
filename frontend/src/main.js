@@ -191,113 +191,227 @@ function initProductFilters() {
 }
 initProductFilters();
 
-// --- Contact Form Handler (contact.html) ---
+// --- Contact Form Handlers (contact.html) ---
 function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-  if (form.__initialized) return;
-  form.__initialized = true;
+  // 1. Tab Switcher
+  const tabEnqBtn = document.getElementById('c-tab-enquiry');
+  const tabQuoteBtn = document.getElementById('c-tab-quote');
+  const paneEnq = document.getElementById('c-pane-enquiry');
+  const paneQuote = document.getElementById('c-pane-quote');
+
+  function setContactTab(tab) {
+    if (tab === 'quotation') {
+      if (tabQuoteBtn) {
+        tabQuoteBtn.style.background = '#000';
+        tabQuoteBtn.style.color = '#fff';
+        tabQuoteBtn.style.borderColor = '#000';
+      }
+      if (tabEnqBtn) {
+        tabEnqBtn.style.background = '#f8fafc';
+        tabEnqBtn.style.color = '#334155';
+        tabEnqBtn.style.borderColor = '#cbd5e1';
+      }
+      if (paneQuote) paneQuote.style.display = 'block';
+      if (paneEnq) paneEnq.style.display = 'none';
+    } else {
+      if (tabEnqBtn) {
+        tabEnqBtn.style.background = 'var(--primary)';
+        tabEnqBtn.style.color = '#fff';
+        tabEnqBtn.style.borderColor = 'transparent';
+      }
+      if (tabQuoteBtn) {
+        tabQuoteBtn.style.background = '#f8fafc';
+        tabQuoteBtn.style.color = '#334155';
+        tabQuoteBtn.style.borderColor = '#cbd5e1';
+      }
+      if (paneEnq) paneEnq.style.display = 'block';
+      if (paneQuote) paneQuote.style.display = 'none';
+    }
+  }
+
+  if (tabEnqBtn) tabEnqBtn.addEventListener('click', () => setContactTab('enquiry'));
+  if (tabQuoteBtn) tabQuoteBtn.addEventListener('click', () => setContactTab('quotation'));
+
+  // Check URL params for active tab: ?action=quotation or ?action=enquiry
+  const urlParams = new URLSearchParams(window.location.search);
+  const actionParam = urlParams.get('action') || urlParams.get('type');
+  if (actionParam === 'quotation' || actionParam === 'quote' || actionParam === 'rfq') {
+    setContactTab('quotation');
+  }
 
   // Pre-select product dropdown if passed in URL query param: ?product=ace-b-01
-  const urlParams = new URLSearchParams(window.location.search);
   const selectedProduct = urlParams.get('product');
   if (selectedProduct) {
-    const productSelect = form.querySelector('select[name="product"]');
-    if (productSelect) {
-      // Find matching option
-      for (const option of productSelect.options) {
+    document.querySelectorAll('#contact-enquiry-form select[name="product"], #contact-quotation-form select[name="product"]').forEach(select => {
+      for (const option of select.options) {
         const optVal = (option.value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-        const optId = (option.getAttribute('data-id') || '').toLowerCase().replace(/[^a-z0-9]/g, '');
         const targetSlug = selectedProduct.toLowerCase().replace(/[^a-z0-9]/g, '');
-        if ((optId && (optId === targetSlug || optId.includes(targetSlug) || targetSlug.includes(optId))) ||
-            (optVal && (optVal === targetSlug || optVal.includes(targetSlug) || targetSlug.includes(optVal)))) {
+        if (optVal && (optVal === targetSlug || optVal.includes(targetSlug) || targetSlug.includes(optVal))) {
           option.selected = true;
           break;
         }
       }
-    }
+    });
   }
 
-  // Handle submit with Backend API call
-  let isContactSubmitting = false;
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (isContactSubmitting) return;
-    isContactSubmitting = true;
+  // 2. Enquiry Form Submit
+  const enqForm = document.getElementById('contact-enquiry-form') || document.getElementById('contact-form');
+  if (enqForm && !enqForm.__initialized) {
+    enqForm.__initialized = true;
+    let isSubmitting = false;
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+    enqForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
+      isSubmitting = true;
 
-    const formData = new FormData(form);
+      const submitBtn = enqForm.querySelector('button[type="submit"]');
+      const origBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
 
-    // ── Email Validation ──
-    const emailValue = (formData.get('email') || '').trim();
-    if (emailValue) {
+      const formData = new FormData(enqForm);
+      const email = (formData.get('email') || '').trim().toLowerCase();
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      if (!emailRegex.test(emailValue)) {
+      if (!emailRegex.test(email)) {
         alert('⚠️ Please enter a correct email address.\n\nExample: yourname@company.com');
-        const emailInput = form.querySelector('input[name="email"]');
-        if (emailInput) { emailInput.focus(); emailInput.select(); }
-        isContactSubmitting = false;
+        const emailInput = enqForm.querySelector('input[name="email"]');
+        if (emailInput) emailInput.focus();
+        isSubmitting = false;
         return;
       }
-    }
 
-    const payload = {
-      name: formData.get('name') || '',
-      email: emailValue,
-      phone: formData.get('phone') || '',
-      company: formData.get('company') || '',
-      product: formData.get('product') || 'General Inquiry',
-      message: formData.get('message') || '',
-      source: 'contact-page'
-    };
+      const payload = {
+        name: (formData.get('name') || '').trim(),
+        phone: (formData.get('phone') || '').trim(),
+        email: email,
+        company: (formData.get('company') || '').trim(),
+        enquiryType: formData.get('enquiryType') || formData.get('enquiry_type') || 'Technical Consultation',
+        projectType: formData.get('projectType') || 'General Infrastructure',
+        product: formData.get('product') || 'General Factory Enquiry',
+        preferredChannel: formData.get('preferredChannel') || 'WhatsApp',
+        message: (formData.get('message') || '').trim(),
+        entryType: 'enquiry',
+        source: 'contact-page-enquiry'
+      };
 
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting Request...';
-    }
-
-    try {
-      const response = await fetch('/api/inquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        const inqId = data.inquiry ? data.inquiry.id : 'Recorded';
-        const msg = `Thank you, ${payload.name || 'Sir/Madam'}!\n\nYour quotation request (#${inqId}) has been successfully submitted to our sales engineering desk in Haridwar.\n\nWe will reach out within 2-4 business hours.\n\nWould you like to open WhatsApp now to connect directly with our sales team?`;
-        
-        if (confirm(msg)) {
-          if (data.whatsappDirectUrl) {
-            window.open(data.whatsappDirectUrl, '_blank');
-          } else {
-            const waText = encodeURIComponent(`Hello Ariselux Team, I submitted an enquiry (Ref #${inqId}):\n*Name:* ${payload.name}\n*Product:* ${payload.product}\n*Phone:* ${payload.phone}\n*Message:* ${payload.message}`);
-            window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
-          }
-        }
-        form.reset();
-      } else {
-        alert(data.message || 'There was an issue submitting your request. Please call +91-8126732502 or WhatsApp us directly.');
-      }
-    } catch (err) {
-      console.warn('API submission fallback:', err);
-      const waText = encodeURIComponent(`Hello Ariselux Team, I want to enquire:\n*Name:* ${payload.name}\n*Product:* ${payload.product}\n*Phone:* ${payload.phone}\n*Company:* ${payload.company}\n*Message:* ${payload.message}`);
-      if (confirm('Quotation request recorded. Would you like to send this directly to Ariselux WhatsApp desk right now?')) {
-        window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
-      }
-      form.reset();
-    } finally {
-      isContactSubmitting = false;
       if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting Enquiry...';
       }
-    }
-  });
+
+      try {
+        const response = await fetch('/api/enquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          const enqId = data.enquiry ? data.enquiry.id : 'Recorded';
+          const msg = `Thank you, ${payload.name}!\n\nYour technical enquiry (#${enqId}) has been received by our sales engineering desk at Haridwar Works.\n\nWe will connect via ${payload.preferredChannel} within 2-4 business hours.\n\nWould you like to open WhatsApp now to chat with our engineering desk?`;
+          if (confirm(msg)) {
+            window.open(data.whatsappDirectUrl || `https://wa.me/918126732502?text=${encodeURIComponent(`Hello Ariselux Team, I submitted an enquiry (Ref #${enqId}):\n*Name:* ${payload.name}\n*Product:* ${payload.product}\n*Phone:* ${payload.phone}\n*Query:* ${payload.message}`)}`, '_blank');
+          }
+          enqForm.reset();
+        } else {
+          alert(data.message || 'There was an issue submitting your enquiry. Please WhatsApp us at +91-8126732502.');
+        }
+      } catch (err) {
+        console.warn('Enquiry fallback:', err);
+        const waText = encodeURIComponent(`Hello Ariselux Team, I want to enquire:\n*Name:* ${payload.name}\n*Product:* ${payload.product}\n*Phone:* ${payload.phone}\n*Company:* ${payload.company}\n*Query:* ${payload.message}`);
+        if (confirm('Enquiry recorded locally. Would you like to chat with Ariselux sales desk on WhatsApp right now?')) {
+          window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+        }
+        enqForm.reset();
+      } finally {
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = origBtnHtml;
+        }
+      }
+    });
+  }
+
+  // 3. Commercial Quotation Form Submit
+  const quoteForm = document.getElementById('contact-quotation-form');
+  if (quoteForm && !quoteForm.__initialized) {
+    quoteForm.__initialized = true;
+    let isQuoteSubmitting = false;
+
+    quoteForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isQuoteSubmitting) return;
+      isQuoteSubmitting = true;
+
+      const submitBtn = quoteForm.querySelector('button[type="submit"]');
+      const origBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
+
+      const formData = new FormData(quoteForm);
+      const email = (formData.get('email') || '').trim().toLowerCase();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(email)) {
+        alert('⚠️ Please enter a valid work email address.\n\nExample: name@company.com');
+        const emailInput = quoteForm.querySelector('input[name="email"]');
+        if (emailInput) emailInput.focus();
+        isQuoteSubmitting = false;
+        return;
+      }
+
+      const payload = {
+        name: (formData.get('name') || '').trim(),
+        company: (formData.get('company') || '').trim(),
+        email: email,
+        phone: (formData.get('phone') || '').trim(),
+        quantity: formData.get('quantity') || '1 Unit',
+        deliveryTimeline: formData.get('deliveryTimeline') || 'Immediate Dispatch',
+        deliveryLocation: (formData.get('deliveryLocation') || '').trim(),
+        gstin: (formData.get('gstin') || '').trim(),
+        product: formData.get('product') || 'Ariselux Light Tower',
+        specifications: (formData.get('specifications') || '').trim(),
+        entryType: 'quotation',
+        source: 'contact-page-quotation'
+      };
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting Quotation Request...';
+      }
+
+      try {
+        const response = await fetch('/api/quotations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          const quoteId = data.quotation ? data.quotation.id : 'Recorded';
+          const msg = `Thank you, ${payload.name}!\n\nYour commercial quotation request for "${payload.product}" (Ref #${quoteId}) has been received at Haridwar Works.\n\nWe will share your formal quotation within 2-4 business hours.\n\nWould you like to connect directly on WhatsApp with our sales desk right now?`;
+          if (confirm(msg)) {
+            window.open(data.whatsappDirectUrl || `https://wa.me/918126732502?text=${encodeURIComponent(`Hello Ariselux Team, I requested quotation Ref #${quoteId} for ${payload.product}`)}`, '_blank');
+          }
+          quoteForm.reset();
+        } else {
+          alert(data.message || 'There was an issue submitting your quotation request. Please WhatsApp us at +91-8126732502.');
+        }
+      } catch (err) {
+        console.warn('Quotation fallback:', err);
+        const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I requested a quote:\n*Product:* ${payload.product}\n*Quantity:* ${payload.quantity}\n*Buyer:* ${payload.name} (${payload.company})\n*Phone:* ${payload.phone}`);
+        if (confirm('Quotation recorded locally. Would you like to connect directly on WhatsApp with our sales desk right now?')) {
+          window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+        }
+        quoteForm.reset();
+      } finally {
+        isQuoteSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = origBtnHtml;
+        }
+      }
+    });
+  }
 }
 initContactForm();
 
@@ -365,6 +479,7 @@ function initRequestForQuotation() {
             </div>
 
             <input type="hidden" name="product" id="rfq-hidden-product" value="">
+            <input type="hidden" name="entryType" value="quotation">
             <input type="hidden" name="source" value="rfq-badge-modal">
             <!-- Anti-bot honeypot field -->
             <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
@@ -396,37 +511,54 @@ function initRequestForQuotation() {
 
               <!-- Quantity Required -->
               <div class="rfq-form-group">
-                <label class="rfq-label" for="rfq-select-quantity">Quantity Required</label>
-                <select id="rfq-select-quantity" name="quantity" class="rfq-select">
+                <label class="rfq-label" for="rfq-select-quantity">Quantity Required <span class="req">*</span></label>
+                <select id="rfq-select-quantity" name="quantity" class="rfq-select" required>
                   <option value="1 Unit">1 Unit (Standard Deployment)</option>
-                  <option value="2 - 5 Units">2 - 5 Units</option>
-                  <option value="6 - 10 Units">6 - 10 Units</option>
-                  <option value="10+ Units">10+ Units (Tender / Fleet Order)</option>
+                  <option value="2 - 5 Units">2 - 5 Units (Fleet Requirement)</option>
+                  <option value="6 - 10 Units">6 - 10 Units (Project Order)</option>
+                  <option value="10+ Units">10+ Units (Tender / Institutional Procurement)</option>
+                </select>
+              </div>
+
+              <!-- Delivery Timeline -->
+              <div class="rfq-form-group">
+                <label class="rfq-label" for="rfq-select-timeline">Target Delivery Timeline</label>
+                <select id="rfq-select-timeline" name="deliveryTimeline" class="rfq-select">
+                  <option value="Immediate Dispatch">Immediate Dispatch (Ready Stock)</option>
+                  <option value="Within 1 - 2 Weeks">Within 1 - 2 Weeks</option>
+                  <option value="Within 1 Month">Within 1 Month</option>
+                  <option value="Bidding / Tender Stage">Bidding / Project Tender Stage</option>
                 </select>
               </div>
 
               <!-- Project Location / Delivery Site -->
               <div class="rfq-form-group">
-                <label class="rfq-label" for="rfq-input-location">Delivery City / Site</label>
-                <input type="text" id="rfq-input-location" name="location" class="rfq-input" placeholder="e.g. Haridwar, Gujarat, Delhi NCR">
+                <label class="rfq-label" for="rfq-input-location">Delivery City / Site <span class="req">*</span></label>
+                <input type="text" id="rfq-input-location" name="location" class="rfq-input" placeholder="e.g. Haridwar, Gujarat, Delhi NCR" required>
+              </div>
+
+              <!-- Company GSTIN (Optional) -->
+              <div class="rfq-form-group">
+                <label class="rfq-label" for="rfq-input-gstin">Company GSTIN <span style="font-weight: 400; color: #64748b; font-size: 11px;">(Optional)</span></label>
+                <input type="text" id="rfq-input-gstin" name="gstin" class="rfq-input" placeholder="e.g. 05AAAAA0000A1Z5">
               </div>
 
               <!-- Requirement / Specifications (Optional) -->
               <div class="rfq-form-group full-width">
                 <label class="rfq-label" for="rfq-textarea-message">Requirement Details & Specifications <span style="font-weight: 400; color: #64748b; font-size: 11px;">(Optional)</span></label>
-                <textarea id="rfq-textarea-message" name="message" class="rfq-textarea" rows="3" placeholder="Fill your requirement..."></textarea>
+                <textarea id="rfq-textarea-message" name="message" class="rfq-textarea" rows="3" placeholder="Specify mast height, engine brand, or technical requirements..."></textarea>
               </div>
             </div>
 
             <!-- Submit Button -->
             <button type="submit" class="rfq-submit-btn" id="rfq-submit-btn">
-              <span>Submit Quotation Request</span>
+              <span>Submit Commercial Quotation</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
 
             <div class="rfq-trust-footer">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>ISO 9001:2015 Certified OEM • Sales Desk: +91-8126732502 • Immediate Response</span>
+              <span>ISO 9001:2015 Certified OEM • Haridwar Works • Commercial Quotation within 2-4 Hours</span>
             </div>
           </form>
 
@@ -437,8 +569,8 @@ function initRequestForQuotation() {
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             </div>
-            <h4 class="rfq-success-title">Quotation Request Received!</h4>
-            <div class="rfq-ref-pill" id="rfq-ref-id">Ref #ARL-INQ-1001</div>
+            <h4 class="rfq-success-title">Commercial Quotation Request Received!</h4>
+            <div class="rfq-ref-pill" id="rfq-ref-id">Ref #RFQ-1001</div>
             <p class="rfq-success-desc" id="rfq-success-msg">
               Thank you! Our engineering desk at Haridwar has received your quotation request. We will prepare an official commercial quotation and technical proposal within 2-4 business hours.
             </p>
@@ -484,7 +616,7 @@ function initRequestForQuotation() {
     rfqSuccessView.style.display = 'none';
     if (rfqSubmitBtn) {
       rfqSubmitBtn.disabled = false;
-      rfqSubmitBtn.innerHTML = `<span>Submit Quotation Request</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
+      rfqSubmitBtn.innerHTML = `<span>Submit Commercial Quotation</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
     }
 
     rfqModal.classList.add('active');
@@ -578,14 +710,7 @@ function initRequestForQuotation() {
     });
   });
 
-  // Also wire any "Enquire Now" buttons on product pages
-  document.querySelectorAll('a[href*="/contact.html?product="], a[href*="contact.html?product="]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const details = extractProductDetails(btn);
-      openRFQModal(details);
-    });
-  });
+
 
   // Handle Form Submission
   let isRfqSubmitting = false;
@@ -596,36 +721,48 @@ function initRequestForQuotation() {
       isRfqSubmitting = true;
 
       const formData = new FormData(rfqForm);
-      const name = formData.get('name') || '';
-      const email = formData.get('email') || '';
-      const phone = formData.get('phone') || '';
-      const company = formData.get('company') || '';
+      const name = (formData.get('name') || '').trim();
+      const company = (formData.get('company') || '').trim();
+      const email = (formData.get('email') || '').trim().toLowerCase();
+      const phone = (formData.get('phone') || '').trim();
       const product = formData.get('product') || 'Ariselux Light Tower';
       const quantity = formData.get('quantity') || '1 Unit';
-      const location = formData.get('location') || '';
-      const userNotes = (formData.get('message') || '').trim();
-      const requirementText = userNotes || `Please share official price quotation and technical specifications for ${product}.`;
+      const deliveryTimeline = formData.get('deliveryTimeline') || 'Immediate Dispatch';
+      const deliveryLocation = (formData.get('location') || '').trim();
+      const gstin = (formData.get('gstin') || '').trim();
+      const specifications = (formData.get('message') || '').trim();
 
-      const fullMessage = `Quantity Required: ${quantity}\nDelivery Location: ${location || 'Not specified'}\n\nRequirement / Specifications: ${requirementText}`;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(email)) {
+        alert('⚠️ Please enter a valid work email address.\n\nExample: name@company.com');
+        const emailInput = document.getElementById('rfq-input-email');
+        if (emailInput) emailInput.focus();
+        isRfqSubmitting = false;
+        return;
+      }
 
       const payload = {
         name,
+        company,
         email,
         phone,
-        company,
         product,
-        location,
-        message: fullMessage,
+        quantity,
+        deliveryTimeline,
+        deliveryLocation,
+        gstin,
+        specifications,
+        entryType: 'quotation',
         source: 'rfq-badge-modal'
       };
 
       if (rfqSubmitBtn) {
         rfqSubmitBtn.disabled = true;
-        rfqSubmitBtn.innerHTML = `<span>Submitting Request...</span>`;
+        rfqSubmitBtn.innerHTML = `<span>Submitting Quotation Request...</span>`;
       }
 
       try {
-        const response = await fetch('/api/inquiries', {
+        const response = await fetch('/api/quotations', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -634,25 +771,25 @@ function initRequestForQuotation() {
         const data = await response.json();
 
         if (response.ok && data.success) {
-          const inqId = data.inquiry ? data.inquiry.id : 'Recorded';
+          const quoteId = data.quotation ? data.quotation.id : 'Recorded';
           
           // Show Success View
           rfqForm.style.display = 'none';
           rfqSuccessView.style.display = 'block';
 
           const refPill = document.getElementById('rfq-ref-id');
-          if (refPill) refPill.textContent = `Inquiry Ref #${inqId}`;
+          if (refPill) refPill.textContent = `Quotation Ref #${quoteId}`;
 
           const successMsg = document.getElementById('rfq-success-msg');
           if (successMsg) {
-            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your quotation request for <strong>${product}</strong> has been received by our sales engineering team in Haridwar.<br><br>📧 A confirmation email has been sent to <strong>${email}</strong>. We will share your official commercial quotation and technical datasheet within 2-4 business hours.`;
+            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your official quotation request for <strong>${product}</strong> (${quantity}) has been registered at Haridwar Works.<br><br>📧 A commercial confirmation email has been dispatched to <strong>${email}</strong>. Our engineering desk will deliver your formal pricing and freight estimate within 2-4 business hours.`;
           }
 
           const waBtn = document.getElementById('rfq-wa-direct-btn');
           if (waBtn) {
-            const waNotes = userNotes || 'Official quotation requested.';
-            const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I requested a quote (Ref #${inqId}):\n*Product:* ${product}\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Quantity:* ${quantity}\n*Details:* ${waNotes}`);
-            waBtn.href = data.whatsappDirectUrl || data.whatsappUrl || `https://wa.me/918126732502?text=${waText}`;
+            const waNotes = specifications || 'Official quotation requested.';
+            const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I requested Quotation Ref #${quoteId}:\n*Product:* ${product}\n*Quantity:* ${quantity}\n*Timeline:* ${deliveryTimeline}\n*Site:* ${deliveryLocation}\n*Company:* ${company}\n*Buyer:* ${name} (${phone})\n*Notes:* ${waNotes}`);
+            waBtn.href = data.whatsappDirectUrl || `https://wa.me/918126732502?text=${waText}`;
           }
 
           rfqForm.reset();
@@ -661,8 +798,8 @@ function initRequestForQuotation() {
         }
       } catch (err) {
         console.warn('RFQ API submission fallback:', err);
-        const waNotes = userNotes || 'Official quotation requested.';
-        const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I would like to request a quotation:\n*Product:* ${product}\n*Name:* ${name}\n*Company:* ${company}\n*Phone:* ${phone}\n*Quantity:* ${quantity}\n*Details:* ${waNotes}`);
+        const waNotes = specifications || 'Official quotation requested.';
+        const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I would like to request a quotation:\n*Product:* ${product}\n*Quantity:* ${quantity}\n*Timeline:* ${deliveryTimeline}\n*Buyer:* ${name} (${company})\n*Phone:* ${phone}\n*Details:* ${waNotes}`);
         
         // Show Success with direct WhatsApp option
         rfqForm.style.display = 'none';
@@ -686,10 +823,374 @@ function initRequestForQuotation() {
         isRfqSubmitting = false;
         if (rfqSubmitBtn) {
           rfqSubmitBtn.disabled = false;
+          rfqSubmitBtn.innerHTML = `<span>Submit Commercial Quotation</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
         }
       }
     });
   }
 }
 initRequestForQuotation();
+
+// ============================================
+// DEDICATED GENERAL & TECHNICAL ENQUIRY SYSTEM
+// ============================================
+function initEnquiryModal() {
+  if (window.__enquiryInitialized) return;
+  window.__enquiryInitialized = true;
+
+  // Inject Enquiry Modal if not in DOM
+  let enquiryModal = document.getElementById('enquiry-modal');
+  if (!enquiryModal) {
+    enquiryModal = document.createElement('div');
+    enquiryModal.id = 'enquiry-modal';
+    enquiryModal.className = 'enquiry-modal-overlay';
+    enquiryModal.setAttribute('role', 'dialog');
+    enquiryModal.setAttribute('aria-modal', 'true');
+    enquiryModal.setAttribute('aria-labelledby', 'enquiry-modal-title');
+    enquiryModal.innerHTML = `
+      <div class="enquiry-modal-dialog">
+        <!-- Header -->
+        <div class="enquiry-modal-header">
+          <div class="enquiry-modal-title-group">
+            <h3 id="enquiry-modal-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Technical &amp; General Enquiry Desk
+            </h3>
+            <p>Direct Factory Consultation • Model Guidance, Dealership &amp; Specifications</p>
+          </div>
+          <button type="button" class="enquiry-close-btn" id="enquiry-close-btn" aria-label="Close Enquiry Form">&times;</button>
+        </div>
+
+        <!-- Body -->
+        <div class="enquiry-modal-body">
+          <!-- Form View -->
+          <form id="enquiry-form">
+            <!-- Context Banner (when enquiring from a product) -->
+            <div class="enquiry-context-banner" id="enquiry-context-banner" style="display: none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <span>Enquiring regarding: <strong id="enquiry-context-product">Mobile Light Tower</strong></span>
+            </div>
+
+            <input type="hidden" name="product" id="enquiry-hidden-product" value="General Factory Enquiry">
+            <input type="hidden" name="source" value="enquiry-modal">
+            <!-- Anti-bot honeypot field -->
+            <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
+
+            <div class="enquiry-form-grid">
+              <!-- Full Name -->
+              <div class="enquiry-form-group">
+                <label class="enquiry-label" for="enquiry-input-name">Full Name <span class="req">*</span></label>
+                <input type="text" id="enquiry-input-name" name="name" class="enquiry-input" placeholder="e.g. Rajesh Kumar" required>
+              </div>
+
+              <!-- Contact Mobile -->
+              <div class="enquiry-form-group">
+                <label class="enquiry-label" for="enquiry-input-phone">Phone / WhatsApp Number <span class="req">*</span></label>
+                <input type="tel" id="enquiry-input-phone" name="phone" class="enquiry-input" placeholder="e.g. +91 98765 43210" required>
+              </div>
+
+              <!-- Work Email -->
+              <div class="enquiry-form-group">
+                <label class="enquiry-label" for="enquiry-input-email">Official / Work Email <span class="req">*</span></label>
+                <input type="email" id="enquiry-input-email" name="email" class="enquiry-input" placeholder="e.g. name@company.com" required>
+              </div>
+
+              <!-- Company / Organization -->
+              <div class="enquiry-form-group">
+                <label class="enquiry-label" for="enquiry-input-company">Company / Organization <span style="font-weight:400;color:#64748b;font-size:11px;">(Optional)</span></label>
+                <input type="text" id="enquiry-input-company" name="company" class="enquiry-input" placeholder="e.g. Infrastructure, Contractor, PSU">
+              </div>
+
+              <!-- Nature of Enquiry (Best field for enquiry!) -->
+              <div class="enquiry-form-group">
+                <label class="enquiry-label" for="enquiry-select-nature">Nature of Enquiry <span class="req">*</span></label>
+                <select id="enquiry-select-nature" name="enquiryType" class="enquiry-select" required>
+                  <option value="Technical Specifications & Consultation">Technical Specifications &amp; Consultation</option>
+                  <option value="Price & Availability Query">Price &amp; Availability Query</option>
+                  <option value="Dealership & Distribution Inquiry">Dealership &amp; Distribution Inquiry</option>
+                  <option value="Custom Engineering & Mast Fabrication">Custom Engineering &amp; Special Mast</option>
+                  <option value="After-Sales Service & Spare Parts">After-Sales Service, Warranty &amp; Spares</option>
+                  <option value="Government Tender / Bulk Purchase">Government Tender / Fleet Order</option>
+                  <option value="General Question / Other">General Question / Other</option>
+                </select>
+              </div>
+
+              <!-- Equipment Series of Interest -->
+              <div class="enquiry-form-group">
+                <label class="enquiry-label" for="enquiry-select-category">Category of Interest</label>
+                <select id="enquiry-select-category" name="category" class="enquiry-select">
+                  <option value="All / General Mobile Towers">All / Need Technical Guidance</option>
+                  <option value="Battery Powered Series (Zero Emission)">Battery Powered Series (Zero Emission)</option>
+                  <option value="Diesel Engine Series (Heavy-Duty Industrial)">Diesel Engine Series (4.5M - 12M Mast)</option>
+                  <option value="Solar Powered Series (100% Off-Grid)">Solar Powered Series (100% Off-Grid)</option>
+                  <option value="Battery-Petrol Hybrid Series">Battery-Petrol Hybrid Series</option>
+                  <option value="Inflatable Balloon Series (360° Glare-Free)">Inflatable Balloon Series (360° Glare-Free)</option>
+                  <option value="External Grid Powered (Without Genset)">External Grid Powered (Without Genset)</option>
+                  <option value="Spare Parts & Components">Spare Parts &amp; Illumination Kits</option>
+                </select>
+              </div>
+
+              <!-- City / State -->
+              <div class="enquiry-form-group full-width">
+                <label class="enquiry-label" for="enquiry-input-location">City / State / Site Location</label>
+                <input type="text" id="enquiry-input-location" name="location" class="enquiry-input" placeholder="e.g. Haridwar, Ahmedabad, Delhi NCR, Hyderabad">
+              </div>
+
+              <!-- Preferred Response Channel -->
+              <div class="enquiry-form-group full-width">
+                <label class="enquiry-label">Preferred Response Channel</label>
+                <div class="enquiry-channel-group">
+                  <label class="enquiry-channel-label">
+                    <input type="radio" name="preferredChannel" value="WhatsApp" checked>
+                    <span>💬 WhatsApp</span>
+                  </label>
+                  <label class="enquiry-channel-label">
+                    <input type="radio" name="preferredChannel" value="Phone Call">
+                    <span>📞 Phone Call</span>
+                  </label>
+                  <label class="enquiry-channel-label">
+                    <input type="radio" name="preferredChannel" value="Email">
+                    <span>✉️ Email</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Your Enquiry Details -->
+              <div class="enquiry-form-group full-width">
+                <label class="enquiry-label" for="enquiry-textarea-message">Your Enquiry / Questions <span class="req">*</span></label>
+                <textarea id="enquiry-textarea-message" name="message" class="enquiry-textarea" rows="3" placeholder="Tell our engineering team about your project requirement, site conditions, or questions..." required></textarea>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="enquiry-submit-btn" id="enquiry-submit-btn">
+              <span>Submit Factory Enquiry</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+
+            <div class="rfq-trust-footer" style="margin-top: 14px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1b5faa" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>Direct Factory Desk: +91-8126732502 • Response within 2-4 business hours • Haridwar Works</span>
+            </div>
+          </form>
+
+          <!-- Success View -->
+          <div id="enquiry-success-view" class="enquiry-success-view" style="display: none;">
+            <div class="enquiry-success-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h4 class="enquiry-success-title">Enquiry Received Successfully!</h4>
+            <div class="enquiry-ref-pill" id="enquiry-ref-id">Ref #ARL-ENQ-1001</div>
+            <p class="enquiry-success-desc" id="enquiry-success-msg">
+              Thank you! Your enquiry has been received by our technical sales engineering desk in Haridwar. An engineer will reach out to you via your preferred channel within 2-4 business hours.
+            </p>
+            <div class="enquiry-success-actions">
+              <a href="#" target="_blank" class="rfq-wa-btn" id="enquiry-wa-direct-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                <span>Chat Directly on WhatsApp Now</span>
+              </a>
+              <button type="button" class="rfq-done-btn" id="enquiry-done-btn">Done / Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(enquiryModal);
+  }
+
+  const enquiryForm = document.getElementById('enquiry-form');
+  const enquirySuccessView = document.getElementById('enquiry-success-view');
+  const enquiryCloseBtn = document.getElementById('enquiry-close-btn');
+  const enquiryDoneBtn = document.getElementById('enquiry-done-btn');
+  const enquirySubmitBtn = document.getElementById('enquiry-submit-btn');
+
+  function openEnquiryModal(productInfo) {
+    if (!enquiryModal) return;
+    if (enquiryForm) enquiryForm.style.display = 'block';
+    if (enquirySuccessView) enquirySuccessView.style.display = 'none';
+
+    const contextBanner = document.getElementById('enquiry-context-banner');
+    const contextProduct = document.getElementById('enquiry-context-product');
+    const hiddenProduct = document.getElementById('enquiry-hidden-product');
+
+    if (productInfo && productInfo.title) {
+      if (contextBanner) contextBanner.style.display = 'flex';
+      if (contextProduct) contextProduct.textContent = productInfo.title;
+      if (hiddenProduct) hiddenProduct.value = productInfo.title;
+    } else {
+      if (contextBanner) contextBanner.style.display = 'none';
+      if (hiddenProduct) hiddenProduct.value = 'General Factory Enquiry';
+    }
+
+    enquiryModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+      const nameInput = document.getElementById('enquiry-input-name');
+      if (nameInput) nameInput.focus();
+    }, 150);
+  }
+
+  function closeEnquiryModal() {
+    if (!enquiryModal) return;
+    enquiryModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (enquiryCloseBtn) enquiryCloseBtn.addEventListener('click', closeEnquiryModal);
+  if (enquiryDoneBtn) enquiryDoneBtn.addEventListener('click', closeEnquiryModal);
+  enquiryModal.addEventListener('click', (e) => {
+    if (e.target === enquiryModal) closeEnquiryModal();
+  });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && enquiryModal.classList.contains('active')) {
+      closeEnquiryModal();
+    }
+  });
+
+  // Wire all "Enquire Now" buttons on product pages and navigation
+  document.querySelectorAll('a[href*="/contact.html?product="], a[href*="contact.html?product="], .btn-enquire, [data-action="enquire"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const card = btn.closest('.product-detail-card, .product-card, .product-item') || btn;
+      const heading = card.querySelector('h4, h3, h5, .product-title');
+      const title = heading ? heading.textContent.trim().replace(/\s+/g, ' ') : (new URL(btn.href, window.location.origin).searchParams.get('product') || 'Mobile Light Tower');
+      openEnquiryModal({ title });
+    });
+  });
+
+  // Wire header and general "Enquire Now" buttons to open Enquiry Modal
+  document.querySelectorAll('a.header-cta, a.btn-solid[href*="contact.html"]').forEach(btn => {
+    if (window.location.pathname.includes('contact')) return;
+    if (btn.textContent.toLowerCase().includes('enquire')) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openEnquiryModal();
+      });
+    }
+  });
+
+  // Handle Enquiry Form Submission
+  let isEnquirySubmitting = false;
+  if (enquiryForm) {
+    enquiryForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isEnquirySubmitting) return;
+      isEnquirySubmitting = true;
+
+      const formData = new FormData(enquiryForm);
+      const name = (formData.get('name') || '').trim();
+      const phone = (formData.get('phone') || '').trim();
+      const email = (formData.get('email') || '').trim().toLowerCase();
+      const company = (formData.get('company') || '').trim();
+      const enquiryType = formData.get('enquiryType') || 'Technical Consultation';
+      const category = formData.get('category') || '';
+      const product = formData.get('product') || category || 'General Enquiry';
+      const location = (formData.get('location') || '').trim();
+      const preferredChannel = formData.get('preferredChannel') || 'WhatsApp';
+      const userMessage = (formData.get('message') || '').trim();
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(email)) {
+        alert('⚠️ Please enter a valid work email address.\n\nExample: yourname@company.com');
+        const emailInput = document.getElementById('enquiry-input-email');
+        if (emailInput) emailInput.focus();
+        isEnquirySubmitting = false;
+        return;
+      }
+
+      const fullMessage = `Nature of Enquiry: ${enquiryType}\nCategory / Model: ${product}\nLocation: ${location || 'Not specified'}\nPreferred Channel: ${preferredChannel}\n\nEnquiry Query: ${userMessage}`;
+
+      const payload = {
+        name,
+        email,
+        phone,
+        company,
+        enquiryType,
+        projectType: category || 'General Consultation',
+        product: product !== 'General Factory Enquiry' ? product : `${enquiryType} (${category})`,
+        location,
+        preferredChannel,
+        message: userMessage,
+        fullMessage: fullMessage,
+        entryType: 'enquiry',
+        source: 'enquiry-modal'
+      };
+
+      if (enquirySubmitBtn) {
+        enquirySubmitBtn.disabled = true;
+        enquirySubmitBtn.innerHTML = `<span>Submitting Factory Enquiry...</span>`;
+      }
+
+      try {
+        const response = await fetch('/api/enquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          const enqId = data.enquiry ? data.enquiry.id : 'Recorded';
+          enquiryForm.style.display = 'none';
+          enquirySuccessView.style.display = 'block';
+
+          const refPill = document.getElementById('enquiry-ref-id');
+          if (refPill) refPill.textContent = `Enquiry Ref #${enqId}`;
+
+          const successMsg = document.getElementById('enquiry-success-msg');
+          if (successMsg) {
+            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your technical enquiry regarding <strong>${payload.product}</strong> has been received.<br><br>📧 A confirmation acknowledgment has been sent to <strong>${email}</strong>. Our engineering desk will connect via <strong>${preferredChannel}</strong> within 2-4 business hours.`;
+          }
+
+          const waBtn = document.getElementById('enquiry-wa-direct-btn');
+          if (waBtn) {
+            const waText = encodeURIComponent(`Hello Ariselux Engineering Desk, I submitted an enquiry (Ref #${inqId}):\n*Name:* ${name}\n*Nature:* ${enquiryType}\n*Product:* ${product}\n*Phone:* ${phone}\n*Query:* ${userMessage}`);
+            waBtn.href = data.whatsappDirectUrl || `https://wa.me/918126732502?text=${waText}`;
+          }
+
+          enquiryForm.reset();
+        } else {
+          alert(data.message || 'There was an issue submitting your enquiry. Please WhatsApp us directly at +91-8126732502.');
+        }
+      } catch (err) {
+        console.warn('Enquiry submission error fallback:', err);
+        const waText = encodeURIComponent(`Hello Ariselux Engineering Desk, I want to submit an enquiry:\n*Name:* ${name}\n*Nature:* ${enquiryType}\n*Product:* ${product}\n*Phone:* ${phone}\n*Query:* ${userMessage}`);
+        enquiryForm.style.display = 'none';
+        enquirySuccessView.style.display = 'block';
+
+        const refPill = document.getElementById('enquiry-ref-id');
+        if (refPill) refPill.textContent = `Instant WhatsApp Connect`;
+
+        const successMsg = document.getElementById('enquiry-success-msg');
+        if (successMsg) {
+          successMsg.innerHTML = `Thank you, <strong>${name}</strong>! We've prepared your enquiry details.<br><br>Click below to connect directly with our engineering team on WhatsApp.`;
+        }
+
+        const waBtn = document.getElementById('enquiry-wa-direct-btn');
+        if (waBtn) {
+          waBtn.href = `https://wa.me/918126732502?text=${waText}`;
+        }
+        enquiryForm.reset();
+      } finally {
+        isEnquirySubmitting = false;
+        if (enquirySubmitBtn) {
+          enquirySubmitBtn.disabled = false;
+          enquirySubmitBtn.innerHTML = `<span>Submit Factory Enquiry</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>`;
+        }
+      }
+    });
+  }
+
+  // Export globally
+  window.openEnquiryModal = openEnquiryModal;
+}
+initEnquiryModal();
+
 

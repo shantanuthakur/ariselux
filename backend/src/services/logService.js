@@ -63,21 +63,54 @@ function writeLine(level, category, message, meta = null) {
 // ── Public API ────────────────────────────────────────────────
 
 /**
- * Log a new quotation / inquiry submission
+ * Log a new quotation request submission (RFQ)
  */
-export function logInquiry(inquiry, emailResults = {}) {
-  writeLine('INFO', 'INQUIRY', `New quotation request received`, {
-    id: inquiry.id,
-    name: inquiry.name,
-    email: inquiry.email || 'N/A',
-    phone: inquiry.phone,
-    company: inquiry.company || 'N/A',
-    product: inquiry.product,
-    location: inquiry.location || 'N/A',
-    source: inquiry.source,
+export function logQuotation(quotation, emailResults = {}) {
+  writeLine('INFO', 'QUOTATION', `New commercial quotation (RFQ) received`, {
+    id: quotation.id,
+    name: quotation.name,
+    company: quotation.company || 'Direct Buyer',
+    gstin: quotation.gstin || 'N/A',
+    product: quotation.product,
+    quantity: quotation.quantity,
+    timeline: quotation.deliveryTimeline,
+    location: quotation.deliveryLocation || quotation.location || 'N/A',
+    phone: quotation.phone,
+    email: quotation.email || 'N/A',
+    source: quotation.source,
     salesEmail: emailResults.salesDesk || 'N/A',
     customerEmail: emailResults.customerAck || 'N/A'
   });
+}
+
+/**
+ * Log a new technical & factory enquiry submission
+ */
+export function logEnquiry(enquiry, emailResults = {}) {
+  writeLine('INFO', 'ENQUIRY', `New technical enquiry received`, {
+    id: enquiry.id,
+    name: enquiry.name,
+    enquiryType: enquiry.enquiryType,
+    product: enquiry.product,
+    projectType: enquiry.projectType || 'N/A',
+    preferredChannel: enquiry.preferredChannel || 'WhatsApp',
+    location: enquiry.location || 'N/A',
+    phone: enquiry.phone,
+    email: enquiry.email || 'N/A',
+    source: enquiry.source,
+    salesEmail: emailResults.salesDesk || 'N/A',
+    customerEmail: emailResults.customerAck || 'N/A'
+  });
+}
+
+/**
+ * Log a general quotation / inquiry submission (fallback)
+ */
+export function logInquiry(inquiry, emailResults = {}) {
+  if (inquiry.entryType === 'quotation' || inquiry.id?.startsWith('RFQ-')) {
+    return logQuotation(inquiry, emailResults);
+  }
+  return logEnquiry(inquiry, emailResults);
 }
 
 /**

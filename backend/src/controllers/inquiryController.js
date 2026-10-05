@@ -1,54 +1,92 @@
-import { saveInquiry, getInquiries, getInquiryById, updateInquiryStatus } from '../services/storageService.js';
-import { sendInquiryNotification, sendCustomerAcknowledgment } from '../services/emailService.js';
+import { 
+  saveQuotation, 
+  getQuotations, 
+  getQuotationById, 
+  updateQuotationStatus,
+  saveEnquiry, 
+  getEnquiries, 
+  getEnquiryById, 
+  updateEnquiryStatus,
+  saveInquiry, 
+  getInquiries, 
+  getInquiryById, 
+  updateInquiryStatus 
+} from '../services/storageService.js';
+import { 
+  sendQuotationNotification, 
+  sendCustomerQuotationAcknowledgment, 
+  sendEnquiryNotification, 
+  sendCustomerEnquiryAcknowledgment 
+} from '../services/emailService.js';
 import { config } from '../config/index.js';
-import { logInquiry, logEmail, logRateLimit, logSpam, logDedupe, logError } from '../services/logService.js';
+import { 
+  logQuotation, 
+  logEnquiry, 
+  logInquiry, 
+  logEmail, 
+  logRateLimit, 
+  logSpam, 
+  logDedupe, 
+  logError 
+} from '../services/logService.js';
 
 // Simple in-memory rate limiting map (IP -> timestamps)
 const submissionRateMap = new Map();
 
-// In-memory deduplication map (key -> { timestamp, response }) to prevent duplicate emails from rapid clicks/retries
+// In-memory deduplication map (key -> { timestamp, response })
 const recentSubmissionsMap = new Map();
 
-export async function createInquiry(req, res, next) {
-  try {
-    const { name, email, phone, company, product, location, message, source, website_hp, _gotcha } = req.body;
+function checkRateLimit(req, type = 'request') {
+  const clientIp = req.ip || req.connection?.remoteAddress || 'unknown';
+  const now = Date.now();
+  const windowMs = 10 * 60 * 1000;
+  const history = submissionRateMap.get(clientIp) || [];
+  const validHistory = history.filter(ts => now - ts < windowMs);
+  
+  if (validHistory.length >= 8) {
+    logRateLimit(clientIp, req.body?.product || 'unknown');
+    return false;
+  }
+  validHistory.push(now);
+  submissionRateMap.set(clientIp, validHistory);
+  return true;
+}
 
-    // Honeypot check (catches automated bot scripts)
+// ── 1. DEDICATED COMMERCIAL QUOTATION CONTROLLER ─────────────
+export async function createQuotation(req, res, next) {
+  try {
+    const { 
+      name, email, phone, company, gstin, product, quantity, 
+      deliveryTimeline, deliveryLocation, location, specifications, message, 
+      source, website_hp, _gotcha 
+    } = req.body;
+
+    // Honeypot spam check
     if (website_hp || _gotcha) {
       console.warn(`[SPAM DETECTED] Honeypot triggered from IP: ${req.ip}`);
       logSpam(req.ip);
       return res.status(200).json({
         success: true,
+        entryType: 'quotation',
         message: 'Quotation request received.'
       });
     }
 
-    // IP Rate Limiting (max 5 requests per 10 minutes per IP)
-    const clientIp = req.ip || req.connection?.remoteAddress || 'unknown';
-    const now = Date.now();
-    const windowMs = 10 * 60 * 1000;
-    const history = submissionRateMap.get(clientIp) || [];
-    const validHistory = history.filter(ts => now - ts < windowMs);
-    
-    if (validHistory.length >= 5) {
-      logRateLimit(clientIp, req.body?.product || 'unknown');
+    if (!checkRateLimit(req, 'quotation')) {
       return res.status(429).json({
         success: false,
         message: 'Too many quotation requests submitted. Please connect directly via WhatsApp at +91-8126732502.'
       });
     }
-    validHistory.push(now);
-    submissionRateMap.set(clientIp, validHistory);
 
-    // Validation
-    if (!name || !phone || !message) {
+    // Required fields for Quotation
+    if (!name || !phone) {
       return res.status(400).json({
         success: false,
-        message: 'Name, contact mobile number, and message are required fields.'
+        message: 'Full Name and Contact Phone / WhatsApp number are required for quotation.'
       });
     }
 
-    // Phone basic sanitization / validation
     const cleanPhone = phone.replace(/[^0-9+]/g, '');
     if (cleanPhone.length < 8) {
       return res.status(400).json({
@@ -58,54 +96,65 @@ export async function createInquiry(req, res, next) {
     }
 
     const cleanEmail = (email || '').trim().toLowerCase();
-    const cleanProduct = (product || 'General Inquiry').trim();
+    const cleanProduct = (product || 'Ariselux Light Tower').trim();
+    const cleanQuantity = (quantity || '1 Unit').trim();
+    const cleanLocation = (deliveryLocation || location || '').trim();
 
-    // Deduplication check: prevent identical submissions within 60 seconds (stops duplicate emails from double-clicking/retries)
-    const dedupeKey = `${cleanPhone}_${cleanEmail}_${cleanProduct.toLowerCase()}`;
+    // Deduplication check: 60-second window
+    const now = Date.now();
+    const dedupeKey = `quote_${cleanPhone}_${cleanEmail}_${cleanProduct.toLowerCase()}`;
     if (recentSubmissionsMap.has(dedupeKey)) {
       const existing = recentSubmissionsMap.get(dedupeKey);
       if (now - existing.timestamp < 60000) {
-        console.log(`[DEDUPE] Duplicate inquiry submission blocked for: ${dedupeKey}`);
         logDedupe(dedupeKey);
         return res.status(200).json(existing.response);
       }
     }
 
-    const inquiry = await saveInquiry({
+    // Save dedicated Quotation entry
+    const quotation = await saveQuotation({
       name,
       email: cleanEmail,
       phone: cleanPhone,
       company: company || '',
+      gstin: gstin || '',
       product: cleanProduct,
-      location: location || '',
-      message,
-      source: source || 'website'
+      quantity: cleanQuantity,
+      deliveryTimeline: deliveryTimeline || 'Immediate Dispatch',
+      deliveryLocation: cleanLocation,
+      specifications: specifications || message || '',
+      message: message || specifications || 'Official quotation requested.',
+      source: source || 'rfq-form'
     });
 
-    // Send email notification to sales desk (internal alert)
-    const salesEmailResult = await sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message }));
-    logEmail('SALES_DESK', config.company.email, salesEmailResult);
+    // Send dedicated Quotation notification to sales desk
+    const salesEmailResult = await sendQuotationNotification(quotation).catch(err => ({ sent: false, error: err.message }));
+    logEmail('SALES_QUOTATION_ALERT', config.company.email, salesEmailResult);
 
-    // Send customer acknowledgment email ("We have received your quotation request")
+    // Send customer commercial quotation acknowledgment email
     const customerEmailResult = cleanEmail
-      ? await sendCustomerAcknowledgment(inquiry).catch(err => ({ sent: false, error: err.message }))
+      ? await sendCustomerQuotationAcknowledgment(quotation).catch(err => ({ sent: false, error: err.message }))
       : { sent: false, reason: 'no_customer_email' };
-    if (cleanEmail) logEmail('CUSTOMER_ACK', cleanEmail, customerEmailResult);
+    if (cleanEmail) logEmail('CUSTOMER_QUOTATION_ACK', cleanEmail, customerEmailResult);
 
-    // WhatsApp direct link generator
-    const waText = encodeURIComponent(
-      `Hello Ariselux Team, I submitted an enquiry (Ref #${inquiry.id}):\n\n*Name:* ${inquiry.name}\n*Product:* ${inquiry.product}\n*Company:* ${inquiry.company}\n*Phone:* ${inquiry.phone}\n*Requirement:* ${inquiry.message}`
+    // Dedicated WhatsApp link for commercial quotations
+    const waQuoteText = encodeURIComponent(
+      `Hello Ariselux Sales Desk, I requested an Official Quotation (Ref #${quotation.id}):\n*Model:* ${quotation.product}\n*Quantity:* ${quotation.quantity}\n*Delivery Site:* ${quotation.deliveryLocation} (${quotation.deliveryTimeline})\n*Company:* ${quotation.company}\n*Buyer:* ${quotation.name}\n*Phone:* ${quotation.phone}`
     );
-    const whatsappUrl = `https://wa.me/${config.company.whatsapp}?text=${waText}`;
+    const whatsappUrl = `https://wa.me/${config.company.whatsapp}?text=${waQuoteText}`;
 
     const responseData = {
       success: true,
-      message: 'Quotation request received successfully. Our engineering desk will connect with you within 2-4 business hours.',
-      inquiry: {
-        id: inquiry.id,
-        name: inquiry.name,
-        product: inquiry.product,
-        createdAt: inquiry.createdAt
+      entryType: 'quotation',
+      message: 'Official commercial quotation request received successfully. Our engineering desk will connect with unit pricing within 2-4 business hours.',
+      quotation: {
+        id: quotation.id,
+        name: quotation.name,
+        product: quotation.product,
+        quantity: quotation.quantity,
+        deliveryTimeline: quotation.deliveryTimeline,
+        deliveryLocation: quotation.deliveryLocation,
+        createdAt: quotation.createdAt
       },
       emailDelivery: {
         salesDesk: salesEmailResult.sent 
@@ -118,26 +167,212 @@ export async function createInquiry(req, res, next) {
       whatsappDirectUrl: whatsappUrl
     };
 
-    // Log the full inquiry summary to file
-    logInquiry(inquiry, {
+    logQuotation(quotation, {
       salesDesk: salesEmailResult.sent ? `Delivered to ${config.company.email}` : (salesEmailResult.error || 'failed'),
       customerAck: customerEmailResult.sent ? `Delivered to ${cleanEmail}` : (customerEmailResult.reason || customerEmailResult.error || 'not sent')
     });
 
-    // Cache to deduplicate rapid successive calls
     recentSubmissionsMap.set(dedupeKey, { timestamp: now, response: responseData });
-
     return res.status(201).json(responseData);
   } catch (err) {
-    logError('INQUIRY', `Unhandled error in createInquiry`, err);
+    logError('QUOTATION', `Unhandled error in createQuotation`, err);
+    next(err);
+  }
+}
+
+// ── 2. DEDICATED TECHNICAL ENQUIRY CONTROLLER ────────────────
+export async function createEnquiry(req, res, next) {
+  try {
+    const { 
+      name, email, phone, company, location, enquiryType, 
+      product, projectType, preferredChannel, message, 
+      source, website_hp, _gotcha 
+    } = req.body;
+
+    // Honeypot spam check
+    if (website_hp || _gotcha) {
+      console.warn(`[SPAM DETECTED] Honeypot triggered from IP: ${req.ip}`);
+      logSpam(req.ip);
+      return res.status(200).json({
+        success: true,
+        entryType: 'enquiry',
+        message: 'Technical enquiry received.'
+      });
+    }
+
+    if (!checkRateLimit(req, 'enquiry')) {
+      return res.status(429).json({
+        success: false,
+        message: 'Too many enquiry requests submitted. Please connect directly via WhatsApp at +91-8126732502.'
+      });
+    }
+
+    // Required fields for Enquiry
+    if (!name || !phone || !message) {
+      return res.status(400).json({
+        success: false,
+        message: 'Full Name, Contact Phone number, and Enquiry details/message are required.'
+      });
+    }
+
+    const cleanPhone = phone.replace(/[^0-9+]/g, '');
+    if (cleanPhone.length < 8) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please provide a valid contact phone number.'
+      });
+    }
+
+    const cleanEmail = (email || '').trim().toLowerCase();
+    const cleanProduct = (product || 'General Technical Enquiry').trim();
+    const cleanEnquiryType = (enquiryType || 'Technical Consultation').trim();
+    const cleanChannel = (preferredChannel || 'WhatsApp').trim();
+
+    // Deduplication check: 60-second window
+    const now = Date.now();
+    const dedupeKey = `enq_${cleanPhone}_${cleanEmail}_${cleanProduct.toLowerCase()}`;
+    if (recentSubmissionsMap.has(dedupeKey)) {
+      const existing = recentSubmissionsMap.get(dedupeKey);
+      if (now - existing.timestamp < 60000) {
+        logDedupe(dedupeKey);
+        return res.status(200).json(existing.response);
+      }
+    }
+
+    // Save dedicated Enquiry entry
+    const enquiry = await saveEnquiry({
+      name,
+      email: cleanEmail,
+      phone: cleanPhone,
+      company: company || '',
+      location: location || '',
+      enquiryType: cleanEnquiryType,
+      product: cleanProduct,
+      projectType: projectType || 'General Infrastructure',
+      preferredChannel: cleanChannel,
+      message,
+      source: source || 'enquiry-form'
+    });
+
+    // Send dedicated Enquiry notification to technical desk
+    const salesEmailResult = await sendEnquiryNotification(enquiry).catch(err => ({ sent: false, error: err.message }));
+    logEmail('SALES_ENQUIRY_ALERT', config.company.email, salesEmailResult);
+
+    // Send customer technical consultation acknowledgment email
+    const customerEmailResult = cleanEmail
+      ? await sendCustomerEnquiryAcknowledgment(enquiry).catch(err => ({ sent: false, error: err.message }))
+      : { sent: false, reason: 'no_customer_email' };
+    if (cleanEmail) logEmail('CUSTOMER_ENQUIRY_ACK', cleanEmail, customerEmailResult);
+
+    // Dedicated WhatsApp link for technical enquiries
+    const waEnqText = encodeURIComponent(
+      `Hello Ariselux Engineering Desk, I submitted a Technical Enquiry (Ref #${enquiry.id}):\n*Nature:* ${enquiry.enquiryType}\n*Equipment:* ${enquiry.product}\n*Project:* ${enquiry.projectType}\n*Preferred Channel:* ${enquiry.preferredChannel}\n*Name:* ${enquiry.name}\n*Phone:* ${enquiry.phone}\n*Query:* ${enquiry.message}`
+    );
+    const whatsappUrl = `https://wa.me/${config.company.whatsapp}?text=${waEnqText}`;
+
+    const responseData = {
+      success: true,
+      entryType: 'enquiry',
+      message: 'Technical consultation enquiry received successfully. Our engineering team will connect with you within 2-4 business hours.',
+      enquiry: {
+        id: enquiry.id,
+        name: enquiry.name,
+        enquiryType: enquiry.enquiryType,
+        product: enquiry.product,
+        preferredChannel: enquiry.preferredChannel,
+        createdAt: enquiry.createdAt
+      },
+      emailDelivery: {
+        salesDesk: salesEmailResult.sent 
+          ? `Delivered to ${config.company.email}` 
+          : (salesEmailResult.message || salesEmailResult.error || 'SMTP credentials not configured in backend/.env'),
+        customerAck: customerEmailResult.sent
+          ? `Delivered to ${cleanEmail}`
+          : (customerEmailResult.reason || customerEmailResult.error || 'Not sent')
+      },
+      whatsappDirectUrl: whatsappUrl
+    };
+
+    logEnquiry(enquiry, {
+      salesDesk: salesEmailResult.sent ? `Delivered to ${config.company.email}` : (salesEmailResult.error || 'failed'),
+      customerAck: customerEmailResult.sent ? `Delivered to ${cleanEmail}` : (customerEmailResult.reason || customerEmailResult.error || 'not sent')
+    });
+
+    recentSubmissionsMap.set(dedupeKey, { timestamp: now, response: responseData });
+    return res.status(201).json(responseData);
+  } catch (err) {
+    logError('ENQUIRY', `Unhandled error in createEnquiry`, err);
+    next(err);
+  }
+}
+
+// ── 3. GENERAL / LEGACY DISPATCHER (Intelligently splits Quotation vs Enquiry) ─
+export async function createInquiry(req, res, next) {
+  const isQuotation = 
+    req.body.entryType === 'quotation' || 
+    req.body.type === 'quotation' || 
+    req.body.source?.includes('rfq') || 
+    req.body.source?.includes('quotation') ||
+    Boolean(req.body.quantity) ||
+    Boolean(req.body.deliveryTimeline);
+
+  if (isQuotation) {
+    return createQuotation(req, res, next);
+  }
+  return createEnquiry(req, res, next);
+}
+
+// ── 4. RETRIEVAL ENDPOINTS ───────────────────────────────────
+export async function getAllQuotations(req, res, next) {
+  try {
+    const list = await getQuotations();
+    return res.json({ success: true, total: list.length, data: list });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getSingleQuotation(req, res, next) {
+  try {
+    const { id } = req.params;
+    const item = await getQuotationById(id);
+    if (!item) return res.status(404).json({ success: false, message: 'Quotation not found' });
+    return res.json({ success: true, data: item });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getAllEnquiries(req, res, next) {
+  try {
+    const list = await getEnquiries();
+    return res.json({ success: true, total: list.length, data: list });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getSingleEnquiry(req, res, next) {
+  try {
+    const { id } = req.params;
+    const item = await getEnquiryById(id);
+    if (!item) return res.status(404).json({ success: false, message: 'Enquiry not found' });
+    return res.json({ success: true, data: item });
+  } catch (err) {
     next(err);
   }
 }
 
 export async function getAllInquiries(req, res, next) {
   try {
-    const { status, search } = req.query;
+    const { status, search, type } = req.query;
     let list = await getInquiries();
+
+    if (type === 'quotation') {
+      list = list.filter(i => i.entryType === 'quotation' || i.id.startsWith('RFQ-'));
+    } else if (type === 'enquiry') {
+      list = list.filter(i => i.entryType === 'enquiry' || i.id.startsWith('ENQ-'));
+    }
 
     if (status) {
       list = list.filter(i => i.status.toLowerCase() === status.toLowerCase());
@@ -197,7 +432,7 @@ export async function changeInquiryStatus(req, res, next) {
 
     return res.json({
       success: true,
-      message: `Inquiry status updated to ${status}`,
+      message: `Status updated to ${status}`,
       data: updated
     });
   } catch (err) {

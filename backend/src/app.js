@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import { config } from './config/index.js';
 import { testSmtpConnection } from './services/emailService.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
+import quotationRoutes from './routes/quotationRoutes.js';
+import enquiryRoutes from './routes/enquiryRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import newsletterRoutes from './routes/newsletterRoutes.js';
 
@@ -48,8 +50,11 @@ app.post('/api/test-email', async (req, res) => {
   }
 });
 
-// API Routes
-app.use('/api/inquiries', inquiryRoutes);
+// API Routes (Dedicated + Legacy Aliases)
+app.use('/api/quotations', quotationRoutes);
+app.use('/api/rfq', quotationRoutes); // friendly alias for RFQ
+app.use('/api/enquiries', enquiryRoutes);
+app.use('/api/inquiries', inquiryRoutes); // smart unified router
 app.use('/api/contact', inquiryRoutes); // friendly alias for contact form
 app.use('/api/products', productRoutes);
 app.use('/api/newsletter', newsletterRoutes);

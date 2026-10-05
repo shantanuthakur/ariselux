@@ -194,60 +194,96 @@ function renderProductDetail() {
     }).join('');
   }
 
-  // Form Pre-selection
-  const hiddenProdInput = document.getElementById('form-selected-product');
-  if (hiddenProdInput) {
-    hiddenProdInput.value = product.title;
-  }
+  // Form Product Pre-selection
+  document.querySelectorAll('.form-hidden-product').forEach(input => {
+    input.value = product.title;
+  });
+  document.querySelectorAll('.target-model-name').forEach(el => {
+    el.textContent = product.title;
+  });
 }
 
 renderProductDetail();
 
-// Inquiry Form Submission with Backend API
-const detailForm = document.getElementById('detail-inquiry-form');
-let isDetailSubmitting = false;
-if (detailForm) {
-  detailForm.addEventListener('submit', async (e) => {
+// ── Action Tabs Switching (Quotation vs Enquiry) ──────────────
+function initDetailTabs() {
+  const tabBtns = document.querySelectorAll('.action-tab-btn');
+  const quoteTab = document.getElementById('tab-content-quotation');
+  const enqTab = document.getElementById('tab-content-enquiry');
+
+  function switchTab(targetTab) {
+    tabBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === targetTab);
+    });
+    if (quoteTab) quoteTab.classList.toggle('active', targetTab === 'quotation');
+    if (enqTab) enqTab.classList.toggle('active', targetTab === 'enquiry');
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchTab(btn.dataset.tab);
+    });
+  });
+
+  // Hero section trigger buttons
+  document.querySelectorAll('.btn-tab-trigger').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const targetTab = btn.dataset.targetTab || 'quotation';
+      switchTab(targetTab);
+    });
+  });
+}
+initDetailTabs();
+
+// ── 1. Commercial Quotation Form Handler ──────────────────────
+const quoteForm = document.getElementById('detail-quotation-form');
+const quoteSuccessView = document.getElementById('detail-quote-success-view');
+const quoteResetBtn = document.getElementById('detail-quote-reset-btn');
+let isQuoteSubmitting = false;
+
+if (quoteForm) {
+  quoteForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (isDetailSubmitting) return;
-    isDetailSubmitting = true;
+    if (isQuoteSubmitting) return;
+    isQuoteSubmitting = true;
 
-    const submitBtn = detailForm.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+    const submitBtn = quoteForm.querySelector('button[type="submit"]');
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
 
-    const formData = new FormData(detailForm);
+    const formData = new FormData(quoteForm);
 
-    // ── Email Validation ──
-    const emailValue = (formData.get('c_email') || '').trim();
-    if (emailValue) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      if (!emailRegex.test(emailValue)) {
-        alert('⚠️ Please enter a correct email address.\n\nExample: yourname@company.com');
-        const emailInput = detailForm.querySelector('input[name="c_email"]');
-        if (emailInput) { emailInput.focus(); emailInput.select(); }
-        isDetailSubmitting = false;
-        return;
-      }
+    const email = (formData.get('email') || '').trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(email)) {
+      alert('⚠️ Please enter a valid work email address.\n\nExample: name@company.com');
+      const emailInput = quoteForm.querySelector('input[name="email"]');
+      if (emailInput) { emailInput.focus(); emailInput.select(); }
+      isQuoteSubmitting = false;
+      return;
     }
 
     const payload = {
-      name: formData.get('c_name') || '',
-      email: emailValue,
-      phone: formData.get('c_number') || '',
-      company: formData.get('c_company') || '',
-      location: formData.get('c_location') || '',
-      message: formData.get('c_message') || '',
+      name: (formData.get('name') || '').trim(),
+      company: (formData.get('company') || '').trim(),
+      email: email,
+      phone: (formData.get('phone') || '').trim(),
+      quantity: formData.get('quantity') || '1 Unit',
+      deliveryTimeline: formData.get('deliveryTimeline') || 'Immediate Dispatch',
+      deliveryLocation: (formData.get('deliveryLocation') || '').trim(),
+      gstin: (formData.get('gstin') || '').trim(),
+      specifications: (formData.get('specifications') || '').trim(),
       product: product.title || 'Mobile Light Tower',
-      source: 'product-detail-page'
+      entryType: 'quotation',
+      source: 'product-detail-quotation'
     };
 
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Submitting Request...';
+      submitBtn.innerHTML = `<span>Preparing Quotation Request...</span>`;
     }
 
     try {
-      const response = await fetch('/api/inquiries', {
+      const response = await fetch('/api/quotations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -256,35 +292,155 @@ if (detailForm) {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        const inqId = data.inquiry ? data.inquiry.id : 'Recorded';
-        const msg = `Thank you, ${payload.name || 'Sir/Madam'}!\n\nYour quotation request for "${payload.product}" (Ref #${inqId}) has been received.\n\nOur engineering sales desk in Haridwar will reach out within 2-4 hours.\n\nWould you like to connect directly on WhatsApp with our sales team right now?`;
-
-        if (confirm(msg)) {
-          if (data.whatsappDirectUrl) {
-            window.open(data.whatsappDirectUrl, '_blank');
-          } else {
-            const waText = encodeURIComponent(`Hello Ariselux Team, I would like a quote for:\n\n*Product:* ${payload.product} (Ref #${inqId})\n*Name:* ${payload.name}\n*Company:* ${payload.company}\n*Phone:* ${payload.phone}\n*Location:* ${payload.location}\n*Requirement:* ${payload.message}`);
-            window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+        const quoteId = data.quotation ? data.quotation.id : 'Recorded';
+        quoteForm.style.display = 'none';
+        if (quoteSuccessView) {
+          quoteSuccessView.style.display = 'block';
+          const badge = document.getElementById('detail-quote-ref-badge');
+          if (badge) badge.textContent = `Ref #${quoteId}`;
+          const msg = document.getElementById('detail-quote-success-msg');
+          if (msg) {
+            msg.innerHTML = `Thank you, <strong>${payload.name}</strong>! Your official quotation request for <strong>${payload.product}</strong> (${payload.quantity}) has been registered at Haridwar Works.<br><br>📧 A commercial confirmation receipt has been emailed to <strong>${payload.email}</strong>. Our engineering desk will deliver your formal pricing and freight estimate within 2-4 business hours.`;
+          }
+          const waBtn = document.getElementById('detail-quote-wa-btn');
+          if (waBtn) {
+            waBtn.href = data.whatsappDirectUrl || `https://wa.me/918126732502?text=${encodeURIComponent(`Hello Ariselux Team, I requested quotation Ref #${quoteId} for ${payload.product}`)}`;
           }
         }
-        detailForm.reset();
+        quoteForm.reset();
       } else {
-        alert(data.message || 'There was an issue submitting your request. Please call +91-8126732502 or WhatsApp us directly.');
+        alert(data.message || 'There was an issue submitting your quotation request. Please WhatsApp us directly at +91-8126732502.');
       }
     } catch (err) {
-      console.warn('API submission fallback:', err);
-      const waText = encodeURIComponent(`Hello Ariselux Team, I would like a quote for:\n\n*Product:* ${payload.product}\n*Name:* ${payload.name}\n*Company:* ${payload.company}\n*Phone:* ${payload.phone}\n*Location:* ${payload.location}\n*Requirement:* ${payload.message}`);
-      if (confirm(`Quotation recorded locally. Would you like to connect directly on WhatsApp with our sales desk right now?`)) {
-        window.open(`https://wa.me/918126732502?text=${waText}`, '_blank');
+      console.warn('Quotation fallback:', err);
+      const waText = encodeURIComponent(`Hello Ariselux Sales Desk, I would like to request an official quotation:\n*Model:* ${payload.product}\n*Quantity:* ${payload.quantity}\n*Delivery Site:* ${payload.deliveryLocation}\n*Buyer:* ${payload.name} (${payload.company})\n*Phone:* ${payload.phone}`);
+      quoteForm.style.display = 'none';
+      if (quoteSuccessView) {
+        quoteSuccessView.style.display = 'block';
+        const badge = document.getElementById('detail-quote-ref-badge');
+        if (badge) badge.textContent = `Instant WhatsApp Connect`;
+        const waBtn = document.getElementById('detail-quote-wa-btn');
+        if (waBtn) waBtn.href = `https://wa.me/918126732502?text=${waText}`;
       }
-      detailForm.reset();
+      quoteForm.reset();
     } finally {
-      isDetailSubmitting = false;
+      isQuoteSubmitting = false;
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
+        submitBtn.innerHTML = originalBtnHtml;
       }
     }
+  });
+}
+
+if (quoteResetBtn) {
+  quoteResetBtn.addEventListener('click', () => {
+    if (quoteSuccessView) quoteSuccessView.style.display = 'none';
+    if (quoteForm) quoteForm.style.display = 'block';
+  });
+}
+
+// ── 2. Technical Consultation Enquiry Form Handler ────────────
+const enqForm = document.getElementById('detail-enquiry-form');
+const enqSuccessView = document.getElementById('detail-enquiry-success-view');
+const enqResetBtn = document.getElementById('detail-enquiry-reset-btn');
+let isEnqSubmitting = false;
+
+if (enqForm) {
+  enqForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (isEnqSubmitting) return;
+    isEnqSubmitting = true;
+
+    const submitBtn = enqForm.querySelector('button[type="submit"]');
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
+
+    const formData = new FormData(enqForm);
+
+    const email = (formData.get('email') || '').trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(email)) {
+      alert('⚠️ Please enter a valid work email address.\n\nExample: name@company.com');
+      const emailInput = enqForm.querySelector('input[name="email"]');
+      if (emailInput) { emailInput.focus(); emailInput.select(); }
+      isEnqSubmitting = false;
+      return;
+    }
+
+    const payload = {
+      name: (formData.get('name') || '').trim(),
+      phone: (formData.get('phone') || '').trim(),
+      email: email,
+      location: (formData.get('location') || '').trim(),
+      enquiryType: formData.get('enquiryType') || 'Technical Consultation',
+      projectType: formData.get('projectType') || 'General Infrastructure',
+      preferredChannel: formData.get('preferredChannel') || 'WhatsApp',
+      message: (formData.get('message') || '').trim(),
+      product: product.title || 'Mobile Light Tower',
+      entryType: 'enquiry',
+      source: 'product-detail-enquiry'
+    };
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>Submitting Technical Enquiry...</span>`;
+    }
+
+    try {
+      const response = await fetch('/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const enqId = data.enquiry ? data.enquiry.id : 'Recorded';
+        enqForm.style.display = 'none';
+        if (enqSuccessView) {
+          enqSuccessView.style.display = 'block';
+          const badge = document.getElementById('detail-enquiry-ref-badge');
+          if (badge) badge.textContent = `Ref #${enqId}`;
+          const msg = document.getElementById('detail-enquiry-success-msg');
+          if (msg) {
+            msg.innerHTML = `Thank you, <strong>${payload.name}</strong>! Your technical enquiry regarding <strong>${payload.product}</strong> has been received by our engineering team in Haridwar.<br><br>📧 An engineering acknowledgment has been emailed to <strong>${payload.email}</strong>. An application engineer will reach out via <strong>${payload.preferredChannel}</strong> within 2-4 business hours.`;
+          }
+          const waBtn = document.getElementById('detail-enquiry-wa-btn');
+          if (waBtn) {
+            waBtn.href = data.whatsappDirectUrl || `https://wa.me/918126732502?text=${encodeURIComponent(`Hello Ariselux Engineering Desk, I submitted Enquiry Ref #${enqId} for ${payload.product}`)}`;
+          }
+        }
+        enqForm.reset();
+      } else {
+        alert(data.message || 'There was an issue submitting your enquiry. Please WhatsApp us directly at +91-8126732502.');
+      }
+    } catch (err) {
+      console.warn('Enquiry fallback:', err);
+      const waText = encodeURIComponent(`Hello Ariselux Engineering Desk, I want to submit a technical enquiry:\n*Nature:* ${payload.enquiryType}\n*Equipment:* ${payload.product}\n*Project:* ${payload.projectType}\n*Name:* ${payload.name}\n*Phone:* ${payload.phone}\n*Query:* ${payload.message}`);
+      enqForm.style.display = 'none';
+      if (enqSuccessView) {
+        enqSuccessView.style.display = 'block';
+        const badge = document.getElementById('detail-enquiry-ref-badge');
+        if (badge) badge.textContent = `Instant WhatsApp Connect`;
+        const waBtn = document.getElementById('detail-enquiry-wa-btn');
+        if (waBtn) waBtn.href = `https://wa.me/918126732502?text=${waText}`;
+      }
+      enqForm.reset();
+    } finally {
+      isEnqSubmitting = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+    }
+  });
+}
+
+if (enqResetBtn) {
+  enqResetBtn.addEventListener('click', () => {
+    if (enqSuccessView) enqSuccessView.style.display = 'none';
+    if (enqForm) enqForm.style.display = 'block';
   });
 }
 

@@ -68,38 +68,45 @@ export async function testSmtpConnection() {
 }
 
 /* ==========================================================
-   SALES DESK NOTIFICATION EMAIL (sent to sales1@ariselux.com)
-   Purpose: Alert the internal seller / sales engineering team about a new quotation request
-   Style: Professional dark-header sales alert with complete details
+   1. QUOTATION SALES NOTIFICATION EMAIL (sent to sales1@ariselux.com)
+   Purpose: Alert internal sales team of a new official Commercial RFQ
+   Style: Executive Navy & Golden Amber Commercial Quotation theme
    ========================================================== */
-export async function sendInquiryNotification(inquiry) {
+export async function sendQuotationNotification(quotation) {
   const currentConfig = getConfig();
   const { smtp, company } = currentConfig;
   const mailer = createTransporter(currentConfig);
 
-  // ── Sales team notification email body ──
-  const salesEmailBody = `
+  const cleanPhone = (quotation.phone || '').replace(/[^0-9]/g, '');
+  const waQuoteText = encodeURIComponent(
+    `Hello ${quotation.name}, regarding your Quotation Request for ${quotation.product} (Ref #${quotation.id}, Qty: ${quotation.quantity}):\nHere is our official factory pricing from Ariselux Haridwar Works...`
+  );
+
+  const quotationSalesHtml = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:30px 0;">
+<body style="margin:0;padding:0;background:#0f172a;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f172a;padding:35px 0;">
     <tr><td align="center">
-      <table width="640" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+      <table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.3);">
 
-        <!-- HEADER: RED ALERT BANNER (internal sales team look) -->
+        <!-- HEADER: COMMERCIAL RFQ BANNER -->
         <tr>
-          <td style="background:#dc2626;padding:22px 30px;">
+          <td style="background:linear-gradient(135deg, #0b1e36 0%, #1e3a8a 100%);padding:26px 32px;border-bottom:4px solid #d97706;">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>
-                  <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#fecaca;text-transform:uppercase;margin-bottom:4px;">INTERNAL SALES &amp; QUOTATION ALERT</div>
-                  <h1 style="margin:0;font-size:20px;color:#fff;font-weight:700;">New Quotation Request Received 📋</h1>
+                  <span style="display:inline-block;background:#d97706;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:8px;">
+                    COMMERCIAL QUOTATION REQUEST (RFQ)
+                  </span>
+                  <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">New Price Quotation Alert 📋</h1>
+                  <p style="margin:6px 0 0;font-size:13px;color:#94a3b8;">Haridwar Works Direct OEM Pricing &amp; Freight Calculation</p>
                 </td>
-                <td align="right">
-                  <div style="background:rgba(255,255,255,0.15);border-radius:6px;padding:8px 14px;text-align:center;">
-                    <div style="font-size:10px;color:#fecaca;font-weight:600;letter-spacing:1px;">REF ID</div>
-                    <div style="font-size:13px;font-weight:700;color:#fff;font-family:monospace;">#${inquiry.id}</div>
+                <td align="right" style="vertical-align:top;">
+                  <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:8px 16px;text-align:center;">
+                    <div style="font-size:10px;color:#cbd5e1;font-weight:700;letter-spacing:1px;text-transform:uppercase;">QUOTATION ID</div>
+                    <div style="font-size:15px;font-weight:800;color:#fbbf24;font-family:monospace;margin-top:2px;">#${quotation.id}</div>
                   </div>
                 </td>
               </tr>
@@ -107,75 +114,435 @@ export async function sendInquiryNotification(inquiry) {
           </td>
         </tr>
 
-        <!-- PRIORITY PRODUCT BADGE -->
+        <!-- PRIORITY MODEL & QUANTITY CARD -->
         <tr>
-          <td style="background:#fff7ed;padding:16px 30px;border-bottom:1px solid #fed7aa;">
-            <span style="font-size:12px;color:#9a3412;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Requested Light Tower / Model</span>
-            <h2 style="margin:4px 0 0 0;font-size:22px;font-weight:800;color:#c2410c;">${inquiry.product}</h2>
-          </td>
-        </tr>
-
-        <!-- CUSTOMER DETAILS TABLE -->
-        <tr>
-          <td style="padding:25px 30px;">
-            <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:6px;overflow:hidden;">
-              <tr style="background:#f9fafb;">
-                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;width:38%;border-bottom:1px solid #e5e7eb;">Customer Name</td>
-                <td style="padding:12px 16px;font-size:15px;font-weight:700;color:#111;border-bottom:1px solid #e5e7eb;">${inquiry.name}</td>
-              </tr>
+          <td style="background:#fef3c7;padding:18px 32px;border-bottom:1px solid #fde68a;">
+            <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
-                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e5e7eb;">Company / Org</td>
-                <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-weight:700;color:#1e3a8a;">${inquiry.company || '<span style="color:#9ca3af;font-style:italic;">Direct Buyer</span>'}</td>
-              </tr>
-              <tr style="background:#f9fafb;">
-                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e5e7eb;">Mobile / Phone</td>
-                <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;">
-                  <a href="tel:${inquiry.phone}" style="font-size:16px;font-weight:700;color:#2563eb;text-decoration:none;">${inquiry.phone}</a>
+                <td style="width:65%;">
+                  <span style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:1px;">Target Product / Model</span>
+                  <h2 style="margin:4px 0 0;font-size:22px;font-weight:800;color:#78350f;">${quotation.product}</h2>
                 </td>
-              </tr>
-              <tr>
-                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e5e7eb;">Email Address</td>
-                <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;">
-                  ${inquiry.email ? `<a href="mailto:${inquiry.email}" style="color:#2563eb;font-weight:600;text-decoration:none;">${inquiry.email}</a>` : '<span style="color:#9ca3af;font-style:italic;">Not provided</span>'}
+                <td style="width:35%;text-align:right;">
+                  <span style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:1px;">Quantity Required</span>
+                  <div style="margin-top:4px;font-size:18px;font-weight:800;color:#1e3a8a;background:#ffffff;padding:4px 12px;border-radius:6px;display:inline-block;border:1px solid #fcd34d;">
+                    ${quotation.quantity || '1 Unit'}
+                  </div>
                 </td>
-              </tr>
-              ${inquiry.location ? `
-              <tr style="background:#f9fafb;">
-                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e5e7eb;">Delivery Site / Location</td>
-                <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;color:#374151;">${inquiry.location}</td>
-              </tr>
-              ` : ''}
-              <tr>
-                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e5e7eb;vertical-align:top;">Quotation Details / Requirement</td>
-                <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;white-space:pre-wrap;line-height:1.6;color:#374151;">${inquiry.message || '<span style="color:#9ca3af;font-style:italic;">Quotation requested</span>'}</td>
-              </tr>
-              <tr style="background:#f9fafb;">
-                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;">Submitted At</td>
-                <td style="padding:12px 16px;color:#6b7280;font-size:13px;">${new Date(inquiry.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <!-- ACTION BUTTONS -->
+        <!-- COMMERCIAL DETAILS BREAKDOWN TABLE -->
         <tr>
-          <td style="padding:0 30px 25px;">
+          <td style="padding:26px 32px;">
+            <div style="font-size:12px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Commercial Buyer Specifications</div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;width:38%;border-bottom:1px solid #e2e8f0;">Buyer Name</td>
+                <td style="padding:12px 16px;font-size:15px;font-weight:700;color:#0f172a;border-bottom:1px solid #e2e8f0;">${quotation.name}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Company / Org</td>
+                <td style="padding:12px 16px;font-weight:700;color:#1e40af;border-bottom:1px solid #e2e8f0;">${quotation.company || '<span style="color:#94a3b8;font-style:italic;">Direct Buyer</span>'}</td>
+              </tr>
+              ${quotation.gstin ? `
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">GSTIN / Tax ID</td>
+                <td style="padding:12px 16px;font-family:monospace;font-weight:700;color:#0f172a;border-bottom:1px solid #e2e8f0;">${quotation.gstin}</td>
+              </tr>` : ''}
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Delivery City / State</td>
+                <td style="padding:12px 16px;font-weight:700;color:#0f172a;border-bottom:1px solid #e2e8f0;">${quotation.deliveryLocation || quotation.location || 'Not specified'}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Target Delivery Timeline</td>
+                <td style="padding:12px 16px;font-weight:700;color:#b45309;border-bottom:1px solid #e2e8f0;">${quotation.deliveryTimeline || 'Immediate Dispatch'}</td>
+              </tr>
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Contact Mobile / Phone</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;">
+                  <a href="tel:${quotation.phone}" style="font-size:15px;font-weight:700;color:#2563eb;text-decoration:none;">${quotation.phone}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Work Email Address</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;">
+                  ${quotation.email ? `<a href="mailto:${quotation.email}" style="color:#2563eb;font-weight:600;text-decoration:none;">${quotation.email}</a>` : '<span style="color:#94a3b8;font-style:italic;">Not provided</span>'}
+                </td>
+              </tr>
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;vertical-align:top;">Commercial Notes / Specs</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;white-space:pre-wrap;line-height:1.6;color:#334155;">${quotation.specifications || quotation.message || 'Official price quotation and delivery freight requested.'}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;">Quotation Source</td>
+                <td style="padding:12px 16px;color:#64748b;font-size:13px;">${quotation.source || 'website-rfq'} • ${new Date(quotation.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- FAST ACTIONS -->
+        <tr>
+          <td style="padding:0 32px 28px;">
             <table cellpadding="0" cellspacing="0" width="100%">
               <tr>
                 <td style="padding-right:10px;">
-                  <a href="https://wa.me/${inquiry.phone.replace(/[^0-9]/g, '')}" style="background:#25D366;color:#fff;padding:12px 18px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;">
-                    💬 WhatsApp Customer
+                  <a href="https://wa.me/${cleanPhone}?text=${waQuoteText}" style="background:#16a34a;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
+                    💬 WhatsApp Commercial Quote
                   </a>
                 </td>
-                ${inquiry.email ? `
+                ${quotation.email ? `
                 <td style="padding-right:10px;">
-                  <a href="mailto:${inquiry.email}?subject=Quotation%20for%20${encodeURIComponent(inquiry.product)}%20(Ref%20%23${inquiry.id})%20-%20Ariselux%20Equipments" style="background:#1e40af;color:#fff;padding:12px 18px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;">
-                    ✉️ Reply by Email
+                  <a href="mailto:${quotation.email}?subject=Official%20Commercial%20Quotation%20-%20${encodeURIComponent(quotation.product)}%20(Ref%20%23${quotation.id})&body=Dear%20${encodeURIComponent(quotation.name)}%2C%0A%0AThank%20you%20for%20your%20quotation%20request%20for%20${encodeURIComponent(quotation.product)}%20(Ref%20%23${quotation.id}).%0APlease%20find%20our%20official%20commercial%20offer%20and%20technical%20proposal%20attached." style="background:#1e40af;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
+                    ✉️ Email Quotation PDF
+                  </a>
+                </td>` : ''}
+                <td>
+                  <a href="tel:${quotation.phone}" style="background:#334155;color:#ffffff;padding:12px 18px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
+                    📞 Call Buyer
                   </a>
                 </td>
-                ` : ''}
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="background:#f1f5f9;padding:16px 32px;border-top:1px solid #e2e8f0;text-align:center;">
+            <p style="margin:0;font-size:12px;color:#64748b;">Automated Quotation Engine • Ariselux Equipments Private Limited • Haridwar Works Works</p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+  if (!mailer) {
+    console.log(`[QUOTATION EMAIL NOTICE: SMTP credentials missing] ID: ${quotation.id} | Product: ${quotation.product} | Qty: ${quotation.quantity}`);
+    return { sent: false, reason: 'missing_credentials', message: 'SMTP_USER or SMTP_PASS not set in backend/.env' };
+  }
+
+  try {
+    const info = await mailer.sendMail({
+      from: `"Ariselux Quotation Desk" <${smtp.user}>`,
+      to: company.email,
+      replyTo: quotation.email || undefined,
+      subject: `📋 [COMMERCIAL RFQ] Quotation Request: ${quotation.product} (${quotation.quantity || '1 Unit'}) — ${quotation.name} (${quotation.company || 'Direct'}) [Ref #${quotation.id}]`,
+      html: quotationSalesHtml
+    });
+    console.log(`[QUOTATION SALES EMAIL SENT]: Delivered to ${company.email} (ID: ${info.messageId})`);
+    return { sent: true, messageId: info.messageId };
+  } catch (err) {
+    console.error(`[QUOTATION EMAIL ERROR] Failed to send to ${company.email}:`, err.message);
+    return { sent: false, error: err.message };
+  }
+}
+
+/* ==========================================================
+   2. CUSTOMER QUOTATION ACKNOWLEDGMENT EMAIL (sent to buyer's inbox)
+   Purpose: Official branded Commercial Quotation receipt to buyer
+   Style: Executive Navy & Green Commercial Receipt with breakdown
+   ========================================================== */
+export async function sendCustomerQuotationAcknowledgment(quotation) {
+  if (!quotation.email) return { sent: false, reason: 'no_customer_email' };
+
+  const currentConfig = getConfig();
+  const { smtp, company } = currentConfig;
+  const mailer = createTransporter(currentConfig);
+  if (!mailer) return { sent: false, reason: 'missing_credentials' };
+
+  const customerQuotationHtml = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:35px 0;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.1);">
+
+        <!-- HEADER: BRANDED BANNER -->
+        <tr>
+          <td style="background:#0b1e36;padding:26px 32px;text-align:center;">
+            <h1 style="margin:0 0 4px;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.5px;">ARISELUX EQUIPMENTS</h1>
+            <p style="margin:0;font-size:12px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;">Private Limited · Industrial Heavy Mobile Lighting · Haridwar Works</p>
+          </td>
+        </tr>
+
+        <!-- SUCCESS BANNER -->
+        <tr>
+          <td style="background:#ecfdf5;padding:22px 32px;border-bottom:1px solid #a7f3d0;text-align:center;">
+            <div style="font-size:32px;margin-bottom:6px;">📋</div>
+            <h2 style="margin:0;font-size:20px;font-weight:800;color:#065f46;">
+              Official Quotation Request Received
+            </h2>
+            <p style="margin:6px 0 0;font-size:13px;color:#047857;">
+              Quotation Reference: <strong style="font-family:monospace;background:#d1fae5;padding:3px 10px;border-radius:4px;color:#065f46;">#${quotation.id}</strong>
+            </p>
+          </td>
+        </tr>
+
+        <!-- CONTENT -->
+        <tr>
+          <td style="padding:28px 32px;">
+            <p style="margin:0 0 14px;font-size:15px;color:#1e293b;">Dear <strong>${quotation.name}</strong>,</p>
+            <p style="margin:0 0 20px;font-size:14px;color:#475569;line-height:1.7;">
+              Thank you for reaching out to <strong>Ariselux Equipments Private Limited</strong>. Our sales engineering and estimation desk at <strong>Haridwar Works</strong> has successfully registered your commercial quotation request for:
+            </p>
+
+            <!-- PRODUCT HIGHLIGHT -->
+            <div style="background:linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);border-left:5px solid #d97706;border-radius:0 8px 8px 0;padding:18px 22px;margin:0 0 24px;">
+              <div style="font-size:11px;font-weight:800;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Requested Model &amp; Series</div>
+              <div style="font-size:22px;font-weight:800;color:#78350f;">${quotation.product}</div>
+              <div style="font-size:13px;color:#92400e;margin-top:4px;">OEM Direct Factory Dispatch • ISO 9001:2015 Certified Mechanical Engineering</div>
+            </div>
+
+            <!-- ITEMIZED RFQ BREAKDOWN -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:18px 20px;margin-bottom:24px;">
+              <div style="font-size:11px;font-weight:800;color:#64748b;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Quotation Specifications Summary</div>
+              <table width="100%" cellpadding="6" cellspacing="0" style="font-size:13px;color:#334155;">
+                <tr>
+                  <td width="40%" style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Selected Model:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;"><strong>${quotation.product}</strong></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Quantity Required:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#1e40af;">${quotation.quantity || '1 Unit'}</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Delivery Timeline:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#b45309;">${quotation.deliveryTimeline || 'Immediate Dispatch'}</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Delivery Site / Destination:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;">${quotation.deliveryLocation || quotation.location || 'Site delivery'}</td>
+                </tr>
+                ${quotation.company ? `
+                <tr>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Company / Org:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;">${quotation.company}</td>
+                </tr>` : ''}
+                ${quotation.specifications || quotation.message ? `
+                <tr>
+                  <td style="font-weight:700;color:#64748b;vertical-align:top;">Your Requirements:</td>
+                  <td style="white-space:pre-wrap;line-height:1.5;">${quotation.specifications || quotation.message}</td>
+                </tr>` : ''}
+              </table>
+            </div>
+
+            <!-- WHAT HAPPENS NEXT -->
+            <div style="background:#f8fafc;border-radius:8px;padding:20px;margin-bottom:24px;border:1px solid #e2e8f0;">
+              <div style="font-size:12px;font-weight:800;color:#1e293b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;">Commercial Quotation Next Steps</div>
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="vertical-align:top;width:28px;font-size:18px;">📊</td>
+                  <td style="padding-left:12px;font-size:13px;color:#475569;padding-bottom:10px;">
+                    <strong>Price &amp; Freight Estimation:</strong> Our sales desk calculates exact ex-works unit price, applicable GST, and logistics transit insurance to your destination.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align:top;font-size:18px;">📄</td>
+                  <td style="padding-left:12px;font-size:13px;color:#475569;padding-bottom:10px;">
+                    <strong>Formal Proposal:</strong> You will receive an official commercial proposal with technical specifications and photometric illumination datasheets within <strong>2 to 4 business hours</strong>.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align:top;font-size:18px;">🚚</td>
+                  <td style="padding-left:12px;font-size:13px;color:#475569;">
+                    <strong>Dispatch &amp; Support:</strong> Ready stock units can be dispatched from Haridwar within 24-48 hours upon commercial clearance.
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- INSTANT ASSISTANCE -->
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px 20px;">
+              <div style="font-size:13px;font-weight:700;color:#1e40af;margin-bottom:6px;">Need Instant Commercial Assistance?</div>
+              <p style="margin:0 0 10px;font-size:13px;color:#475569;">Connect directly with our Haridwar sales desk right now:</p>
+              <table cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding-right:20px;font-size:13px;">
+                    📞 <a href="tel:${company.phone}" style="color:#2563eb;font-weight:700;text-decoration:none;">${company.phone}</a>
+                  </td>
+                  <td style="font-size:13px;">
+                    💬 <a href="https://wa.me/${company.whatsapp}" style="color:#16a34a;font-weight:700;text-decoration:none;">Connect on WhatsApp</a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="background:#0b1e36;padding:22px 32px;text-align:center;">
+            <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#e2e8f0;">Ariselux Equipments Private Limited</p>
+            <p style="margin:0 0 6px;font-size:12px;color:#94a3b8;">${company.address}</p>
+            <p style="margin:0;font-size:12px;color:#64748b;">
+              <a href="mailto:${company.email}" style="color:#94a3b8;text-decoration:none;">${company.email}</a> · 
+              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Toll-Free: 1800 202 5104
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+  try {
+    const info = await mailer.sendMail({
+      from: `"Ariselux Quotation Desk" <${smtp.user}>`,
+      to: quotation.email,
+      replyTo: company.email,
+      subject: `Official Commercial Quotation Request Received: ${quotation.product} [Ref #${quotation.id}] — Ariselux Equipments`,
+      html: customerQuotationHtml
+    });
+    console.log(`[CUSTOMER QUOTATION ACK SENT]: Delivered to ${quotation.email} (ID: ${info.messageId})`);
+    return { sent: true, messageId: info.messageId };
+  } catch (err) {
+    console.error(`[QUOTATION ACK EMAIL ERROR] Failed to send to ${quotation.email}:`, err.message);
+    return { sent: false, error: err.message };
+  }
+}
+
+/* ==========================================================
+   3. ENQUIRY SALES NOTIFICATION EMAIL (sent to technical desk)
+   Purpose: Alert internal engineering/technical team of a consultation query
+   Style: Industrial Ariselux Orange & Slate Blue Consultation theme
+   ========================================================== */
+export async function sendEnquiryNotification(enquiry) {
+  const currentConfig = getConfig();
+  const { smtp, company } = currentConfig;
+  const mailer = createTransporter(currentConfig);
+
+  const cleanPhone = (enquiry.phone || '').replace(/[^0-9]/g, '');
+  const waReplyText = encodeURIComponent(
+    `Hello ${enquiry.name}, regarding your Technical Enquiry on ${enquiry.product} (Ref #${enquiry.id}):\nOur application engineering desk at Ariselux Haridwar Works is following up on your query...`
+  );
+
+  const enquirySalesHtml = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#0f172a;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f172a;padding:35px 0;">
+    <tr><td align="center">
+      <table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+
+        <!-- HEADER: TECHNICAL & FACTORY ENQUIRY BANNER -->
+        <tr>
+          <td style="background:linear-gradient(135deg, #0b1e36 0%, #13325c 100%);padding:26px 32px;border-bottom:4px solid #1b5faa;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
                 <td>
-                  <a href="tel:${inquiry.phone}" style="background:#374151;color:#fff;padding:12px 18px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;">
+                  <span style="display:inline-block;background:#1b5faa;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:8px;">
+                    TECHNICAL &amp; FACTORY ENQUIRY DESK
+                  </span>
+                  <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">New Technical Consultation 📩</h1>
+                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Direct Engineering Consultation • Bhagwanpur Works</p>
+                </td>
+                <td align="right" style="vertical-align:top;">
+                  <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:8px 16px;text-align:center;">
+                    <div style="font-size:10px;color:#e0f2fe;font-weight:700;letter-spacing:1px;text-transform:uppercase;">ENQUIRY ID</div>
+                    <div style="font-size:15px;font-weight:800;color:#ffffff;font-family:monospace;margin-top:2px;">#${enquiry.id}</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- NATURE OF ENQUIRY & TOPIC BADGE -->
+        <tr>
+          <td style="background:#f0f9ff;padding:18px 32px;border-bottom:1px solid #bae6fd;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="width:65%;">
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Nature of Enquiry</span>
+                  <h2 style="margin:4px 0 0;font-size:20px;font-weight:800;color:#0c4a6e;">${enquiry.enquiryType || 'Technical Consultation'}</h2>
+                </td>
+                <td style="width:35%;text-align:right;">
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Preferred Channel</span>
+                  <div style="margin-top:4px;font-size:14px;font-weight:800;color:#0369a1;background:#ffffff;padding:4px 12px;border-radius:6px;display:inline-block;border:1px solid #7dd3fc;">
+                    ${enquiry.preferredChannel || 'WhatsApp'}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ENQUIRY DETAILS BREAKDOWN TABLE -->
+        <tr>
+          <td style="padding:26px 32px;">
+            <div style="font-size:12px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Customer &amp; Technical Query Details</div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;width:38%;border-bottom:1px solid #e2e8f0;">Customer Name</td>
+                <td style="padding:12px 16px;font-size:15px;font-weight:700;color:#0f172a;border-bottom:1px solid #e2e8f0;">${enquiry.name}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Equipment / Topic</td>
+                <td style="padding:12px 16px;font-weight:700;color:#c2410c;border-bottom:1px solid #e2e8f0;">${enquiry.product}</td>
+              </tr>
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Project / Site Type</td>
+                <td style="padding:12px 16px;font-weight:700;color:#0369a1;border-bottom:1px solid #e2e8f0;">${enquiry.projectType || 'General Infrastructure'}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Company / Location</td>
+                <td style="padding:12px 16px;color:#334155;border-bottom:1px solid #e2e8f0;">${enquiry.company ? `${enquiry.company} — ` : ''}${enquiry.location || 'Location not specified'}</td>
+              </tr>
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Contact Mobile</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;">
+                  <a href="tel:${enquiry.phone}" style="font-size:15px;font-weight:700;color:#2563eb;text-decoration:none;">${enquiry.phone}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Email Address</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;">
+                  ${enquiry.email ? `<a href="mailto:${enquiry.email}" style="color:#2563eb;font-weight:600;text-decoration:none;">${enquiry.email}</a>` : '<span style="color:#94a3b8;font-style:italic;">Not provided</span>'}
+                </td>
+              </tr>
+              <tr style="background:#f8fafc;">
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;vertical-align:top;">Enquiry Query / Message</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;white-space:pre-wrap;line-height:1.6;color:#334155;">${enquiry.message}</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;">Submitted Timestamp</td>
+                <td style="padding:12px 16px;color:#64748b;font-size:13px;">${enquiry.source || 'website-enquiry'} • ${new Date(enquiry.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- FAST ACTIONS -->
+        <tr>
+          <td style="padding:0 32px 28px;">
+            <table cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td style="padding-right:10px;">
+                  <a href="https://wa.me/${cleanPhone}?text=${waReplyText}" style="background:#16a34a;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
+                    💬 WhatsApp on ${enquiry.preferredChannel}
+                  </a>
+                </td>
+                ${enquiry.email ? `
+                <td style="padding-right:10px;">
+                  <a href="mailto:${enquiry.email}?subject=Re:%20Technical%20Enquiry%20-%20${encodeURIComponent(enquiry.product)}%20(Ref%20%23${enquiry.id})&body=Dear%20${encodeURIComponent(enquiry.name)}%2C%0A%0AThank%20you%20for%20your%20technical%20enquiry%20regarding%20${encodeURIComponent(enquiry.product)}%20(Ref%20%23${enquiry.id}).%0APlease%20find%20our%20engineering%20recommendations%20below:" style="background:#0284c7;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
+                    ✉️ Reply via Email
+                  </a>
+                </td>` : ''}
+                <td>
+                  <a href="tel:${enquiry.phone}" style="background:#334155;color:#ffffff;padding:12px 18px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
                     📞 Call Customer
                   </a>
                 </td>
@@ -186,8 +553,8 @@ export async function sendInquiryNotification(inquiry) {
 
         <!-- FOOTER -->
         <tr>
-          <td style="background:#f9fafb;padding:14px 30px;border-top:1px solid #e5e7eb;text-align:center;">
-            <p style="margin:0;font-size:12px;color:#9ca3af;">Automated notification from Ariselux Website Quotation Engine • Haridwar Works</p>
+          <td style="background:#f1f5f9;padding:16px 32px;border-top:1px solid #e2e8f0;text-align:center;">
+            <p style="margin:0;font-size:12px;color:#64748b;">Factory Technical Support Engine • Ariselux Equipments Private Limited • Haridwar Works</p>
           </td>
         </tr>
 
@@ -195,172 +562,153 @@ export async function sendInquiryNotification(inquiry) {
     </td></tr>
   </table>
 </body>
-</html>
-  `;
+</html>`;
 
   if (!mailer) {
-    console.log(`\n======================================================`);
-    console.log(`⚠️  [EMAIL NOTICE: SMTP CREDENTIALS MISSING IN backend/.env]`);
-    console.log(`INQUIRY ID: ${inquiry.id} | CUSTOMER: ${inquiry.name} | PRODUCT: ${inquiry.product}`);
-    console.log(`PHONE: ${inquiry.phone} | EMAIL: ${inquiry.email || 'None'}`);
-    console.log(`MESSAGE: ${inquiry.message}`);
-    console.log(`======================================================\n`);
+    console.log(`[ENQUIRY EMAIL NOTICE: SMTP credentials missing] ID: ${enquiry.id} | Nature: ${enquiry.enquiryType} | Customer: ${enquiry.name}`);
     return { sent: false, reason: 'missing_credentials', message: 'SMTP_USER or SMTP_PASS not set in backend/.env' };
   }
 
   try {
     const info = await mailer.sendMail({
-      from: `"Ariselux Quotation Desk" <${smtp.user}>`,
+      from: `"Ariselux Technical Desk" <${smtp.user}>`,
       to: company.email,
-      replyTo: inquiry.email || undefined,
-      subject: `📋 New Quotation Request: ${inquiry.product} — ${inquiry.name} (${inquiry.company || 'Direct'}) [Ref #${inquiry.id}]`,
-      html: salesEmailBody
+      replyTo: enquiry.email || undefined,
+      subject: `📩 [TECHNICAL ENQUIRY] ${enquiry.enquiryType || 'General Enquiry'}: ${enquiry.product} — ${enquiry.name} [Ref #${enquiry.id}]`,
+      html: enquirySalesHtml
     });
-    console.log(`[SALES EMAIL SENT]: Delivered to ${company.email} (ID: ${info.messageId})`);
+    console.log(`[ENQUIRY SALES EMAIL SENT]: Delivered to ${company.email} (ID: ${info.messageId})`);
     return { sent: true, messageId: info.messageId };
   } catch (err) {
-    console.error(`[EMAIL ERROR] Failed to send to ${company.email}:`, err.message);
+    console.error(`[ENQUIRY EMAIL ERROR] Failed to send to ${company.email}:`, err.message);
     return { sent: false, error: err.message };
   }
 }
 
 /* ==========================================================
-   CUSTOMER ACKNOWLEDGMENT EMAIL (sent to customer's inbox)
-   Purpose: Confirm to the buyer "We have received your quotation request"
-   Style: Professional branded quotation receipt with reference number & specs
+   4. CUSTOMER ENQUIRY ACKNOWLEDGMENT EMAIL (sent to customer's inbox)
+   Purpose: Official Technical Advisory confirmation receipt to customer
+   Style: Clean Industrial Consultation & Advisory theme
    ========================================================== */
-export async function sendCustomerAcknowledgment(inquiry) {
-  if (!inquiry.email) return { sent: false, reason: 'no_customer_email' };
+export async function sendCustomerEnquiryAcknowledgment(enquiry) {
+  if (!enquiry.email) return { sent: false, reason: 'no_customer_email' };
 
   const currentConfig = getConfig();
   const { smtp, company } = currentConfig;
   const mailer = createTransporter(currentConfig);
   if (!mailer) return { sent: false, reason: 'missing_credentials' };
 
-  // ── Customer confirmation email body ──
-  const customerEmailBody = `
+  const customerEnquiryHtml = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:30px 0;">
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:35px 0;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.1);">
 
-        <!-- HEADER: BRANDED CONFIRMATION -->
+        <!-- HEADER: BRANDED BANNER -->
         <tr>
-          <td style="background:#0b1e36;padding:26px 30px;text-align:center;">
-            <h1 style="margin:0 0 4px 0;font-size:22px;font-weight:800;color:#fff;letter-spacing:0.5px;">Ariselux Equipments</h1>
-            <p style="margin:0;font-size:12px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;">Private Limited · Heavy Mobile Lighting Systems · Haridwar Works</p>
+          <td style="background:#0b1e36;padding:26px 32px;text-align:center;">
+            <h1 style="margin:0 0 4px;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.5px;">ARISELUX EQUIPMENTS</h1>
+            <p style="margin:0;font-size:12px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;">Private Limited · Factory Technical &amp; Application Desk</p>
           </td>
         </tr>
 
-        <!-- GREEN SUCCESS BANNER -->
+        <!-- SUCCESS BANNER -->
         <tr>
-          <td style="background:#f0fdf4;padding:22px 30px;border-bottom:1px solid #bbf7d0;text-align:center;">
-            <div style="font-size:36px;margin-bottom:8px;">✅</div>
-            <h2 style="margin:0;font-size:20px;font-weight:700;color:#166534;">We Have Received Your Quotation Request!</h2>
-            <p style="margin:8px 0 0;font-size:13px;color:#15803d;">Quotation Ref ID: <strong style="font-family:monospace;background:#dcfce7;padding:3px 8px;border-radius:4px;">#${inquiry.id}</strong></p>
+          <td style="background:#f0fdf4;padding:22px 32px;border-bottom:1px solid #bbf7d0;text-align:center;">
+            <div style="font-size:32px;margin-bottom:6px;">💬</div>
+            <h2 style="margin:0;font-size:20px;font-weight:800;color:#166534;">
+              Technical Enquiry Received Successfully
+            </h2>
+            <p style="margin:6px 0 0;font-size:13px;color:#15803d;">
+              Enquiry Reference: <strong style="font-family:monospace;background:#dcfce7;padding:3px 10px;border-radius:4px;color:#166534;">#${enquiry.id}</strong>
+            </p>
           </td>
         </tr>
 
-        <!-- GREETING & CONTENT -->
+        <!-- CONTENT -->
         <tr>
-          <td style="padding:28px 30px;">
-            <p style="margin:0 0 15px;font-size:15px;color:#374151;">Dear <strong>${inquiry.name}</strong>,</p>
-            <p style="margin:0 0 18px;font-size:14px;color:#4b5563;line-height:1.7;">
-              Thank you for reaching out to <strong>Ariselux Equipments Private Limited</strong>. We have successfully received your quotation request for the following model:
+          <td style="padding:28px 32px;">
+            <p style="margin:0 0 14px;font-size:15px;color:#1e293b;">Dear <strong>${enquiry.name}</strong>,</p>
+            <p style="margin:0 0 20px;font-size:14px;color:#475569;line-height:1.7;">
+              Thank you for consulting with <strong>Ariselux Equipments Private Limited</strong>. Our factory technical sales engineering team at <strong>Haridwar Works</strong> has received your inquiry regarding:
             </p>
 
-            <!-- PRODUCT HIGHLIGHT BOX -->
-            <div style="background:#fff7ed;border-left:4px solid #f97316;border-radius:0 6px 6px 0;padding:16px 20px;margin:0 0 22px;">
-              <div style="font-size:11px;font-weight:700;color:#9a3412;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Requested Model</div>
-              <div style="font-size:20px;font-weight:800;color:#c2410c;">${inquiry.product}</div>
-              <div style="font-size:12px;color:#7c2d12;margin-top:3px;">Direct Haridwar Works Factory Dispatch • Industrial OEM Grade</div>
+            <!-- TOPIC HIGHLIGHT -->
+            <div style="background:linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);border-left:5px solid #ea580c;border-radius:0 8px 8px 0;padding:18px 22px;margin:0 0 24px;">
+              <div style="font-size:11px;font-weight:800;color:#9a3412;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Enquiry Subject / Model</div>
+              <div style="font-size:22px;font-weight:800;color:#c2410c;">${enquiry.product}</div>
+              <div style="font-size:13px;color:#9a3412;margin-top:4px;">Nature: <strong>${enquiry.enquiryType || 'Technical Consultation'}</strong></div>
             </div>
 
-            <!-- SUBMISSION DETAILS SUMMARY -->
-            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 20px;margin-bottom:22px;">
-              <div style="font-size:11px;font-weight:700;color:#64748b;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Your Submission Summary</div>
-              <table width="100%" cellpadding="4" cellspacing="0" style="font-size:13px;color:#334155;">
+            <!-- ITEMIZED ENQUIRY BREAKDOWN -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:18px 20px;margin-bottom:24px;">
+              <div style="font-size:11px;font-weight:800;color:#64748b;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Your Submission Details</div>
+              <table width="100%" cellpadding="6" cellspacing="0" style="font-size:13px;color:#334155;">
                 <tr>
-                  <td width="35%" style="font-weight:600;color:#64748b;">Selected Model:</td>
-                  <td><strong>${inquiry.product}</strong></td>
-                </tr>
-                ${inquiry.company ? `
-                <tr>
-                  <td style="font-weight:600;color:#64748b;">Company / Org:</td>
-                  <td>${inquiry.company}</td>
-                </tr>
-                ` : ''}
-                <tr>
-                  <td style="font-weight:600;color:#64748b;">Contact Mobile:</td>
-                  <td>${inquiry.phone}</td>
-                </tr>
-                ${inquiry.location ? `
-                <tr>
-                  <td style="font-weight:600;color:#64748b;">Delivery Site:</td>
-                  <td>${inquiry.location}</td>
-                </tr>
-                ` : ''}
-                ${inquiry.message ? `
-                <tr>
-                  <td style="font-weight:600;color:#64748b;vertical-align:top;">Your Requirement:</td>
-                  <td style="white-space:pre-wrap;line-height:1.5;">${inquiry.message}</td>
-                </tr>
-                ` : ''}
-              </table>
-            </div>
-
-            <p style="margin:0 0 20px;font-size:14px;color:#4b5563;line-height:1.7;">
-              Our technical sales engineering team at <strong>Haridwar Works</strong> is reviewing your requirements. We will connect with you within <strong>2 to 4 business hours</strong> with the verified technical proposal, factory pricing, and delivery timeline.
-            </p>
-
-            <!-- WHAT HAPPENS NEXT -->
-            <div style="background:#f8fafc;border-radius:6px;padding:18px;margin-bottom:22px;border:1px solid #e2e8f0;">
-              <div style="font-size:12px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">What Happens Next</div>
-              <table cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                  <td style="vertical-align:top;width:24px;font-size:16px;">📋</td>
-                  <td style="padding-left:10px;font-size:13px;color:#4b5563;padding-bottom:8px;">Our engineering team analyzes your site illumination & power requirements</td>
+                  <td width="40%" style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Nature of Enquiry:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;"><strong>${enquiry.enquiryType}</strong></td>
                 </tr>
                 <tr>
-                  <td style="vertical-align:top;font-size:16px;">📞</td>
-                  <td style="padding-left:10px;font-size:13px;color:#4b5563;padding-bottom:8px;">A dedicated technical sales engineer connects with you via phone or email</td>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Product / Series:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;">${enquiry.product}</td>
                 </tr>
                 <tr>
-                  <td style="vertical-align:top;font-size:16px;">📄</td>
-                  <td style="padding-left:10px;font-size:13px;color:#4b5563;">You receive the official commercial quote, technical datasheet, and delivery schedule</td>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Application / Site:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;">${enquiry.projectType || 'General Infrastructure'}</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Preferred Channel:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#0284c7;">${enquiry.preferredChannel || 'WhatsApp'}</td>
+                </tr>
+                ${enquiry.company ? `
+                <tr>
+                  <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Company / Org:</td>
+                  <td style="border-bottom:1px solid #f1f5f9;">${enquiry.company}</td>
+                </tr>` : ''}
+                <tr>
+                  <td style="font-weight:700;color:#64748b;vertical-align:top;">Your Query:</td>
+                  <td style="white-space:pre-wrap;line-height:1.5;">${enquiry.message}</td>
                 </tr>
               </table>
             </div>
 
-            <!-- DIRECT CONTACT BOX -->
-            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:16px 20px;">
-              <div style="font-size:13px;font-weight:700;color:#1e40af;margin-bottom:8px;">Need Instant Assistance?</div>
+            <!-- OUR COMMITMENT -->
+            <div style="background:#f8fafc;border-radius:8px;padding:20px;margin-bottom:24px;border:1px solid #e2e8f0;">
+              <div style="font-size:12px;font-weight:800;color:#1e293b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">What Happens Next</div>
+              <p style="margin:0 0 10px;font-size:13px;color:#475569;line-height:1.6;">
+                An application engineer specializing in your sector will analyze your requirements and connect with you via <strong>${enquiry.preferredChannel || 'WhatsApp'}</strong> within <strong>2 to 4 business hours</strong> with verified specifications and technical guidance.
+              </p>
+            </div>
+
+            <!-- INSTANT ASSISTANCE -->
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px 20px;">
+              <div style="font-size:13px;font-weight:700;color:#1e40af;margin-bottom:6px;">Need Direct Phone Consultation?</div>
               <table cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="padding-right:20px;font-size:13px;color:#374151;">
+                  <td style="padding-right:20px;font-size:13px;">
                     📞 <a href="tel:${company.phone}" style="color:#2563eb;font-weight:700;text-decoration:none;">${company.phone}</a>
                   </td>
-                  <td style="font-size:13px;color:#374151;">
-                    💬 <a href="https://wa.me/${company.whatsapp}" style="color:#25D366;font-weight:700;text-decoration:none;">Connect on WhatsApp</a>
+                  <td style="font-size:13px;">
+                    💬 <a href="https://wa.me/${company.whatsapp}" style="color:#16a34a;font-weight:700;text-decoration:none;">Chat on WhatsApp</a>
                   </td>
                 </tr>
               </table>
             </div>
+
           </td>
         </tr>
 
         <!-- FOOTER -->
         <tr>
-          <td style="background:#0b1e36;padding:22px 30px;text-align:center;">
+          <td style="background:#0b1e36;padding:22px 32px;text-align:center;">
             <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#e2e8f0;">Ariselux Equipments Private Limited</p>
-            <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;">${company.address}</p>
+            <p style="margin:0 0 6px;font-size:12px;color:#94a3b8;">${company.address}</p>
             <p style="margin:0;font-size:12px;color:#64748b;">
-              <a href="mailto:${company.email}" style="color:#94a3b8;text-decoration:none;">${company.email}</a>
-              &nbsp;·&nbsp;
-              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a>
+              <a href="mailto:${company.email}" style="color:#94a3b8;text-decoration:none;">${company.email}</a> · 
+              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Toll-Free: 1800 202 5104
             </p>
           </td>
         </tr>
@@ -369,21 +717,37 @@ export async function sendCustomerAcknowledgment(inquiry) {
     </td></tr>
   </table>
 </body>
-</html>
-  `;
+</html>`;
 
   try {
     const info = await mailer.sendMail({
-      from: `"Ariselux Equipments" <${smtp.user}>`,
-      to: inquiry.email,
+      from: `"Ariselux Technical Desk" <${smtp.user}>`,
+      to: enquiry.email,
       replyTo: company.email,
-      subject: `We have received your quotation request: ${inquiry.product} [Ref #${inquiry.id}] — Ariselux Equipments`,
-      html: customerEmailBody
+      subject: `We have received your technical enquiry: ${enquiry.enquiryType || 'General Consultation'} [Ref #${enquiry.id}] — Ariselux Equipments`,
+      html: customerEnquiryHtml
     });
-    console.log(`[CUSTOMER ACK SENT]: Delivered to ${inquiry.email} (ID: ${info.messageId})`);
+    console.log(`[CUSTOMER ENQUIRY ACK SENT]: Delivered to ${enquiry.email} (ID: ${info.messageId})`);
     return { sent: true, messageId: info.messageId };
   } catch (err) {
-    console.error(`[ACK EMAIL ERROR] Failed to send to ${inquiry.email}:`, err.message);
+    console.error(`[ENQUIRY ACK EMAIL ERROR] Failed to send to ${enquiry.email}:`, err.message);
     return { sent: false, error: err.message };
   }
+}
+
+/* ==========================================================
+   5. BACKWARD-COMPATIBLE WRAPPERS
+   ========================================================== */
+export async function sendInquiryNotification(item) {
+  if (item.entryType === 'quotation' || item.id?.startsWith('RFQ-') || item.quantity) {
+    return sendQuotationNotification(item);
+  }
+  return sendEnquiryNotification(item);
+}
+
+export async function sendCustomerAcknowledgment(item) {
+  if (item.entryType === 'quotation' || item.id?.startsWith('RFQ-') || item.quantity) {
+    return sendCustomerQuotationAcknowledgment(item);
+  }
+  return sendCustomerEnquiryAcknowledgment(item);
 }

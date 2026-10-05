@@ -124,9 +124,10 @@
             </div>
 
             <!-- Quick CTAs -->
-            <div class="hero-cta-buttons">
-              <a href="#inquiry-form-section" class="btn-theme" style="padding: 14px 30px;">Enquire For This Model →</a>
-              <a href="/images/company/brochure-portfolio.pdf" target="_blank" class="btn-solid" style="padding: 14px 28px; background: #fff; color: #000; border: 1px solid #000;">Download Spec Sheet 📥</a>
+            <div class="hero-cta-buttons" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 25px;">
+              <a href="#action-forms-section" class="btn-theme btn-tab-trigger" data-target-tab="quotation" style="padding: 14px 26px; background: #000; color: #fff; text-decoration: none; font-weight: 700;">Request Quotation 📋</a>
+              <a href="#action-forms-section" class="btn-theme btn-tab-trigger" data-target-tab="enquiry" style="padding: 14px 26px; background: var(--primary); color: #fff; text-decoration: none; font-weight: 700;">Technical Enquiry 💬</a>
+              <a href="/images/company/brochure-portfolio.pdf" target="_blank" class="btn-solid" style="padding: 14px 22px; background: #fff; color: #000; border: 1px solid #000; text-decoration: none; font-weight: 600;">Spec Sheet 📥</a>
             </div>
           </div>
 
@@ -314,60 +315,264 @@
     </section>
 
     <!-- ============================================
-         7. INQUIRY FORM SECTION (Same as Reference: "Light - You want it? We have it.")
+         7. DUAL ACTION SECTION: QUOTATION & ENQUIRY FORMS
          ============================================ -->
-    <section class="forminquiryrow" id="inquiry-form-section">
+    <section class="forminquiryrow" id="action-forms-section">
       <div class="container">
+        
         <div class="forminquiry-grid">
           
-          <!-- Left side -->
+          <!-- Left side: Information Desk -->
           <div>
-            <h2 style="font-size: clamp(36px, 4vw, 55px); font-weight: 900; margin-bottom: 5px;">Light</h2>
-            <div class="title-50">
-              <h3>You want it? We have it.</h3>
+            <span class="section-label" style="display:inline-block;margin-bottom:8px;">Haridwar Manufacturing Plant</span>
+            <h2 style="font-size: clamp(34px, 3.8vw, 50px); font-weight: 900; margin-bottom: 5px; line-height: 1.1;">Direct Works Desk</h2>
+            <div class="title-50" style="margin-top: 5px; margin-bottom: 20px;">
+              <h3 style="font-size: 26px; color: var(--primary);">Quotation &amp; Engineering Support</h3>
             </div>
-            <p style="color: var(--gray-600); line-height: 1.7; font-size: 17px; margin-bottom: 30px;">
-              We're always equipped to cater to your needs. Drop us your details, and our technical sales engineers will get in touch with you with verified specifications and official pricing.
+            <p style="color: var(--gray-600); line-height: 1.7; font-size: 16px; margin-bottom: 25px;">
+              Choose <strong>Request Quotation</strong> for official ex-works pricing, quantity discounts, and delivery freight estimation. Choose <strong>Technical Enquiry</strong> for consultation on photometric lux simulation, site feasibility, or custom mast heights.
             </p>
-            <div style="font-size: 15px; color: var(--gray-800); line-height: 1.8;">
-              <p><strong>Direct Sales Desk:</strong> +91-8126732502</p>
-              <p><strong>Toll Free:</strong> 1800 202 5104</p>
-              <p><strong>Technical Works:</strong> Bhagwanpur, Haridwar, Uttarakhand</p>
+            
+            <div class="plant-direct-box" style="background: var(--gray-100); border-left: 4px solid var(--primary); padding: 18px 22px; border-radius: 0 6px 6px 0; margin-bottom: 25px;">
+              <p style="margin: 0 0 8px; font-size: 15px; color: var(--black);"><strong>📞 Direct Sales / RFQ:</strong> <a href="tel:+918126732502" style="color: var(--primary); font-weight: 700; text-decoration: none;">+91-8126732502</a></p>
+              <p style="margin: 0 0 8px; font-size: 15px; color: var(--black);"><strong>☎ Toll Free:</strong> <a href="tel:18002025104" style="color: var(--black); font-weight: 700; text-decoration: none;">1800 202 5104</a></p>
+              <p style="margin: 0 0 8px; font-size: 14px; color: var(--gray-800);"><strong>💬 WhatsApp Desk:</strong> Immediate pricing &amp; PDF datasheets</p>
+              <p style="margin: 0; font-size: 13px; color: var(--gray-600);"><strong>📍 Works:</strong> Khasra No. 618 Latifpur Khubbanpur, Bhagwanpur - Haridwar</p>
+            </div>
+
+            <div style="font-size: 13px; color: var(--gray-600); line-height: 1.6;">
+              <span style="display:inline-block;background:#dcfce7;color:#15803d;padding:3px 8px;border-radius:4px;font-weight:700;margin-bottom:6px;">⏱ 2-4 Hours Turnaround</span><br>
+              Official commercial quotations and technical datasheets are processed directly by our Haridwar sales engineers.
             </div>
           </div>
 
-          <!-- Right side: Inquiry Form -->
+          <!-- Right side: Tabbed Dual Forms (Quotation vs Enquiry) -->
           <div>
-            <form class="forminquiry-form" id="detail-inquiry-form">
-              <input type="hidden" name="selected_product" id="form-selected-product" value="ACE LT 12000">
-              <!-- Anti-bot honeypot trap -->
-              <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
+            
+            <!-- Modern Tab Switcher -->
+            <div class="action-tab-switcher">
+              <button type="button" class="action-tab-btn active" id="tab-btn-quote" data-tab="quotation">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <span>Request Price Quotation</span>
+              </button>
+              <button type="button" class="action-tab-btn" id="tab-btn-enquiry" data-tab="enquiry">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>Technical &amp; Factory Enquiry</span>
+              </button>
+            </div>
+
+            <!-- ==============================================
+                 FORM 1: COMMERCIAL QUOTATION FORM
+                 ============================================== -->
+            <div class="action-tab-content active" id="tab-content-quotation">
               
-              <div class="form-group">
-                <input type="text" name="c_name" placeholder="Name *" required>
-              </div>
-              <div class="form-group">
-                <input type="email" name="c_email" placeholder="Email *" required>
-              </div>
-              <div class="form-group">
-                <input type="tel" name="c_number" placeholder="Contact Number *" required>
-              </div>
-              <div class="form-group">
-                <input type="text" name="c_company" placeholder="Company Name *" required>
-              </div>
-              <div class="form-group full">
-                <input type="text" name="c_location" placeholder="Location / State *" required>
-              </div>
-              <div class="form-group full">
-                <textarea name="c_message" rows="4" placeholder="Your Project Requirements / Delivery Timeline..."></textarea>
+              <div class="form-badge-strip quote-strip">
+                <div class="badge-tag">Official RFQ</div>
+                <div class="badge-text">Selected: <strong class="target-model-name">ACE LT 12000</strong></div>
               </div>
 
-              <div class="form-group full" style="margin-top: 10px;">
-                <div class="circlebtnsubmit">
-                  <button type="submit">Submit</button>
+              <form class="action-dual-form" id="detail-quotation-form">
+                <input type="hidden" name="product" class="form-hidden-product" value="ACE LT 12000">
+                <input type="hidden" name="entryType" value="quotation">
+                <input type="hidden" name="source" value="product-detail-quotation">
+                <!-- Anti-bot honeypot trap -->
+                <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-field-label">Full Name <span class="req">*</span></label>
+                    <input type="text" name="name" placeholder="e.g. Rajesh Kumar" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-field-label">Company / Organization <span class="req">*</span></label>
+                    <input type="text" name="company" placeholder="e.g. L&amp;T Infrastructure / PSU / Contractor" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-field-label">Official Work Email <span class="req">*</span></label>
+                    <input type="email" name="email" placeholder="e.g. purchase@company.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-field-label">Mobile / WhatsApp Number <span class="req">*</span></label>
+                    <input type="tel" name="phone" placeholder="e.g. +91 98765 43210" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-field-label">Quantity Required <span class="req">*</span></label>
+                    <select name="quantity" class="form-select" required>
+                      <option value="1 Unit">1 Unit (Standard Deployment)</option>
+                      <option value="2 - 5 Units">2 - 5 Units (Multi-Site Fleet)</option>
+                      <option value="6 - 10 Units">6 - 10 Units (Bulk Project Order)</option>
+                      <option value="10+ Units">10+ Units (Tender / Institutional Procurement)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-field-label">Target Delivery Timeline</label>
+                    <select name="deliveryTimeline" class="form-select">
+                      <option value="Immediate Dispatch">Immediate Dispatch (Ready Stock Haridwar)</option>
+                      <option value="Within 1 - 2 Weeks">Within 1 - 2 Weeks</option>
+                      <option value="Within 1 Month">Within 1 Month</option>
+                      <option value="Bidding / Tender Stage">Bidding / Project Tender Stage</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-field-label">Delivery Destination (City / State / Site) <span class="req">*</span></label>
+                    <input type="text" name="deliveryLocation" placeholder="e.g. Haridwar, Gujarat, Delhi NCR, Hyderabad" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-field-label">Company GSTIN <span class="opt">(Optional - for tax quote)</span></label>
+                    <input type="text" name="gstin" placeholder="e.g. 05AAAAA0000A1Z5">
+                  </div>
+                </div>
+
+                <div class="form-group full">
+                  <label class="form-field-label">Custom Specifications &amp; Commercial Notes <span class="opt">(Optional)</span></label>
+                  <textarea name="specifications" rows="3" placeholder="Specify preferred mast height (4.5M - 12M), engine brand (Escort Kubota/Kohler), or site power requirements..."></textarea>
+                </div>
+
+                <div class="form-submit-row">
+                  <button type="submit" class="btn-action-submit quote-submit-btn" id="detail-quote-submit-btn">
+                    <span>Submit Commercial Quotation Request</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </button>
+                  <span class="submit-privacy-note">🔒 Official OEM quote with formal unit pricing &amp; freight estimation delivered within 2-4h.</span>
+                </div>
+              </form>
+
+              <!-- Quotation Success Box -->
+              <div id="detail-quote-success-view" class="form-success-box" style="display:none;">
+                <div class="success-icon-wrap" style="background:#eff6ff;color:#1b5faa;">📋</div>
+                <h4>Commercial Quotation Request Received!</h4>
+                <div class="success-ref-badge" id="detail-quote-ref-badge">Ref #RFQ-1001</div>
+                <p id="detail-quote-success-msg">Thank you! Your quotation request has been received by our commercial estimation desk in Haridwar. We will share your formal quotation within 2-4 business hours.</p>
+                <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+                  <a href="#" target="_blank" class="btn-solid" id="detail-quote-wa-btn" style="background:#16a34a;color:#fff;border-color:#16a34a;">💬 Connect with Sales Desk on WhatsApp</a>
+                  <button type="button" class="btn-theme" id="detail-quote-reset-btn" style="border:1px solid #cbd5e1;">Submit Another Request</button>
                 </div>
               </div>
-            </form>
+
+            </div>
+
+            <!-- ==============================================
+                 FORM 2: TECHNICAL & FACTORY ENQUIRY FORM
+                 ============================================== -->
+            <div class="action-tab-content" id="tab-content-enquiry">
+              
+              <div class="form-badge-strip enquiry-strip">
+                <div class="badge-tag">Factory Advisory</div>
+                <div class="badge-text">Enquiring on: <strong class="target-model-name">ACE LT 12000</strong></div>
+              </div>
+
+              <form class="action-dual-form" id="detail-enquiry-form">
+                <input type="hidden" name="product" class="form-hidden-product" value="ACE LT 12000">
+                <input type="hidden" name="entryType" value="enquiry">
+                <input type="hidden" name="source" value="product-detail-enquiry">
+                <!-- Anti-bot honeypot trap -->
+                <input type="text" name="website_hp" style="position:absolute;left:-9999px;opacity:0;" tabindex="-1" autocomplete="off">
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-field-label">Your Full Name <span class="req">*</span></label>
+                    <input type="text" name="name" placeholder="e.g. Vikram Sharma" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-field-label">Mobile / WhatsApp Number <span class="req">*</span></label>
+                    <input type="tel" name="phone" placeholder="e.g. +91 98765 43210" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-field-label">Official Work Email <span class="req">*</span></label>
+                    <input type="email" name="email" placeholder="e.g. vikram@company.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-field-label">Company / City Location</label>
+                    <input type="text" name="location" placeholder="e.g. Infra Works, Ahmedabad">
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-field-label">Nature of Enquiry <span class="req">*</span></label>
+                    <select name="enquiryType" class="form-select" required>
+                      <option value="Technical Specifications & Consultation">Technical Specifications &amp; Consultation</option>
+                      <option value="Photometric Lux Simulation & Lighting Plan">Photometric Lux Simulation &amp; Site Lux Plan</option>
+                      <option value="Custom Engineering & Mast Height">Custom Engineering &amp; Mast Height</option>
+                      <option value="Dealership & Fleet Procurement">Dealership &amp; Fleet Procurement</option>
+                      <option value="Price & Availability Query">Price &amp; Availability Query</option>
+                      <option value="After-Sales Service & Spare Parts">After-Sales Service &amp; Spare Parts</option>
+                      <option value="General Question / Other">General Question / Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-field-label">Project / Site Application Type</label>
+                    <select name="projectType" class="form-select">
+                      <option value="Highway & Road Construction">Highway &amp; Road Construction</option>
+                      <option value="Mining & Open Cast Excavation">Mining &amp; Open Cast Excavation</option>
+                      <option value="Infrastructure / Metro / Railway">Infrastructure / Metro / Railway</option>
+                      <option value="Industrial Plant / Shutdown">Industrial Plant / Shutdown</option>
+                      <option value="Defense & Security Operations">Defense &amp; Security Operations</option>
+                      <option value="Event & Equipment Rental Fleet">Event &amp; Equipment Rental Fleet</option>
+                      <option value="General Industrial">General Industrial</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Preferred Response Channel -->
+                <div class="form-group full">
+                  <label class="form-field-label">Preferred Response Channel</label>
+                  <div class="channel-selector-row">
+                    <label class="channel-radio-item">
+                      <input type="radio" name="preferredChannel" value="WhatsApp" checked>
+                      <span>💬 WhatsApp</span>
+                    </label>
+                    <label class="channel-radio-item">
+                      <input type="radio" name="preferredChannel" value="Phone Call">
+                      <span>📞 Phone Call</span>
+                    </label>
+                    <label class="channel-radio-item">
+                      <input type="radio" name="preferredChannel" value="Email">
+                      <span>✉️ Email</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group full">
+                  <label class="form-field-label">Your Technical Query &amp; Project Requirements <span class="req">*</span></label>
+                  <textarea name="message" rows="3" placeholder="Please describe your site illumination requirements, runtime expectations, or technical questions..." required></textarea>
+                </div>
+
+                <div class="form-submit-row">
+                  <button type="submit" class="btn-action-submit enquiry-submit-btn" id="detail-enquiry-submit-btn">
+                    <span>Submit Technical Consultation Enquiry</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                  </button>
+                  <span class="submit-privacy-note">⚙️ Factory engineering consultation from Haridwar Works within 2-4 business hours.</span>
+                </div>
+              </form>
+
+              <!-- Enquiry Success Box -->
+              <div id="detail-enquiry-success-view" class="form-success-box" style="display:none;">
+                <div class="success-icon-wrap" style="background:#e0f2fe;color:#0369a1;">💬</div>
+                <h4>Technical Consultation Enquiry Received!</h4>
+                <div class="success-ref-badge" id="detail-enquiry-ref-badge" style="background:#dcfce7;color:#15803d;border-color:#86efac;">Ref #ENQ-1001</div>
+                <p id="detail-enquiry-success-msg">Thank you! Your technical enquiry has been registered with our Haridwar Works application engineering desk. An engineer will reach out via your preferred channel.</p>
+                <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+                  <a href="#" target="_blank" class="btn-solid" id="detail-enquiry-wa-btn" style="background:#16a34a;color:#fff;border-color:#16a34a;">💬 Connect Directly on WhatsApp</a>
+                  <button type="button" class="btn-theme" id="detail-enquiry-reset-btn" style="border:1px solid #cbd5e1;">Submit Another Enquiry</button>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
@@ -446,6 +651,7 @@
     <a href="tel:+918126732502" class="btn-float call" title="Call Us Directly">📞</a>
   </div>
 
+  <script type="module" src="/src/main.js"></script>
   <script type="module" src="/src/product-detail.js"></script>
 </body>
 </html>
