@@ -93,20 +93,20 @@ export async function sendQuotationNotification(quotation) {
 
         <!-- HEADER: COMMERCIAL RFQ BANNER -->
         <tr>
-          <td style="background:linear-gradient(135deg, #0b1e36 0%, #1e3a8a 100%);padding:26px 32px;border-bottom:4px solid #d97706;">
+          <td style="background:linear-gradient(135deg, #0b1e36 0%, #13325c 100%);padding:26px 32px;border-bottom:4px solid #1b5faa;">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>
-                  <span style="display:inline-block;background:#d97706;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:8px;">
+                  <span style="display:inline-block;background:#1b5faa;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:8px;">
                     COMMERCIAL QUOTATION REQUEST (RFQ)
                   </span>
                   <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">New Price Quotation Alert 📋</h1>
-                  <p style="margin:6px 0 0;font-size:13px;color:#94a3b8;">Haridwar Works Direct OEM Pricing &amp; Freight Calculation</p>
+                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Haridwar Works Direct OEM Pricing &amp; Freight Calculation</p>
                 </td>
                 <td align="right" style="vertical-align:top;">
-                  <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:8px 16px;text-align:center;">
-                    <div style="font-size:10px;color:#cbd5e1;font-weight:700;letter-spacing:1px;text-transform:uppercase;">QUOTATION ID</div>
-                    <div style="font-size:15px;font-weight:800;color:#fbbf24;font-family:monospace;margin-top:2px;">#${quotation.id}</div>
+                  <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:8px 16px;text-align:center;">
+                    <div style="font-size:10px;color:#e0f2fe;font-weight:700;letter-spacing:1px;text-transform:uppercase;">QUOTATION ID</div>
+                    <div style="font-size:15px;font-weight:800;color:#ffffff;font-family:monospace;margin-top:2px;">#${quotation.id}</div>
                   </div>
                 </td>
               </tr>
@@ -116,16 +116,16 @@ export async function sendQuotationNotification(quotation) {
 
         <!-- PRIORITY MODEL & QUANTITY CARD -->
         <tr>
-          <td style="background:#fef3c7;padding:18px 32px;border-bottom:1px solid #fde68a;">
+          <td style="background:#f0f9ff;padding:18px 32px;border-bottom:1px solid #bae6fd;">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td style="width:65%;">
-                  <span style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:1px;">Target Product / Model</span>
-                  <h2 style="margin:4px 0 0;font-size:22px;font-weight:800;color:#78350f;">${quotation.product}</h2>
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Target Product / Model</span>
+                  <h2 style="margin:4px 0 0;font-size:22px;font-weight:800;color:#0c4a6e;">${quotation.product}</h2>
                 </td>
                 <td style="width:35%;text-align:right;">
-                  <span style="font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:1px;">Quantity Required</span>
-                  <div style="margin-top:4px;font-size:18px;font-weight:800;color:#1e3a8a;background:#ffffff;padding:4px 12px;border-radius:6px;display:inline-block;border:1px solid #fcd34d;">
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Quantity Required</span>
+                  <div style="margin-top:4px;font-size:18px;font-weight:800;color:#0369a1;background:#ffffff;padding:4px 12px;border-radius:6px;display:inline-block;border:1px solid #7dd3fc;">
                     ${quotation.quantity || '1 Unit'}
                   </div>
                 </td>
@@ -158,7 +158,7 @@ export async function sendQuotationNotification(quotation) {
               </tr>
               <tr>
                 <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Target Delivery Timeline</td>
-                <td style="padding:12px 16px;font-weight:700;color:#b45309;border-bottom:1px solid #e2e8f0;">${quotation.deliveryTimeline || 'Immediate Dispatch'}</td>
+                <td style="padding:12px 16px;font-weight:700;color:#1e40af;border-bottom:1px solid #e2e8f0;">${quotation.deliveryTimeline || 'Immediate Dispatch'}</td>
               </tr>
               <tr style="background:#f8fafc;">
                 <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Contact Mobile / Phone</td>
@@ -212,8 +212,13 @@ export async function sendQuotationNotification(quotation) {
 
         <!-- FOOTER -->
         <tr>
-          <td style="background:#f1f5f9;padding:16px 32px;border-top:1px solid #e2e8f0;text-align:center;">
-            <p style="margin:0;font-size:12px;color:#64748b;">Automated Quotation Engine • Ariselux Equipments Private Limited • Haridwar Works Works</p>
+          <td style="background:#0b1e36;padding:22px 32px;text-align:center;">
+            <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#e2e8f0;">Ariselux Equipments Private Limited</p>
+            <p style="margin:0 0 6px;font-size:12px;color:#94a3b8;">${company.address}</p>
+            <p style="margin:0;font-size:12px;color:#64748b;">
+              <a href="mailto:${company.email}" style="color:#94a3b8;text-decoration:none;">${company.email}</a> · 
+              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Direct OEM Haridwar Works
+            </p>
           </td>
         </tr>
 
@@ -261,29 +266,51 @@ export async function sendCustomerQuotationAcknowledgment(quotation) {
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:35px 0;">
+<body style="margin:0;padding:0;background:#0f172a;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f172a;padding:35px 0;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.1);">
+      <table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.3);">
 
         <!-- HEADER: BRANDED BANNER -->
         <tr>
-          <td style="background:#0b1e36;padding:26px 32px;text-align:center;">
-            <h1 style="margin:0 0 4px;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.5px;">ARISELUX EQUIPMENTS</h1>
-            <p style="margin:0;font-size:12px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;">Private Limited · Industrial Heavy Mobile Lighting · Haridwar Works</p>
+          <td style="background:linear-gradient(135deg, #0b1e36 0%, #13325c 100%);padding:26px 32px;border-bottom:4px solid #1b5faa;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <span style="display:inline-block;background:#1b5faa;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:8px;">
+                    ARISELUX EQUIPMENTS PVT LTD
+                  </span>
+                  <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">Quotation Request Received 📋</h1>
+                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Commercial Estimation &amp; Application Desk • Haridwar Works</p>
+                </td>
+                <td align="right" style="vertical-align:top;">
+                  <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:8px 16px;text-align:center;">
+                    <div style="font-size:10px;color:#e0f2fe;font-weight:700;letter-spacing:1px;text-transform:uppercase;">QUOTATION REF</div>
+                    <div style="font-size:15px;font-weight:800;color:#ffffff;font-family:monospace;margin-top:2px;">#${quotation.id}</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
 
-        <!-- SUCCESS BANNER -->
+        <!-- SUB BANNER -->
         <tr>
-          <td style="background:#ecfdf5;padding:22px 32px;border-bottom:1px solid #a7f3d0;text-align:center;">
-            <div style="font-size:32px;margin-bottom:6px;">📋</div>
-            <h2 style="margin:0;font-size:20px;font-weight:800;color:#065f46;">
-              Official Quotation Request Received
-            </h2>
-            <p style="margin:6px 0 0;font-size:13px;color:#047857;">
-              Quotation Reference: <strong style="font-family:monospace;background:#d1fae5;padding:3px 10px;border-radius:4px;color:#065f46;">#${quotation.id}</strong>
-            </p>
+          <td style="background:#f0f9ff;padding:18px 32px;border-bottom:1px solid #bae6fd;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="width:65%;">
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Selected Model</span>
+                  <h2 style="margin:4px 0 0;font-size:20px;font-weight:800;color:#0c4a6e;">${quotation.product}</h2>
+                </td>
+                <td style="width:35%;text-align:right;">
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Quantity Required</span>
+                  <div style="margin-top:4px;font-size:15px;font-weight:800;color:#0369a1;background:#ffffff;padding:4px 12px;border-radius:6px;display:inline-block;border:1px solid #7dd3fc;">
+                    ${quotation.quantity || '1 Unit'}
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
 
@@ -296,10 +323,10 @@ export async function sendCustomerQuotationAcknowledgment(quotation) {
             </p>
 
             <!-- PRODUCT HIGHLIGHT -->
-            <div style="background:linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);border-left:5px solid #d97706;border-radius:0 8px 8px 0;padding:18px 22px;margin:0 0 24px;">
-              <div style="font-size:11px;font-weight:800;color:#92400e;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Requested Model &amp; Series</div>
-              <div style="font-size:22px;font-weight:800;color:#78350f;">${quotation.product}</div>
-              <div style="font-size:13px;color:#92400e;margin-top:4px;">OEM Direct Factory Dispatch • ISO 9001:2015 Certified Mechanical Engineering</div>
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:5px solid #1b5faa;border-radius:8px;padding:18px 22px;margin:0 0 24px;">
+              <div style="font-size:11px;font-weight:800;color:#0369a1;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Requested Model &amp; Series</div>
+              <div style="font-size:22px;font-weight:800;color:#0c4a6e;">${quotation.product}</div>
+              <div style="font-size:13px;color:#1e40af;margin-top:4px;">OEM Direct Factory Dispatch • ISO 9001:2015 Certified Mechanical Engineering</div>
             </div>
 
             <!-- ITEMIZED RFQ BREAKDOWN -->
@@ -316,7 +343,7 @@ export async function sendCustomerQuotationAcknowledgment(quotation) {
                 </tr>
                 <tr>
                   <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Delivery Timeline:</td>
-                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#b45309;">${quotation.deliveryTimeline || 'Immediate Dispatch'}</td>
+                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#1e40af;">${quotation.deliveryTimeline || 'Immediate Dispatch'}</td>
                 </tr>
                 <tr>
                   <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Delivery Site / Destination:</td>
@@ -491,7 +518,7 @@ export async function sendEnquiryNotification(enquiry) {
               </tr>
               <tr>
                 <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Equipment / Topic</td>
-                <td style="padding:12px 16px;font-weight:700;color:#c2410c;border-bottom:1px solid #e2e8f0;">${enquiry.product}</td>
+                <td style="padding:12px 16px;font-weight:700;color:#1e40af;border-bottom:1px solid #e2e8f0;">${enquiry.product}</td>
               </tr>
               <tr style="background:#f8fafc;">
                 <td style="padding:12px 16px;font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0;">Project / Site Type</td>
@@ -537,7 +564,7 @@ export async function sendEnquiryNotification(enquiry) {
                 </td>
                 ${enquiry.email ? `
                 <td style="padding-right:10px;">
-                  <a href="mailto:${enquiry.email}?subject=Re:%20Technical%20Enquiry%20-%20${encodeURIComponent(enquiry.product)}%20(Ref%20%23${enquiry.id})&body=Dear%20${encodeURIComponent(enquiry.name)}%2C%0A%0AThank%20you%20for%20your%20technical%20enquiry%20regarding%20${encodeURIComponent(enquiry.product)}%20(Ref%20%23${enquiry.id}).%0APlease%20find%20our%20engineering%20recommendations%20below:" style="background:#0284c7;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
+                  <a href="mailto:${enquiry.email}?subject=Re:%20Technical%20Enquiry%20-%20${encodeURIComponent(enquiry.product)}%20(Ref%20%23${enquiry.id})&body=Dear%20${encodeURIComponent(enquiry.name)}%2C%0A%0AThank%20you%20for%20your%20technical%20enquiry%20regarding%20${encodeURIComponent(enquiry.product)}%20(Ref%20%23${enquiry.id}).%0APlease%20find%20our%20engineering%20recommendations%20below:" style="background:#1e40af;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;text-align:center;">
                     ✉️ Reply via Email
                   </a>
                 </td>` : ''}
@@ -553,8 +580,13 @@ export async function sendEnquiryNotification(enquiry) {
 
         <!-- FOOTER -->
         <tr>
-          <td style="background:#f1f5f9;padding:16px 32px;border-top:1px solid #e2e8f0;text-align:center;">
-            <p style="margin:0;font-size:12px;color:#64748b;">Factory Technical Support Engine • Ariselux Equipments Private Limited • Haridwar Works</p>
+          <td style="background:#0b1e36;padding:22px 32px;text-align:center;">
+            <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#e2e8f0;">Ariselux Equipments Private Limited</p>
+            <p style="margin:0 0 6px;font-size:12px;color:#94a3b8;">${company.address}</p>
+            <p style="margin:0;font-size:12px;color:#64748b;">
+              <a href="mailto:${company.email}" style="color:#94a3b8;text-decoration:none;">${company.email}</a> · 
+              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Direct OEM Haridwar Works
+            </p>
           </td>
         </tr>
 
@@ -588,7 +620,7 @@ export async function sendEnquiryNotification(enquiry) {
 /* ==========================================================
    4. CUSTOMER ENQUIRY ACKNOWLEDGMENT EMAIL (sent to customer's inbox)
    Purpose: Official Technical Advisory confirmation receipt to customer
-   Style: Clean Industrial Consultation & Advisory theme
+   Style: Exact Same Blue Theme as Enquiry Sales Desk Email
    ========================================================== */
 export async function sendCustomerEnquiryAcknowledgment(enquiry) {
   if (!enquiry.email) return { sent: false, reason: 'no_customer_email' };
@@ -602,29 +634,51 @@ export async function sendCustomerEnquiryAcknowledgment(enquiry) {
 <!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:35px 0;">
+<body style="margin:0;padding:0;background:#0f172a;font-family:'Segoe UI',Arial,Helvetica,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f172a;padding:35px 0;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.1);">
+      <table width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.3);">
 
         <!-- HEADER: BRANDED BANNER -->
         <tr>
-          <td style="background:#0b1e36;padding:26px 32px;text-align:center;">
-            <h1 style="margin:0 0 4px;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:0.5px;">ARISELUX EQUIPMENTS</h1>
-            <p style="margin:0;font-size:12px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;">Private Limited · Factory Technical &amp; Application Desk</p>
+          <td style="background:linear-gradient(135deg, #0b1e36 0%, #13325c 100%);padding:26px 32px;border-bottom:4px solid #1b5faa;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <span style="display:inline-block;background:#1b5faa;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:1.5px;padding:4px 10px;border-radius:4px;text-transform:uppercase;margin-bottom:8px;">
+                    ARISELUX EQUIPMENTS PVT LTD
+                  </span>
+                  <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">Technical Enquiry Received 💬</h1>
+                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Factory Technical &amp; Application Desk • Haridwar Works</p>
+                </td>
+                <td align="right" style="vertical-align:top;">
+                  <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:8px 16px;text-align:center;">
+                    <div style="font-size:10px;color:#e0f2fe;font-weight:700;letter-spacing:1px;text-transform:uppercase;">ENQUIRY REF</div>
+                    <div style="font-size:15px;font-weight:800;color:#ffffff;font-family:monospace;margin-top:2px;">#${enquiry.id}</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
 
-        <!-- SUCCESS BANNER -->
+        <!-- SUB BANNER -->
         <tr>
-          <td style="background:#f0fdf4;padding:22px 32px;border-bottom:1px solid #bbf7d0;text-align:center;">
-            <div style="font-size:32px;margin-bottom:6px;">💬</div>
-            <h2 style="margin:0;font-size:20px;font-weight:800;color:#166534;">
-              Technical Enquiry Received Successfully
-            </h2>
-            <p style="margin:6px 0 0;font-size:13px;color:#15803d;">
-              Enquiry Reference: <strong style="font-family:monospace;background:#dcfce7;padding:3px 10px;border-radius:4px;color:#166534;">#${enquiry.id}</strong>
-            </p>
+          <td style="background:#f0f9ff;padding:18px 32px;border-bottom:1px solid #bae6fd;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="width:65%;">
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Nature of Enquiry</span>
+                  <h2 style="margin:4px 0 0;font-size:20px;font-weight:800;color:#0c4a6e;">${enquiry.enquiryType || 'Technical Consultation'}</h2>
+                </td>
+                <td style="width:35%;text-align:right;">
+                  <span style="font-size:11px;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:1px;">Preferred Channel</span>
+                  <div style="margin-top:4px;font-size:14px;font-weight:800;color:#0369a1;background:#ffffff;padding:4px 12px;border-radius:6px;display:inline-block;border:1px solid #7dd3fc;">
+                    ${enquiry.preferredChannel || 'WhatsApp'}
+                  </div>
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
 
@@ -637,10 +691,10 @@ export async function sendCustomerEnquiryAcknowledgment(enquiry) {
             </p>
 
             <!-- TOPIC HIGHLIGHT -->
-            <div style="background:linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);border-left:5px solid #ea580c;border-radius:0 8px 8px 0;padding:18px 22px;margin:0 0 24px;">
-              <div style="font-size:11px;font-weight:800;color:#9a3412;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Enquiry Subject / Model</div>
-              <div style="font-size:22px;font-weight:800;color:#c2410c;">${enquiry.product}</div>
-              <div style="font-size:13px;color:#9a3412;margin-top:4px;">Nature: <strong>${enquiry.enquiryType || 'Technical Consultation'}</strong></div>
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:5px solid #1b5faa;border-radius:8px;padding:18px 22px;margin:0 0 24px;">
+              <div style="font-size:11px;font-weight:800;color:#0369a1;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Enquiry Subject / Model</div>
+              <div style="font-size:22px;font-weight:800;color:#0c4a6e;">${enquiry.product}</div>
+              <div style="font-size:13px;color:#1e40af;margin-top:4px;">Nature: <strong>${enquiry.enquiryType || 'Technical Consultation'}</strong></div>
             </div>
 
             <!-- ITEMIZED ENQUIRY BREAKDOWN -->
@@ -653,7 +707,7 @@ export async function sendCustomerEnquiryAcknowledgment(enquiry) {
                 </tr>
                 <tr>
                   <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Product / Series:</td>
-                  <td style="border-bottom:1px solid #f1f5f9;">${enquiry.product}</td>
+                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#1e40af;">${enquiry.product}</td>
                 </tr>
                 <tr>
                   <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Application / Site:</td>
@@ -661,7 +715,7 @@ export async function sendCustomerEnquiryAcknowledgment(enquiry) {
                 </tr>
                 <tr>
                   <td style="font-weight:700;color:#64748b;border-bottom:1px solid #f1f5f9;">Preferred Channel:</td>
-                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#0284c7;">${enquiry.preferredChannel || 'WhatsApp'}</td>
+                  <td style="border-bottom:1px solid #f1f5f9;font-weight:700;color:#1e40af;">${enquiry.preferredChannel || 'WhatsApp'}</td>
                 </tr>
                 ${enquiry.company ? `
                 <tr>

@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { config } from './config/index.js';
-import { testSmtpConnection } from './services/emailService.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
 import quotationRoutes from './routes/quotationRoutes.js';
 import enquiryRoutes from './routes/enquiryRoutes.js';
@@ -35,20 +34,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// SMTP Diagnostic Endpoint (POST only to prevent accidental browser triggers)
-app.post('/api/test-email', async (req, res) => {
-  try {
-    const authKey = req.headers['x-admin-key'] || req.query.key;
-    if (config.nodeEnv === 'production' && authKey !== 'ariselux-test') {
-      return res.status(403).json({ success: false, message: 'Forbidden' });
-    }
-    const result = await testSmtpConnection();
-    const statusCode = result.success ? 200 : (result.configured ? 502 : 400);
-    return res.status(statusCode).json(result);
-  } catch (err) {
-    return res.status(500).json({ success: false, error: err.message });
-  }
-});
 
 // API Routes (Dedicated + Legacy Aliases)
 app.use('/api/quotations', quotationRoutes);
