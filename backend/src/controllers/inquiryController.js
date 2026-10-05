@@ -78,24 +78,8 @@ export async function createInquiry(req, res, next) {
       source: source || 'website'
     });
 
-    // Check if customer email is identical to company/sales email
-    const isCompanyEmail = cleanEmail && (
-      cleanEmail === config.company.email.toLowerCase() ||
-      cleanEmail === (config.smtp.user || '').toLowerCase()
-    );
-
-    // Send single email notification to sales desk
-    const salesEmailPromise = sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message }));
-
-    // Only send customer acknowledgment if customer email is valid and NOT the same as company email (avoids duplicate emails in same inbox)
-    const customerEmailPromise = (cleanEmail && !isCompanyEmail)
-      ? sendCustomerAcknowledgment(inquiry).catch(err => ({ sent: false, error: err.message }))
-      : Promise.resolve({ sent: false, reason: isCompanyEmail ? 'company_email_duplicate_skipped' : 'no_customer_email' });
-
-    const [salesEmailResult, customerEmailResult] = await Promise.all([
-      salesEmailPromise,
-      customerEmailPromise
-    ]);
+    // Send email notification to sales desk only (no customer acknowledgment email)
+    const salesEmailResult = await sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message }));
 
     // WhatsApp direct link generator
     const waText = encodeURIComponent(
@@ -115,10 +99,7 @@ export async function createInquiry(req, res, next) {
       emailDelivery: {
         salesDesk: salesEmailResult.sent 
           ? `Delivered to ${config.company.email}` 
-          : (salesEmailResult.message || salesEmailResult.error || 'SMTP credentials not configured in backend/.env'),
-        customerAck: customerEmailResult.sent
-          ? `Delivered to ${cleanEmail}`
-          : (customerEmailResult.reason || customerEmailResult.error || 'Not sent')
+          : (salesEmailResult.message || salesEmailResult.error || 'SMTP credentials not configured in backend/.env')
       },
       whatsappDirectUrl: whatsappUrl
     };
