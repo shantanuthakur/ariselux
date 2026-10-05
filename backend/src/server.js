@@ -1,5 +1,6 @@
 import app from './app.js';
 import { config } from './config/index.js';
+import { logStartup } from './services/logService.js';
 
 const PORT = config.port;
 
@@ -12,6 +13,7 @@ const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`📨 Inquiries: http://localhost:${PORT}/api/inquiries`);
   console.log(`📦 Products:  http://localhost:${PORT}/api/products`);
   console.log(`======================================================\n`);
+  logStartup(PORT, config.nodeEnv);
 });
 
 // Configure keep-alive timeouts to prevent ECONNRESET with reverse proxies

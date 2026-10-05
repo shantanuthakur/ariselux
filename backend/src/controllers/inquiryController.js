@@ -1,6 +1,7 @@
 import { saveInquiry, getInquiries, getInquiryById, updateInquiryStatus } from '../services/storageService.js';
 import { sendInquiryNotification, sendCustomerAcknowledgment } from '../services/emailService.js';
 import { config } from '../config/index.js';
+import { logInquiry, logEmail, logRateLimit, logSpam, logDedupe, logError } from '../services/logService.js';
 
 // Simple in-memory rate limiting map (IP -> timestamps)
 const submissionRateMap = new Map();
@@ -15,6 +16,7 @@ export async function createInquiry(req, res, next) {
     // Honeypot check (catches automated bot scripts)
     if (website_hp || _gotcha) {
       console.warn(`[SPAM DETECTED] Honeypot triggered from IP: ${req.ip}`);
+      logSpam(req.ip);
       return res.status(200).json({
         success: true,
         message: 'Quotation request received.'
@@ -29,6 +31,7 @@ export async function createInquiry(req, res, next) {
     const validHistory = history.filter(ts => now - ts < windowMs);
     
     if (validHistory.length >= 5) {
+      logRateLimit(clientIp, req.body?.product || 'unknown');
       return res.status(429).json({
         success: false,
         message: 'Too many quotation requests submitted. Please connect directly via WhatsApp at +91-8126732502.'
@@ -63,6 +66,7 @@ export async function createInquiry(req, res, next) {
       const existing = recentSubmissionsMap.get(dedupeKey);
       if (now - existing.timestamp < 60000) {
         console.log(`[DEDUPE] Duplicate inquiry submission blocked for: ${dedupeKey}`);
+        logDedupe(dedupeKey);
         return res.status(200).json(existing.response);
       }
     }
@@ -80,11 +84,13 @@ export async function createInquiry(req, res, next) {
 
     // Send email notification to sales desk (internal alert)
     const salesEmailResult = await sendInquiryNotification(inquiry).catch(err => ({ sent: false, error: err.message }));
+    logEmail('SALES_DESK', config.company.email, salesEmailResult);
 
     // Send customer acknowledgment email ("We have received your quotation request")
     const customerEmailResult = cleanEmail
       ? await sendCustomerAcknowledgment(inquiry).catch(err => ({ sent: false, error: err.message }))
       : { sent: false, reason: 'no_customer_email' };
+    if (cleanEmail) logEmail('CUSTOMER_ACK', cleanEmail, customerEmailResult);
 
     // WhatsApp direct link generator
     const waText = encodeURIComponent(
@@ -112,11 +118,18 @@ export async function createInquiry(req, res, next) {
       whatsappDirectUrl: whatsappUrl
     };
 
+    // Log the full inquiry summary to file
+    logInquiry(inquiry, {
+      salesDesk: salesEmailResult.sent ? `Delivered to ${config.company.email}` : (salesEmailResult.error || 'failed'),
+      customerAck: customerEmailResult.sent ? `Delivered to ${cleanEmail}` : (customerEmailResult.reason || customerEmailResult.error || 'not sent')
+    });
+
     // Cache to deduplicate rapid successive calls
     recentSubmissionsMap.set(dedupeKey, { timestamp: now, response: responseData });
 
     return res.status(201).json(responseData);
   } catch (err) {
+    logError('INQUIRY', `Unhandled error in createInquiry`, err);
     next(err);
   }
 }
