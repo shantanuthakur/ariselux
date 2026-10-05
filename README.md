@@ -36,7 +36,7 @@ The web application is designed with high visual fidelity, modern industrial sty
   * Direct RFQ linking with pre-filled enquiry parameters
 * **[about.html](file:///c:/Users/DELL/Desktop/ariselux/about.html)**:
   * Authentic company history (Established 2014, Arise Construction Equipments)
-  * Leadership spotlight honoring Mr. M.S. Chauhan and Mr. Amit Chauhan
+  * Corporate Pillars spotlight honoring ethical transparency, engineering excellence, and growth trajectory
   * Corporate Vision & Mission statements from official company literature
   * Expert Team & Quality Assurance documentation
 * **[contact.html](file:///c:/Users/DELL/Desktop/ariselux/contact.html)**:
