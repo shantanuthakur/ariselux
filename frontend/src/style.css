@@ -514,8 +514,8 @@ p {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
-  padding: 14px 0;
+  z-index: 10010;
+  padding: 12px 0;
   background: #0a0a0a;
   border-bottom: 1px solid rgba(255,255,255,0.07);
   box-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
@@ -600,13 +600,13 @@ p {
 .nav-menu {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 30px;
 }
 
 .nav-menu a {
   color: rgba(255,255,255,0.82);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 650;
   text-transform: none;
   letter-spacing: 0.3px;
   position: relative;
@@ -620,7 +620,7 @@ p {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 1.5px;
+  height: 2px;
   background: var(--primary);
   transition: width 0.3s ease;
 }
@@ -810,20 +810,20 @@ p {
 .header-actions {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  margin-left: 6px;
+  gap: 14px;
+  margin-left: 10px;
 }
 
 .header-brochure-btn {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 9px 18px;
+  padding: 12px 25px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 4px;
   color: #ffffff !important;
-  font-size: 13.5px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: 0.3px;
   text-transform: none;
@@ -863,12 +863,12 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 9px 22px;
+  padding: 12px 30px;
   background: var(--primary);
   border: 1px solid var(--primary);
   border-radius: 4px;
   color: var(--white) !important;
-  font-size: 13.5px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: 0.3px;
   text-transform: none;
@@ -937,7 +937,7 @@ p {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Mobile Nav Drawer (Full Modern Mobile App Experience) */
+/* Mobile Nav Drawer (Full Modern Mobile App Experience with Dedicated Close Button) */
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -951,14 +951,14 @@ p {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  padding: 85px 24px 35px;
+  padding: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s ease;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
 }
 
 .mobile-nav.active {
@@ -968,6 +968,47 @@ p {
   transform: translateY(0);
 }
 
+.mobile-nav-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #080f1a;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.mobile-nav-brand img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.mobile-nav-close-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.mobile-nav-close-btn:hover,
+.mobile-nav-close-btn:active {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+}
+
 .mobile-nav-inner {
   display: flex;
   flex-direction: column;
@@ -975,6 +1016,7 @@ p {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  padding: 18px 20px 40px;
 }
 
 .mobile-nav-group {
@@ -3699,6 +3741,14 @@ body.nav-open .floating-actions,
 }
 
 @media (max-width: 992px) {
+  .header {
+    padding: 10px 0;
+  }
+
+  .logo-img {
+    height: 38px;
+  }
+
   .nav-menu {
     display: none;
   }
@@ -3707,31 +3757,36 @@ body.nav-open .floating-actions,
     display: flex;
   }
 
-  /* Hero Section: Flow naturally on mobile & tablets, eliminate collisions */
+  /* Hero Section: Flow naturally on mobile & tablets, eliminate excess gaps */
   .hero {
     height: auto;
     min-height: auto;
-    padding: 85px 0 0;
+    padding: 0;
     display: block;
     position: relative;
   }
 
   .hero-content {
-    padding: 40px 18px 24px;
+    padding: 22px 18px 18px;
     max-width: 680px;
     margin: 0 auto;
   }
 
+  .hero-content .section-label {
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
   .hero-title {
-    font-size: clamp(30px, 7vw, 44px);
+    font-size: clamp(28px, 6.8vw, 42px);
     line-height: 1.15;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .hero-subtitle {
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 24px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin-bottom: 20px;
   }
 
   .hero-buttons {
@@ -3739,7 +3794,7 @@ body.nav-open .floating-actions,
     align-items: stretch;
     max-width: 320px;
     margin: 0 auto;
-    gap: 12px;
+    gap: 10px;
   }
 
   .hero-buttons .btn-solid,
@@ -3747,7 +3802,7 @@ body.nav-open .floating-actions,
     width: 100%;
     justify-content: center;
     text-align: center;
-    padding: 12px 20px;
+    padding: 11px 20px;
   }
 
   .hero-scroll-indicator {
@@ -3759,7 +3814,7 @@ body.nav-open .floating-actions,
     bottom: auto;
     left: auto;
     right: auto;
-    margin-top: 30px;
+    margin-top: 22px;
     width: 100%;
     background: rgba(8, 12, 18, 0.96);
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -3910,15 +3965,28 @@ body.nav-open .floating-actions,
 
   /* Clean consistent section padding across phones */
   section {
-    padding: 40px 0;
-  }
-
-  .clients-section {
     padding: 35px 0;
   }
 
+  .clients-section {
+    padding: 30px 0;
+  }
+
   .industries-section {
-    padding: 40px 0;
+    padding: 35px 0;
+  }
+
+  .about-page-section {
+    padding: 30px 0;
+  }
+
+  .solutiontopdetail {
+    padding: 20px 0 25px;
+  }
+
+  .borderBottomcol {
+    margin-bottom: 16px;
+    padding-bottom: 8px;
   }
 
   /* Brochure bar on mobile */
@@ -6304,6 +6372,155 @@ body.nav-open .floating-actions,
   .tblspecification td {
     padding: 12px 14px;
     font-size: 13.5px;
+  }
+}
+
+/* Product detail polish: one consistent spacing system for the detail page. */
+.solutiontopdetail {
+  padding: 32px 0 56px;
+}
+
+.solutiontopdetail .container,
+.specificationrow .container {
+  min-width: 0;
+}
+
+.borderBottomcol {
+  margin-bottom: 30px;
+}
+
+.product-hero-grid {
+  align-items: start;
+  gap: clamp(36px, 5vw, 72px);
+}
+
+.product-gallery-container {
+  gap: 12px;
+}
+
+.main-product-preview {
+  min-height: clamp(360px, 42vw, 640px);
+  max-height: 680px;
+}
+
+.gallery-thumbs {
+  margin-top: 0;
+  gap: 10px;
+}
+
+.specificationrow {
+  padding: 56px 0 64px;
+}
+
+.specificationrow .title-70 {
+  margin-bottom: 24px;
+}
+
+.specificationrow .title-70 h2 {
+  margin: 0;
+}
+
+.tblspecification {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.tblspecification .table {
+  min-width: 860px;
+}
+
+@media (max-width: 991px) {
+  .solutiontopdetail {
+    padding-bottom: 44px;
+  }
+
+  .main-product-preview {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .solutiontopdetail {
+    padding: 24px 0 36px;
+  }
+
+  .borderBottomcol {
+    margin-bottom: 22px;
+  }
+
+  .product-hero-grid {
+    gap: 32px;
+  }
+
+  .product-desc-text {
+    margin-bottom: 24px;
+  }
+
+  .iconcolrow {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .main-product-preview {
+    min-height: 300px;
+    max-height: 380px;
+    padding: 16px;
+  }
+
+  .main-product-preview img {
+    max-height: 340px;
+  }
+
+  .specificationrow {
+    padding: 42px 0 48px;
+  }
+
+  .specificationrow .title-70 {
+    margin-bottom: 20px;
+  }
+}
+
+/* Final mobile spacing corrections. Inline section padding on the about page
+   needs an explicit responsive override, while the product page uses a
+   smaller hand-off between the gallery and specifications. */
+@media (max-width: 600px) {
+  .header {
+    padding: 6px 0;
+  }
+
+  .header-inner {
+    min-height: 32px;
+  }
+
+  .logo-img {
+    height: 30px;
+    max-width: 190px;
+  }
+
+  .hamburger {
+    gap: 5px;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    width: 28px;
+  }
+
+  .about-page-section {
+    padding-top: 18px !important;
+    padding-bottom: 28px !important;
+  }
+
+  .solutiontopdetail {
+    padding-bottom: 10px;
+  }
+
+  .product-gallery-container {
+    padding: 14px;
+  }
+
+  .specificationrow {
+    padding-top: 28px;
   }
 }
 

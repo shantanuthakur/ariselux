@@ -1,38 +1,6 @@
 import { productsData } from './products-data.js';
 
-// Header scroll effect
-const header = document.getElementById('header');
-if (header) {
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }, { passive: true });
-}
-
-// Mobile menu toggle
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobile-nav');
-if (hamburger && mobileNav) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-    const isOpen = mobileNav.classList.contains('active');
-    document.body.classList.toggle('nav-open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  mobileNav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      mobileNav.classList.remove('active');
-      document.body.classList.remove('nav-open');
-      document.body.style.overflow = '';
-    });
-  });
-}
+// Note: Header scroll and mobile menu toggling are handled globally by main.js
 
 // Determine which product to display
 const urlParams = new URLSearchParams(window.location.search);
