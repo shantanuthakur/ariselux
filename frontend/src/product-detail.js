@@ -182,8 +182,7 @@ function renderProductDetail() {
             <img src="${v.image}" alt="${v.title}">
           </div>
           <h4>${v.title}</h4>
-          <p style="font-size: 13px; color: var(--gray-600); margin-bottom: 15px;">${v.tagline}</p>
-          <a href="/product-detail.html?id=${v.id}" class="btn-theme" style="padding: 10px 16px; font-size: 13px; text-align: center;">Know More →</a>
+          <a href="/product-detail.html?id=${v.id}" class="btn-solid" style="padding: 8px 16px; font-size: 13px; border-radius: 4px; width: 100%; justify-content: center;">View Details</a>
         </div>
       `;
     }).join('');
