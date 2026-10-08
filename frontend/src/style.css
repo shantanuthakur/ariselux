@@ -57,11 +57,19 @@ html {
 body {
   font-family: var(--font-family);
   font-weight: 400;
-  font-size: 16px;
-  color: var(--gray-700);
-  line-height: 1.65;
+  font-size: 16.5px;
+  color: #334155;
+  line-height: 1.7;
   background-color: #f5f5f5;
   overflow-x: hidden;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #475569;
+  margin-top: 0;
+  margin-bottom: 16px;
 }
 
 a {
@@ -92,11 +100,11 @@ h4,
 h5,
 h6 {
   color: var(--black);
-  text-transform: uppercase;
+  text-transform: none;
   font-family: var(--font-family);
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
   margin: 0;
 }
 
@@ -189,19 +197,20 @@ p {
 
 .section-label {
   font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: none;
   color: var(--primary);
   margin-bottom: 15px;
   display: block;
 }
 
 .section-title {
-  font-size: clamp(30px, 4.5vw, 65px);
-  font-weight: 900;
-  line-height: 1;
-  text-transform: uppercase;
+  font-size: clamp(30px, 4.5vw, 60px);
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: none;
+  letter-spacing: -0.5px;
   margin-bottom: 25px;
 }
 
@@ -218,8 +227,8 @@ p {
   gap: 10px;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-transform: none;
   padding: 0 0 10px;
   position: relative;
   transition: var(--transition);
@@ -321,8 +330,8 @@ p {
   color: var(--white);
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-transform: none;
   border: 2px solid var(--primary);
   transition: var(--transition);
   cursor: pointer;
@@ -422,8 +431,8 @@ p {
   font-size: 32px;
   font-weight: 900;
   color: var(--white);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-transform: none;
+  letter-spacing: 0.5px;
   line-height: 1;
 }
 
@@ -447,10 +456,10 @@ p {
 
 .nav-menu a {
   color: rgba(255,255,255,0.82);
-  font-size: 13px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.3px;
   position: relative;
   padding-bottom: 4px;
   transition: color 0.25s ease;
@@ -492,10 +501,10 @@ p {
 
 .nav-dropdown > .nav-dropdown-toggle {
   color: rgba(255,255,255,0.82);
-  font-size: 13px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.3px;
   position: relative;
   padding-bottom: 4px;
   cursor: pointer;
@@ -601,10 +610,10 @@ p {
 .nav-dropdown-menu a {
   display: block;
   padding: 11px 20px;
-  font-size: 12px;
+  font-size: 13.5px;
   font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  text-transform: none;
   color: #222 !important;
   text-decoration: none;
   border-bottom: 1px solid #f0f0f0;
@@ -640,10 +649,10 @@ p {
   padding: 10px 24px;
   background: var(--primary);
   color: var(--white) !important;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: none;
   transition: background 0.25s ease, transform 0.2s ease;
 }
 
@@ -707,10 +716,10 @@ p {
 
 .mobile-nav a {
   color: var(--white);
-  font-size: 28px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.5px;
   transition: var(--transition);
 }
 
@@ -773,9 +782,9 @@ p {
 .hero-title {
   font-size: clamp(36px, 6.5vw, 90px);
   color: var(--white);
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 0.95;
+  font-weight: 800;
+  text-transform: none;
+  line-height: 1.05;
   margin-bottom: 28px;
   letter-spacing: -0.5px;
   animation: fadeInUp 0.8s ease 0.4s both;
@@ -1021,8 +1030,8 @@ p {
   color: var(--primary);
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-transform: none;
   transition: var(--transition);
 }
 
@@ -1145,9 +1154,9 @@ p {
 .industry-card h4 {
   color: var(--white);
   font-size: 22px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.3px;
   transition: var(--transition);
 }
 
@@ -1705,8 +1714,8 @@ p {
   font-size: 14px;
   font-weight: 700;
   color: var(--white);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-transform: none;
+  letter-spacing: 0.5px;
   margin-bottom: 25px;
 }
 
@@ -1852,10 +1861,10 @@ p {
   background: transparent;
   color: var(--gray-600);
   font-family: var(--font-family);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  text-transform: none;
   cursor: pointer;
   transition: all 0.2s ease;
   border-radius: 2px;
@@ -2808,10 +2817,10 @@ p {
 }
 
 .product-detail-content p {
-  font-size: 14px;
-  color: var(--gray-600);
-  line-height: 1.6;
-  margin-bottom: 15px;
+  font-size: 15.5px;
+  color: #475569;
+  line-height: 1.65;
+  margin-bottom: 16px;
 }
 
 .product-specs {
@@ -2822,13 +2831,14 @@ p {
 }
 
 .product-spec {
-  padding: 4px 10px;
-  background: var(--gray-100);
-  font-size: 11px;
+  padding: 5px 12px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  font-size: 12.5px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--gray-700);
+  text-transform: none;
+  letter-spacing: 0.2px;
+  color: #334155;
 }
 
 /* ============================================
@@ -2953,11 +2963,11 @@ p {
 
 .about-hero-statement {
   font-size: clamp(34px, 4.4vw, 56px);
-  font-weight: 900;
-  line-height: 1.05;
+  font-weight: 800;
+  line-height: 1.15;
   color: #000000;
   letter-spacing: -0.5px;
-  text-transform: uppercase;
+  text-transform: none;
   margin: 10px 0 20px;
 }
 
@@ -3695,16 +3705,17 @@ p {
 }
 
 .tech-card h5 {
-  font-size: 17px;
-  font-weight: 800;
-  margin-bottom: 10px;
+  font-size: 18.5px;
+  font-weight: 700;
+  margin-bottom: 12px;
   color: var(--black);
+  text-transform: none;
 }
 
 .tech-card p {
-  font-size: 13px;
-  color: var(--gray-600);
-  line-height: 1.6;
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.65;
   margin: 0;
 }
 
@@ -3963,13 +3974,16 @@ p {
 
 .brochure-bar-text h4 {
   color: var(--white);
-  font-size: 20px;
-  margin-bottom: 6px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.2px;
 }
 
 .brochure-bar-text p {
-  color: var(--gray-400);
-  font-size: 14px;
+  color: #cbd5e1;
+  font-size: 15.5px;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -3979,13 +3993,13 @@ p {
 .spec-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
-  margin: 15px 0;
+  font-size: 14.5px;
+  margin: 16px 0;
 }
 
 .spec-table td {
-  padding: 6px 10px;
-  border-bottom: 1px solid var(--gray-200);
+  padding: 8px 10px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .spec-table td:first-child {
@@ -4293,20 +4307,20 @@ p {
 .tblspecification .table th {
   color: #fff;
   font-weight: 700;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 22px 25px;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  padding: 20px 25px;
   border: 1px solid #333;
   text-align: left;
 }
 
 .tblspecification .table td {
-  padding: 22px 25px;
+  padding: 20px 25px;
   border: 1px solid #e2e2e2;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--gray-800);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: #1e293b;
   vertical-align: top;
   white-space: pre-line;
 }
@@ -4414,11 +4428,11 @@ p {
   width: 100%;
   background: transparent;
   border: none;
-  padding: 28px 0;
+  padding: 24px 0;
   text-align: left;
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 900;
-  text-transform: uppercase;
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 800;
+  text-transform: none;
   color: #000;
   display: flex;
   justify-content: space-between;
@@ -4862,12 +4876,12 @@ p {
 
 .form-field-label {
   display: block;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 14.5px;
+  font-weight: 600;
   color: #1e293b;
   margin-bottom: 7px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .form-field-label .req {
@@ -5009,9 +5023,9 @@ p {
 }
 
 .submit-privacy-note {
-  font-size: 12px;
-  color: #64748b;
-  line-height: 1.5;
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.6;
 }
 
 /* Success Box */
