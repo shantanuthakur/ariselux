@@ -498,7 +498,7 @@ function initRequestForQuotation() {
               <!-- Full Name -->
               <div class="rfq-form-group">
                 <label class="rfq-label" for="rfq-input-name">Full Name <span class="req">*</span></label>
-                <input type="text" id="rfq-input-name" name="name" class="rfq-input" placeholder="e.g. Rajesh Kumar" required>
+                <input type="text" id="rfq-input-name" name="name" class="rfq-input" placeholder="e.g. Your Name" required>
               </div>
 
               <!-- Company Name -->
@@ -892,7 +892,7 @@ function initEnquiryModal() {
               <!-- Full Name -->
               <div class="enquiry-form-group">
                 <label class="enquiry-label" for="enquiry-input-name">Full Name <span class="req">*</span></label>
-                <input type="text" id="enquiry-input-name" name="name" class="enquiry-input" placeholder="e.g. Rajesh Kumar" required>
+                <input type="text" id="enquiry-input-name" name="name" class="enquiry-input" placeholder="e.g. Your Name" required>
               </div>
 
               <!-- Contact Mobile -->
