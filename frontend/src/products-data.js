@@ -11,11 +11,11 @@ export const productsData = {
     categoryName: 'Diesel Powered',
     tagline: 'High-Voltage 240,000 Lumens Heavy Diesel Mobile Lighting Tower',
     description: 'Ariselux Equipment Company proudly presents its advanced LED Flood Light solution - engineered for maximum brightness, energy efficiency, and durability. Recently, we completed the successful installation of 4 high-voltage LED Flood Lights, delivering a combined luminous output of 240,000 lumens (40,000 to 60,000 lumens per light). With a total power range of 300W to 500W, powered by a genuine Japanese Escort Kubota 14.5 HP water-cooled diesel engine operating at 1500 RPM and an automated 12.0-meter telescopic mast, these towers are designed to perform in the most demanding mining, infrastructure, and heavy industrial environments.',
-    image: '/images/products/Diesel oprated/aclt-12000-view1.jpg',
+    image: '/images/products/Diesel oprated/ACE LT 12000 -1.png',
     gallery: [
-      '/images/products/Diesel oprated/aclt-12000-view1.jpg',
-      '/images/products/Diesel oprated/aclt-12000-view2.jpg',
-      '/images/products/Diesel oprated/aclt-12000-view3.jpg'
+      '/images/products/Diesel oprated/ACE LT 12000 -1.png',
+      '/images/products/Diesel oprated/ACE LT 12000 -2.png',
+      '/images/products/Diesel oprated/ACE LT 12000 -3.png'
     ],
     featureImage: '/images/features/features-diesel-12000.jpg',
     bestFor: [
@@ -119,11 +119,11 @@ export const productsData = {
     categoryName: 'Diesel Powered',
     tagline: 'High-Efficiency Air-Cooled Diesel Mobile Lighting Tower',
     description: 'At Ariselux, we specialize in providing top-tier LED Flood Light solutions designed to deliver powerful, efficient, and long-lasting illumination. Our recent installation showcases the strength of our Technology - 4 high-voltage LED flood lights, with Power Ratings Ranging from 200W to 500W, engineered to cover an expansive Area of up to 10,000 square mt. Powered by a durable Lombardini (Kohler) 8 HP Air-Cooled diesel engine operating at 3000 R.P.M with an ultra-economical 900 ml/hr fuel consumption and 40-liter tank.',
-    image: '/images/products/Diesel oprated/aclt-9000-view1.jpg',
+    image: '/images/products/Diesel oprated/ACE LT 9000 -1.png',
     gallery: [
-      '/images/products/Diesel oprated/aclt-9000-view1.jpg',
-      '/images/products/Diesel oprated/aclt-9000-view2.jpg',
-      '/images/products/Diesel oprated/aclt-9000-view3.jpg'
+      '/images/products/Diesel oprated/ACE LT 9000 -1.png',
+      '/images/products/Diesel oprated/ACE LT 9000 -2.png',
+      '/images/products/Diesel oprated/ACE LT 9000 -3.png'
     ],
     featureImage: '/images/features/features-diesel-9000.jpg',
     bestFor: [
@@ -215,11 +215,11 @@ export const productsData = {
     categoryName: 'Diesel Powered',
     tagline: 'Reliable 4-Light Diesel Mobile Lighting Tower',
     description: 'The ACE LT 6000 is engineered for continuous night operations on highways, construction jobs, and municipal maintenance. Powered by an air-cooled Kohler / Kubota 8 HP diesel engine running at 3000 RPM with a 40-liter tank (900 ml/hr consumption), it drives 4 LED floodlights (200W-450W) covering up to 7,000 square meters.',
-    image: '/images/products/Diesel oprated/aclt-6000-view1.jpg',
+    image: '/images/products/Diesel oprated/ACE LT 6000 -1.png',
     gallery: [
-      '/images/products/Diesel oprated/aclt-6000-view1.jpg',
-      '/images/products/Diesel oprated/aclt-6000-view2.jpg',
-      '/images/products/Diesel oprated/aclt-6000-view3.jpg'
+      '/images/products/Diesel oprated/ACE LT 6000 -1.png',
+      '/images/products/Diesel oprated/ACE LT 6000 -2.png',
+      '/images/products/Diesel oprated/ACE LT 6000 -3.png'
     ],
     featureImage: '/images/features/features-diesel-6000.jpg',
     bestFor: [
@@ -1042,11 +1042,11 @@ export const productsData = {
     categoryName: 'Diesel Powered',
     tagline: 'Heavy-Duty Industrial Diesel Lighting Tower',
     description: 'Ariselux Equipment Company proudly presents its advanced LED Flood Light solution - engineered for maximum brightness, energy efficiency, and durability. Powered by an Escort Kubota diesel engine and 12-meter mast delivering 240,000 lumens.',
-    image: '/images/products/Diesel oprated/aclt-12000-view1.jpg',
+    image: '/images/products/Diesel oprated/ACE LT 12000 -1.png',
     gallery: [
-      '/images/products/Diesel oprated/aclt-12000-view1.jpg',
-      '/images/products/Diesel oprated/aclt-12000-view2.jpg',
-      '/images/products/Diesel oprated/aclt-12000-view3.jpg'
+      '/images/products/Diesel oprated/ACE LT 12000 -1.png',
+      '/images/products/Diesel oprated/ACE LT 12000 -2.png',
+      '/images/products/Diesel oprated/ACE LT 12000 -3.png'
     ],
     featureImage: '/images/features/features-diesel-12000.jpg',
     bestFor: [
