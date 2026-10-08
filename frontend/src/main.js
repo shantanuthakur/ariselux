@@ -308,7 +308,7 @@ function initContactForm() {
 
         if (response.ok && data.success) {
           const enqId = data.enquiry ? data.enquiry.id : 'Recorded';
-          const msg = `Thank you, ${payload.name}!\n\nYour technical enquiry (#${enqId}) has been received by our sales engineering desk at Haridwar Works.\n\nWe will connect via ${payload.preferredChannel} within 2-4 business hours.\n\nWould you like to open WhatsApp now to chat with our engineering desk?`;
+          const msg = `Thank you, ${payload.name}!\n\nYour technical enquiry (#${enqId}) has been received by our sales engineering desk at Roorkee Works.\n\nWe will connect via ${payload.preferredChannel} within 2-4 business hours.\n\nWould you like to open WhatsApp now to chat with our engineering desk?`;
           if (confirm(msg)) {
             window.open(data.whatsappDirectUrl || `https://wa.me/918126732502?text=${encodeURIComponent(`Hello Ariselux Team, I submitted an enquiry (Ref #${enqId}):\n*Name:* ${payload.name}\n*Product:* ${payload.product}\n*Phone:* ${payload.phone}\n*Query:* ${payload.message}`)}`, '_blank');
           }
@@ -388,7 +388,7 @@ function initContactForm() {
 
         if (response.ok && data.success) {
           const quoteId = data.quotation ? data.quotation.id : 'Recorded';
-          const msg = `Thank you, ${payload.name}!\n\nYour commercial quotation request for "${payload.product}" (Ref #${quoteId}) has been received at Haridwar Works.\n\nWe will share your formal quotation within 2-4 business hours.\n\nWould you like to connect directly on WhatsApp with our sales desk right now?`;
+          const msg = `Thank you, ${payload.name}!\n\nYour commercial quotation request for "${payload.product}" (Ref #${quoteId}) has been received at Roorkee Works.\n\nWe will share your formal quotation within 2-4 business hours.\n\nWould you like to connect directly on WhatsApp with our sales desk right now?`;
           if (confirm(msg)) {
             window.open(data.whatsappDirectUrl || `https://wa.me/918126732502?text=${encodeURIComponent(`Hello Ariselux Team, I requested quotation Ref #${quoteId} for ${payload.product}`)}`, '_blank');
           }
@@ -459,7 +459,7 @@ function initRequestForQuotation() {
               </svg>
               Request for Quotation
             </h3>
-            <p>Official Factory Pricing & Technical Datasheet • Direct Haridwar Works</p>
+            <p>Official Factory Pricing & Technical Datasheet • Direct Roorkee Works</p>
           </div>
           <button type="button" class="rfq-close-btn" id="rfq-close-btn" aria-label="Close Quotation Form">&times;</button>
         </div>
@@ -474,7 +474,7 @@ function initRequestForQuotation() {
               <div class="rfq-product-info">
                 <span class="rfq-product-badge">Selected Item</span>
                 <h4 class="rfq-product-name" id="rfq-product-name">Ariselux Light Tower</h4>
-                <div class="rfq-product-sub" id="rfq-product-sub">Direct Haridwar Works OEM Dispatch</div>
+                <div class="rfq-product-sub" id="rfq-product-sub">Direct Roorkee Works OEM Dispatch</div>
               </div>
             </div>
 
@@ -534,7 +534,7 @@ function initRequestForQuotation() {
               <!-- Project Location / Delivery Site -->
               <div class="rfq-form-group">
                 <label class="rfq-label" for="rfq-input-location">Delivery City / Site <span class="req">*</span></label>
-                <input type="text" id="rfq-input-location" name="location" class="rfq-input" placeholder="e.g. Haridwar, Gujarat, Delhi NCR" required>
+                <input type="text" id="rfq-input-location" name="location" class="rfq-input" placeholder="e.g. Roorkee, Gujarat, Delhi NCR" required>
               </div>
 
               <!-- Company GSTIN (Optional) -->
@@ -558,7 +558,7 @@ function initRequestForQuotation() {
 
             <div class="rfq-trust-footer">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>ISO 9001:2015 Certified OEM • Haridwar Works • Commercial Quotation within 2-4 Hours</span>
+              <span>ISO 9001:2015 Certified OEM • Roorkee Works • Commercial Quotation within 2-4 Hours</span>
             </div>
           </form>
 
@@ -572,7 +572,7 @@ function initRequestForQuotation() {
             <h4 class="rfq-success-title">Commercial Quotation Request Received!</h4>
             <div class="rfq-ref-pill" id="rfq-ref-id">Ref #RFQ-1001</div>
             <p class="rfq-success-desc" id="rfq-success-msg">
-              Thank you! Our engineering desk at Haridwar has received your quotation request. We will prepare an official commercial quotation and technical proposal within 2-4 business hours.
+              Thank you! Our engineering desk at Roorkee has received your quotation request. We will prepare an official commercial quotation and technical proposal within 2-4 business hours.
             </p>
             <div class="rfq-success-actions">
               <a href="#" target="_blank" class="rfq-wa-btn" id="rfq-wa-direct-btn">
@@ -606,7 +606,7 @@ function initRequestForQuotation() {
     rfqProductName.textContent = title;
     rfqProductThumb.src = imgSrc || '/images/hero/hero-bg.png';
     rfqProductThumb.alt = title;
-    rfqProductSub.textContent = specs || 'Direct Haridwar Works OEM Dispatch • Industrial Heavy Duty Spec';
+    rfqProductSub.textContent = specs || 'Direct Roorkee Works OEM Dispatch • Industrial Heavy Duty Spec';
     rfqHiddenProduct.value = title;
     rfqMessageArea.value = '';
 
@@ -782,7 +782,7 @@ function initRequestForQuotation() {
 
           const successMsg = document.getElementById('rfq-success-msg');
           if (successMsg) {
-            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your official quotation request for <strong>${product}</strong> (${quantity}) has been registered at Haridwar Works.<br><br>📧 A commercial confirmation email has been dispatched to <strong>${email}</strong>. Our engineering desk will deliver your formal pricing and freight estimate within 2-4 business hours.`;
+            successMsg.innerHTML = `Thank you, <strong>${name}</strong>! Your official quotation request for <strong>${product}</strong> (${quantity}) has been registered at Roorkee Works.<br><br>📧 A commercial confirmation email has been dispatched to <strong>${email}</strong>. Our engineering desk will deliver your formal pricing and freight estimate within 2-4 business hours.`;
           }
 
           const waBtn = document.getElementById('rfq-wa-direct-btn');
@@ -935,7 +935,7 @@ function initEnquiryModal() {
               <!-- City / State -->
               <div class="enquiry-form-group full-width">
                 <label class="enquiry-label" for="enquiry-input-location">City / State / Site Location</label>
-                <input type="text" id="enquiry-input-location" name="location" class="enquiry-input" placeholder="e.g. Haridwar, Ahmedabad, Delhi NCR, Hyderabad">
+                <input type="text" id="enquiry-input-location" name="location" class="enquiry-input" placeholder="e.g. Roorkee, Ahmedabad, Delhi NCR, Hyderabad">
               </div>
 
               <!-- Preferred Response Channel -->
@@ -972,7 +972,7 @@ function initEnquiryModal() {
 
             <div class="rfq-trust-footer" style="margin-top: 14px;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1b5faa" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>Direct Factory Desk: +91-8126732502 • Response within 2-4 business hours • Haridwar Works</span>
+              <span>Direct Factory Desk: +91-8126732502 • Response within 2-4 business hours • Roorkee Works</span>
             </div>
           </form>
 
@@ -986,7 +986,7 @@ function initEnquiryModal() {
             <h4 class="enquiry-success-title">Enquiry Received Successfully!</h4>
             <div class="enquiry-ref-pill" id="enquiry-ref-id">Ref #ARL-ENQ-1001</div>
             <p class="enquiry-success-desc" id="enquiry-success-msg">
-              Thank you! Your enquiry has been received by our technical sales engineering desk in Haridwar. An engineer will reach out to you via your preferred channel within 2-4 business hours.
+              Thank you! Your enquiry has been received by our technical sales engineering desk in Roorkee. An engineer will reach out to you via your preferred channel within 2-4 business hours.
             </p>
             <div class="enquiry-success-actions">
               <a href="#" target="_blank" class="rfq-wa-btn" id="enquiry-wa-direct-btn">
@@ -1194,26 +1194,22 @@ function initEnquiryModal() {
 initEnquiryModal();
 
 
-// ─── TOWER IMAGE: Float + 3D Mouse-Tracking Parallax Tilt ───────────────────
+// ─── TOWER IMAGE: Float + 3D Mouse-Tracking Parallax Tilt & View Switcher ────
 (function initTowerMotion() {
   const towerCol = document.querySelector('.about-hero-tower-col');
-  const towerImg = document.querySelector('.about-hero-tower-img');
+  const towerImg = document.getElementById('aboutHeroTowerImg') || document.querySelector('.about-hero-tower-img');
   if (!towerCol || !towerImg) return;
 
-  // 1. Continuous gentle floating animation via CSS class
-  towerImg.classList.add('tower-float-anim');
-
-  // 2. 3D perspective mouse-tracking tilt on the section
   const section = document.querySelector('.about-hero-showcase-section');
   if (!section) return;
 
-  let rafId = null;
   let targetRX = 0, targetRY = 0;
   let currentRX = 0, currentRY = 0;
   let isHovering = false;
+  let startTime = Date.now();
 
-  const MAX_TILT = 12; // degrees max tilt
-  const LERP = 0.07;   // smoothing factor
+  const MAX_TILT = 11; // degrees max tilt
+  const LERP = 0.08;   // smoothing factor
 
   function lerp(a, b, t) { return a + (b - a) * t; }
 
@@ -1221,29 +1217,33 @@ initEnquiryModal();
     currentRX = lerp(currentRX, targetRX, LERP);
     currentRY = lerp(currentRY, targetRY, LERP);
 
-    const scale = isHovering ? 1.04 : 1.0;
+    // Continuous floating sine wave
+    const elapsed = (Date.now() - startTime) * 0.0018;
+    const floatY = isHovering ? 0 : Math.sin(elapsed) * 12;
+    const scale = isHovering ? 1.03 : 1.0;
+
     towerImg.style.transform = `
-      perspective(900px)
-      rotateX(${currentRX}deg)
-      rotateY(${currentRY}deg)
+      perspective(1000px)
+      translateY(${floatY.toFixed(2)}px)
+      rotateX(${currentRX.toFixed(2)}deg)
+      rotateY(${currentRY.toFixed(2)}deg)
       scale(${scale})
     `;
 
-    rafId = requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
   }
-  tick();
+  requestAnimationFrame(tick);
 
   section.addEventListener('mousemove', (e) => {
     isHovering = true;
     const rect = towerCol.getBoundingClientRect();
-    // Compute mouse position relative to towerCol center
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width / 2);   // -1 to 1
-    const dy = (e.clientY - cy) / (rect.height / 2);  // -1 to 1
+    const dx = (e.clientX - cx) / (rect.width / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
 
-    targetRY =  dx * MAX_TILT;  // left-right tilt
-    targetRX = -dy * MAX_TILT * 0.6; // up-down tilt (less aggressive)
+    targetRY = Math.max(-MAX_TILT, Math.min(MAX_TILT, dx * MAX_TILT));
+    targetRX = Math.max(-MAX_TILT, Math.min(MAX_TILT, -dy * MAX_TILT * 0.6));
   }, { passive: true });
 
   section.addEventListener('mouseleave', () => {
@@ -1252,11 +1252,27 @@ initEnquiryModal();
     targetRY = 0;
   });
 
-  // Pause float animation during active mouse tilt for cleaner feel
-  section.addEventListener('mouseenter', () => {
-    towerImg.style.animationPlayState = 'paused';
-  });
-  section.addEventListener('mouseleave', () => {
-    towerImg.style.animationPlayState = 'running';
+  // View Switcher (360 GIF vs Angles)
+  const buttons = document.querySelectorAll('.tower-view-switcher .view-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const view = btn.getAttribute('data-view');
+      let nextSrc = towerImg.getAttribute('data-gif');
+      if (view === '1') nextSrc = towerImg.getAttribute('data-angle1');
+      else if (view === '2') nextSrc = towerImg.getAttribute('data-angle2');
+      else if (view === '3') nextSrc = towerImg.getAttribute('data-angle3');
+
+      if (nextSrc && towerImg.src !== nextSrc) {
+        towerImg.style.opacity = '0.3';
+        setTimeout(() => {
+          towerImg.src = nextSrc;
+          towerImg.style.opacity = '1';
+        }, 120);
+      }
+    });
   });
 })();

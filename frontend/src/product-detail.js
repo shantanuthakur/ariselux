@@ -25,8 +25,8 @@ if (hamburger && mobileNav) {
 
 // Determine which product to display
 const urlParams = new URLSearchParams(window.location.search);
-const requestedId = (urlParams.get('id') || 'ace-lt-12000').toLowerCase();
-const product = productsData[requestedId] || productsData['ace-lt-12000'];
+const requestedId = (urlParams.get('id') || 'ace-lt-6000').toLowerCase();
+const product = productsData[requestedId] || productsData['ace-lt-6000'];
 
 // Populate DOM with product data
 function renderProductDetail() {
@@ -295,7 +295,7 @@ if (quoteForm) {
           if (badge) badge.textContent = `Ref #${quoteId}`;
           const msg = document.getElementById('detail-quote-success-msg');
           if (msg) {
-            msg.innerHTML = `Thank you, <strong>${payload.name}</strong>! Your official quotation request for <strong>${payload.product}</strong> (${payload.quantity}) has been registered at Haridwar Works.<br><br>📧 A commercial confirmation receipt has been emailed to <strong>${payload.email}</strong>. Our engineering desk will deliver your formal pricing and freight estimate within 2-4 business hours.`;
+            msg.innerHTML = `Thank you, <strong>${payload.name}</strong>! Your official quotation request for <strong>${payload.product}</strong> (${payload.quantity}) has been registered at Roorkee Works.<br><br>📧 A commercial confirmation receipt has been emailed to <strong>${payload.email}</strong>. Our engineering desk will deliver your formal pricing and freight estimate within 2-4 business hours.`;
           }
           const waBtn = document.getElementById('detail-quote-wa-btn');
           if (waBtn) {
@@ -399,7 +399,7 @@ if (enqForm) {
           if (badge) badge.textContent = `Ref #${enqId}`;
           const msg = document.getElementById('detail-enquiry-success-msg');
           if (msg) {
-            msg.innerHTML = `Thank you, <strong>${payload.name}</strong>! Your technical enquiry regarding <strong>${payload.product}</strong> has been received by our engineering team in Haridwar.<br><br>📧 An engineering acknowledgment has been emailed to <strong>${payload.email}</strong>. An application engineer will reach out via <strong>${payload.preferredChannel}</strong> within 2-4 business hours.`;
+            msg.innerHTML = `Thank you, <strong>${payload.name}</strong>! Your technical enquiry regarding <strong>${payload.product}</strong> has been received by our engineering team in Roorkee.<br><br>📧 An engineering acknowledgment has been emailed to <strong>${payload.email}</strong>. An application engineer will reach out via <strong>${payload.preferredChannel}</strong> within 2-4 business hours.`;
           }
           const waBtn = document.getElementById('detail-enquiry-wa-btn');
           if (waBtn) {
@@ -438,4 +438,3 @@ if (enqResetBtn) {
     if (enqForm) enqForm.style.display = 'block';
   });
 }
-

@@ -140,7 +140,7 @@ ariselux/
 
 ### 4. About Ariselux (`frontend/about.html`)
 * **Company Heritage**: Journey from founding in 2014 as Arise Construction Equipments to ISO-aligned industrial manufacturing.
-* **Manufacturing Facility**: Bhagwanpur - Haridwar works infrastructure overview.
+* **Manufacturing Facility**: Bhagwanpur - Roorkee works infrastructure overview.
 * **Corporate Pillars**: Ethical transparency, engineering precision, and post-sales technical support.
 * **Vision & Quality Assurance**: Stringent fabrication, powder coating, vibration testing, and optical calibration protocols.
 
@@ -148,7 +148,7 @@ ariselux/
 * **Dual Request Forms**:
   * **Commercial Quotation (RFQ)**: Includes GSTIN, unit quantity, delivery timeline, site location, and technical options.
   * **Technical Consultation**: Direct engineering queries regarding illumination layout, fuel consumption, or custom mast specs.
-* **Registered Address**: Plot No. 25, Sector 8A, IIE SIDCUL, Haridwar, Uttarakhand.
+* **Registered Address**: Plot No. 25, Sector 8A, IIE SIDCUL, Roorkee, Uttarakhand.
 * **Interactive Location**: Embedded Google Map for the Bhagwanpur manufacturing plant.
 * **Direct Contacts**: Department-specific email routing (`sales@ariselux.com`, `contact@ariselux.com`, `info@ariselux.com`).
 
@@ -342,4 +342,4 @@ The backend service maintains structured file logging in `backend/ariselux.log`:
 ## 📄 License & Attribution
 
 © 2014 – 2026 **Ariselux Equipments Private Limited**. All Rights Reserved.  
-Manufactured with pride in **Bhagwanpur - Haridwar, Uttarakhand, India**.
+Manufactured with pride in **Bhagwanpur - Roorkee, Uttarakhand, India**.

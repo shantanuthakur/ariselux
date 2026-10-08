@@ -79,7 +79,7 @@ export async function sendQuotationNotification(quotation) {
 
   const cleanPhone = (quotation.phone || '').replace(/[^0-9]/g, '');
   const waQuoteText = encodeURIComponent(
-    `Hello ${quotation.name}, regarding your Quotation Request for ${quotation.product} (Ref #${quotation.id}, Qty: ${quotation.quantity}):\nHere is our official factory pricing from Ariselux Haridwar Works...`
+    `Hello ${quotation.name}, regarding your Quotation Request for ${quotation.product} (Ref #${quotation.id}, Qty: ${quotation.quantity}):\nHere is our official factory pricing from Ariselux Roorkee Works...`
   );
 
   const quotationSalesHtml = `
@@ -101,7 +101,7 @@ export async function sendQuotationNotification(quotation) {
                     COMMERCIAL QUOTATION REQUEST (RFQ)
                   </span>
                   <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">New Price Quotation Alert 📋</h1>
-                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Haridwar Works Direct OEM Pricing &amp; Freight Calculation</p>
+                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Roorkee Works Direct OEM Pricing &amp; Freight Calculation</p>
                 </td>
                 <td align="right" style="vertical-align:top;">
                   <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:8px 16px;text-align:center;">
@@ -217,7 +217,7 @@ export async function sendQuotationNotification(quotation) {
             <p style="margin:0 0 6px;font-size:12px;color:#94a3b8;">${company.address}</p>
             <p style="margin:0;font-size:12px;color:#64748b;">
               <a href="mailto:${company.email}" style="color:#94a3b8;text-decoration:none;">${company.email}</a> · 
-              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Direct OEM Haridwar Works
+              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Direct OEM Roorkee Works
             </p>
           </td>
         </tr>
@@ -281,7 +281,7 @@ export async function sendCustomerQuotationAcknowledgment(quotation) {
                     ARISELUX EQUIPMENTS PVT LTD
                   </span>
                   <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">Quotation Request Received 📋</h1>
-                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Commercial Estimation &amp; Application Desk • Haridwar Works</p>
+                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Commercial Estimation &amp; Application Desk • Roorkee Works</p>
                 </td>
                 <td align="right" style="vertical-align:top;">
                   <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:8px 16px;text-align:center;">
@@ -319,7 +319,7 @@ export async function sendCustomerQuotationAcknowledgment(quotation) {
           <td style="padding:28px 32px;">
             <p style="margin:0 0 14px;font-size:15px;color:#1e293b;">Dear <strong>${quotation.name}</strong>,</p>
             <p style="margin:0 0 20px;font-size:14px;color:#475569;line-height:1.7;">
-              Thank you for reaching out to <strong>Ariselux Equipments Private Limited</strong>. Our sales engineering and estimation desk at <strong>Haridwar Works</strong> has successfully registered your commercial quotation request for:
+              Thank you for reaching out to <strong>Ariselux Equipments Private Limited</strong>. Our sales engineering and estimation desk at <strong>Roorkee Works</strong> has successfully registered your commercial quotation request for:
             </p>
 
             <!-- PRODUCT HIGHLIGHT -->
@@ -381,7 +381,7 @@ export async function sendCustomerQuotationAcknowledgment(quotation) {
                 <tr>
                   <td style="vertical-align:top;font-size:18px;">🚚</td>
                   <td style="padding-left:12px;font-size:13px;color:#475569;">
-                    <strong>Dispatch &amp; Support:</strong> Ready stock units can be dispatched from Haridwar within 24-48 hours upon commercial clearance.
+                    <strong>Dispatch &amp; Support:</strong> Ready stock units can be dispatched from Roorkee within 24-48 hours upon commercial clearance.
                   </td>
                 </tr>
               </table>
@@ -390,7 +390,7 @@ export async function sendCustomerQuotationAcknowledgment(quotation) {
             <!-- INSTANT ASSISTANCE -->
             <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px 20px;">
               <div style="font-size:13px;font-weight:700;color:#1e40af;margin-bottom:6px;">Need Instant Commercial Assistance?</div>
-              <p style="margin:0 0 10px;font-size:13px;color:#475569;">Connect directly with our Haridwar sales desk right now:</p>
+              <p style="margin:0 0 10px;font-size:13px;color:#475569;">Connect directly with our Roorkee sales desk right now:</p>
               <table cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding-right:20px;font-size:13px;">
@@ -452,7 +452,7 @@ export async function sendEnquiryNotification(enquiry) {
 
   const cleanPhone = (enquiry.phone || '').replace(/[^0-9]/g, '');
   const waReplyText = encodeURIComponent(
-    `Hello ${enquiry.name}, regarding your Technical Enquiry on ${enquiry.product} (Ref #${enquiry.id}):\nOur application engineering desk at Ariselux Haridwar Works is following up on your query...`
+    `Hello ${enquiry.name}, regarding your Technical Enquiry on ${enquiry.product} (Ref #${enquiry.id}):\nOur application engineering desk at Ariselux Roorkee Works is following up on your query...`
   );
 
   const enquirySalesHtml = `
@@ -585,7 +585,7 @@ export async function sendEnquiryNotification(enquiry) {
             <p style="margin:0 0 6px;font-size:12px;color:#94a3b8;">${company.address}</p>
             <p style="margin:0;font-size:12px;color:#64748b;">
               <a href="mailto:${company.email}" style="color:#94a3b8;text-decoration:none;">${company.email}</a> · 
-              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Direct OEM Haridwar Works
+              <a href="https://ariselux.com" style="color:#94a3b8;text-decoration:none;">ariselux.com</a> · Direct OEM Roorkee Works
             </p>
           </td>
         </tr>
@@ -649,7 +649,7 @@ export async function sendCustomerEnquiryAcknowledgment(enquiry) {
                     ARISELUX EQUIPMENTS PVT LTD
                   </span>
                   <h1 style="margin:0;font-size:22px;color:#ffffff;font-weight:800;letter-spacing:-0.5px;">Technical Enquiry Received 💬</h1>
-                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Factory Technical &amp; Application Desk • Haridwar Works</p>
+                  <p style="margin:6px 0 0;font-size:13px;color:#e0f2fe;">Factory Technical &amp; Application Desk • Roorkee Works</p>
                 </td>
                 <td align="right" style="vertical-align:top;">
                   <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:8px;padding:8px 16px;text-align:center;">
@@ -687,7 +687,7 @@ export async function sendCustomerEnquiryAcknowledgment(enquiry) {
           <td style="padding:28px 32px;">
             <p style="margin:0 0 14px;font-size:15px;color:#1e293b;">Dear <strong>${enquiry.name}</strong>,</p>
             <p style="margin:0 0 20px;font-size:14px;color:#475569;line-height:1.7;">
-              Thank you for consulting with <strong>Ariselux Equipments Private Limited</strong>. Our factory technical sales engineering team at <strong>Haridwar Works</strong> has received your inquiry regarding:
+              Thank you for consulting with <strong>Ariselux Equipments Private Limited</strong>. Our factory technical sales engineering team at <strong>Roorkee Works</strong> has received your inquiry regarding:
             </p>
 
             <!-- TOPIC HIGHLIGHT -->

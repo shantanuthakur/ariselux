@@ -21,7 +21,7 @@ export function getConfig() {
       name: 'Ariselux Equipments Private Limited',
       email: process.env.COMPANY_EMAIL || 'sales@ariselux.com',
       phone: process.env.COMPANY_PHONE || '+918126732502',
-      address: 'Plot No. 25, Sector 8A, IIE SIDCUL, Haridwar - 249403, Uttarakhand, India',
+      address: 'Plot No. 25, Sector 8A, IIE SIDCUL, Roorkee - 249403, Uttarakhand, India',
       whatsapp: '918126732502'
     },
     smtp: {
