@@ -1137,7 +1137,7 @@ p {
    PRODUCTS SECTION
    ============================================ */
 .products-section {
-  padding: 100px 0;
+  padding: 45px 0 55px;
   background: var(--white);
   color: var(--black);
   border-top: 1px solid var(--gray-200);
@@ -1151,7 +1151,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 60px;
+  margin-bottom: 35px;
   gap: 40px;
 }
 
@@ -1287,7 +1287,7 @@ p {
    BRIGHT LIGHTS SECTION (Products Intro)
    ============================================ */
 .bright-section {
-  padding: 100px 0;
+  padding: 45px 0 50px;
   background: var(--white);
   position: relative;
   overflow: hidden;
@@ -1295,7 +1295,7 @@ p {
 
 .bright-section-inner {
   display: flex;
-  gap: 80px;
+  gap: 50px;
   align-items: center;
 }
 
@@ -1340,7 +1340,7 @@ p {
    INDUSTRIES SECTION
    ============================================ */
 .industries-section {
-  padding: 100px 0;
+  padding: 45px 0 50px;
   background: #0a0a0a;
   color: var(--white);
 }
@@ -1351,7 +1351,7 @@ p {
 
 .industries-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .industries-grid {
@@ -1437,7 +1437,7 @@ p {
 }
 
 .logo-slider-section {
-  padding: 60px 0;
+  padding: 30px 0 35px;
   background: #f9f9f9;
   overflow: hidden;
   border-top: 1px solid var(--gray-200);
@@ -1562,21 +1562,21 @@ p {
    CLIENTS SECTION & CLIENTS LOGO GRID
    ============================================ */
 .clients-section {
-  padding: 90px 0;
+  padding: 40px 0 45px;
   background: var(--white);
   border-top: 1px solid var(--gray-200);
 }
 
 .clients-section .section-title {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
 }
 
 .clients-logo-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
-  margin-top: 40px;
+  margin-top: 25px;
 }
 
 @media (max-width: 1200px) {
@@ -1699,7 +1699,7 @@ p {
    ABOUT PREVIEW SECTION
    ============================================ */
 .about-section {
-  padding: 100px 0;
+  padding: 50px 0;
   background: var(--white);
 }
 
@@ -1754,15 +1754,15 @@ p {
    WHY CHOOSE US SECTION
    ============================================ */
 .why-section {
-  padding: 90px 0;
+  padding: 45px 0 50px;
   background: #f5f5f5;
 }
 
 .why-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  margin-top: 60px;
+  gap: 30px;
+  margin-top: 35px;
 }
 
 .why-card {
@@ -1810,7 +1810,7 @@ p {
    CTA SECTION
    ============================================ */
 .cta-section {
-  padding: 100px 0;
+  padding: 50px 0;
   background: #0d0f14;
   position: relative;
   overflow: hidden;
@@ -1853,7 +1853,7 @@ p {
    CONTACT FORM SECTION
    ============================================ */
 .contact-section {
-  padding: 100px 0;
+  padding: 45px 0 55px;
 }
 
 .contact-inner {
@@ -1931,14 +1931,14 @@ p {
 .footer {
   background: var(--black);
   color: var(--white);
-  padding: 80px 0 0;
+  padding: 50px 0 0;
 }
 
 .footer-inner {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 60px;
-  padding-bottom: 60px;
+  gap: 40px;
+  padding-bottom: 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -2039,7 +2039,7 @@ p {
    PRODUCTS DETAIL PAGE
    ============================================ */
 .products-page-section {
-  padding: 80px 0 100px;
+  padding: 30px 0 60px;
   background: var(--white);
 }
 
@@ -2047,7 +2047,7 @@ p {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 50px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
 }
 
@@ -3054,7 +3054,7 @@ p {
 /* ── About Hero Showcase (Clean White Catalog Style matching user reference) ── */
 .about-hero-showcase-section {
   background: #ffffff;
-  padding: 60px 0 90px;
+  padding: 40px 0 50px;
   position: relative;
   overflow: hidden;
 }
@@ -4157,9 +4157,9 @@ p {
 .brochure-bar {
   background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
   color: var(--white);
-  padding: 30px;
+  padding: 22px 28px;
   border-radius: 4px;
-  margin-top: 40px;
+  margin-top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4303,13 +4303,13 @@ p {
    ============================================ */
 
 .solutiontopdetail {
-  padding: 60px 0 90px;
+  padding: 30px 0 45px;
 }
 
 .borderBottomcol {
   border-bottom: 2px solid #000;
-  padding-bottom: 20px;
-  margin-bottom: 50px;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .borderBottomcol h1 {
@@ -4468,7 +4468,7 @@ p {
 
 /* Specifications Section */
 .specificationrow {
-  padding: 100px 0;
+  padding: 45px 0;
   background: #fbfbfb;
   border-top: 1px solid var(--gray-200);
   border-bottom: 1px solid var(--gray-200);
@@ -4529,7 +4529,7 @@ p {
 .discoveothergrid {
   background-color: #000;
   color: #fff;
-  padding: 120px 0;
+  padding: 50px 0;
   position: relative;
   overflow: hidden;
 }
@@ -4597,7 +4597,7 @@ p {
 
 /* Highlights Section (Accordion) */
 .highlightsrow {
-  padding: 120px 0;
+  padding: 50px 0;
 }
 
 .highlights-grid {
@@ -4684,7 +4684,7 @@ p {
 .bestforworkrow {
   background-color: #000;
   color: #fff;
-  padding: 120px 0;
+  padding: 50px 0;
   position: relative;
   overflow: hidden;
 }
@@ -4768,7 +4768,7 @@ p {
 
 /* Other Variants Section */
 .othervariantsrow {
-  padding: 120px 0;
+  padding: 45px 0;
   background: #fbfbfb;
 }
 
@@ -4832,7 +4832,7 @@ p {
 
 /* Inquiry Form Section (Same as Reference) */
 .forminquiryrow {
-  padding: 120px 0;
+  padding: 45px 0;
   background: #fff;
 }
 
@@ -5520,7 +5520,7 @@ p {
 
 /* 2. Specification Table Section (specificationrow) */
 .specificationrow {
-  padding: 80px 0;
+  padding: 45px 0;
   background: #ffffff;
   border-top: 1px solid #f1f5f9;
 }
@@ -5589,7 +5589,7 @@ p {
 .discoveothergrid {
   background: #0b1e36;
   color: #ffffff;
-  padding: 95px 0;
+  padding: 50px 0;
   position: relative;
   overflow: hidden;
 }
@@ -5659,7 +5659,7 @@ p {
 /* 4. Highlights Section (highlightsrow) */
 .highlightsrow {
   background: #f8fafc;
-  padding: 90px 0;
+  padding: 45px 0;
   border-top: 1px solid #e2e8f0;
 }
 
@@ -5756,7 +5756,7 @@ p {
 .bestforworkrow {
   background: #071526;
   color: #ffffff;
-  padding: 90px 0;
+  padding: 50px 0;
   position: relative;
 }
 
@@ -5871,7 +5871,7 @@ p {
 /* 6. Other Variants Section (othervariantsrow) */
 .othervariantsrow {
   background: #ffffff;
-  padding: 85px 0;
+  padding: 45px 0;
   border-top: 1px solid #e2e8f0;
 }
 
