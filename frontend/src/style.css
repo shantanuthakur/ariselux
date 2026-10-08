@@ -500,25 +500,31 @@ p {
 }
 
 .nav-dropdown > .nav-dropdown-toggle {
-  color: rgba(255,255,255,0.82);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 14px;
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0.3px;
   position: relative;
-  padding-bottom: 4px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   transition: color 0.25s ease;
   white-space: nowrap;
   background: none;
   border: none;
   font-family: inherit;
+  padding: 0;
 }
 
-.nav-dropdown > .nav-dropdown-toggle::after {
+.nav-dropdown-toggle .nav-link-text {
+  position: relative;
+  padding-bottom: 4px;
+  display: inline-block;
+}
+
+.nav-dropdown-toggle .nav-link-text::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -534,28 +540,35 @@ p {
   color: var(--white);
 }
 
-.nav-dropdown:hover > .nav-dropdown-toggle::after {
-  width: calc(100% - 16px);
+.nav-dropdown:hover .nav-dropdown-toggle .nav-link-text::after,
+.nav-dropdown-toggle.active .nav-link-text::after {
+  width: 100%;
 }
 
 .nav-dropdown-toggle.active {
   color: var(--white) !important;
 }
 
-.nav-dropdown-toggle.active::after {
-  width: calc(100% - 16px) !important;
+/* Hide fallback underline on toggle wrapper */
+.nav-dropdown > .nav-dropdown-toggle::after {
+  display: none !important;
 }
 
 .nav-dropdown-arrow {
-  display: inline-block;
-  font-size: 10px;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 13px;
   color: var(--primary);
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, color 0.25s ease;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .nav-dropdown:hover .nav-dropdown-arrow {
   transform: rotate(180deg);
+  color: #38bdf8;
 }
 
 .nav-dropdown-menu {
@@ -644,22 +657,104 @@ p {
   background: #fff7ed;
 }
 
-.header-cta {
-  display: inline-block;
-  padding: 10px 24px;
-  background: var(--primary);
-  color: var(--white) !important;
-  font-size: 13px;
+/* ── Header Action Buttons (Brochure + Enquire Now) ── */
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 6px;
+}
+
+.header-brochure-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 4px;
+  color: #ffffff !important;
+  font-size: 13.5px;
   font-weight: 600;
   letter-spacing: 0.3px;
   text-transform: none;
-  transition: background 0.25s ease, transform 0.2s ease;
+  text-decoration: none;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.header-brochure-btn::after {
+  content: none !important;
+  display: none !important;
+}
+
+.header-brochure-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+.header-brochure-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--primary);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.header-brochure-btn:hover .header-brochure-icon {
+  transform: translateY(1px);
+  color: #38bdf8;
+}
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 22px;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  color: var(--white) !important;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  text-decoration: none;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.header-cta::after {
+  content: none !important;
+  display: none !important;
 }
 
 .header-cta:hover {
   background: var(--primary-dark);
+  border-color: var(--primary-dark);
   color: var(--white) !important;
   transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.4);
+}
+
+@media (max-width: 1140px) and (min-width: 993px) {
+  .nav-menu {
+    gap: 20px;
+  }
+  .header-actions {
+    gap: 8px;
+    margin-left: 2px;
+  }
+  .header-cta,
+  .header-brochure-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
 }
 
 /* Hamburger */

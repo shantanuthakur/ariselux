@@ -59,7 +59,12 @@
         <nav class="nav-menu" id="nav-menu">
           <a href="/" class="active">Home</a>
           <div class="nav-dropdown">
-            <span class="nav-dropdown-toggle">Products <span class="nav-dropdown-arrow">&#9660;</span></span>
+            <span class="nav-dropdown-toggle">
+              <span class="nav-link-text">Products</span>
+              <svg class="nav-dropdown-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
             <div class="nav-dropdown-menu">
               <a href="/products.html" class="all-products">All Products</a>
               <a href="/products.html#battery">Battery Operated</a>
@@ -73,7 +78,17 @@
           </div>
           <a href="/about.html">About Us</a>
           <a href="/contact.html">Contact</a>
-          <a href="/contact.html" class="header-cta">Enquire Now</a>
+          <div class="header-actions">
+            <a href="/images/company/brochure-portfolio.pdf" target="_blank" class="header-brochure-btn" title="Download Product Brochure">
+              <svg class="header-brochure-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Brochure</span>
+            </a>
+            <a href="/contact.html" class="header-cta">Enquire Now</a>
+          </div>
         </nav>
 
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -97,6 +112,7 @@
     <a href="/products.html#inflatable" style="padding-left:22px;font-size:12px;">↳ Inflatable Tower</a>
     <a href="/about.html">About Us</a>
     <a href="/contact.html">Contact</a>
+    <a href="/images/company/brochure-portfolio.pdf" target="_blank">View Brochure</a>
     <a href="tel:+918126732502" style="color: var(--primary);">Call: +91-8126732502</a>
   </div>
 
