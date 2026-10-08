@@ -37,10 +37,14 @@ Production-ready backend API service powering the commercial quotation engine, t
   - Automatic fallback to formatted console logging when SMTP is unconfigured.
 - **Zero-DB File Persistence**:
   - Automatically initializes and reads/writes JSON storage in `backend/data/` (`quotations.json`, `enquiries.json`, `inquiries.json`, `subscribers.json`).
+
+> The JSON files are suitable for a traditional Node.js host with persistent disk. They are not a durable database for Cloudflare Workers/Pages Functions. A Cloudflare-only deployment should replace this service with D1, KV, or R2 storage.
 - **Security & Reliability**:
   - **Honeypot Shield**: Silently discards bot submissions triggering `website_hp` or `_gotcha`.
   - **Rate Limiting**: In-memory sliding window capping submissions to 8 per 10 minutes per IP.
   - **Deduplication**: 60-second in-memory cache blocking duplicate submissions.
+  - **Admin API Protection**: Private listing and status endpoints require `ADMIN_API_KEY` via `x-admin-key` or Bearer authorization.
+  - **Reverse Proxy Support**: Uses the forwarded client IP when deployed behind Cloudflare or another proxy.
   - **Audit Logging**: Structured log output with Indian Standard Time (IST) in `backend/ariselux.log` with 5MB auto-rotation.
 
 ---
@@ -59,6 +63,7 @@ Copy `.env.example` to `.env`:
 PORT=5000
 NODE_ENV=development
 CLIENT_ORIGIN=http://localhost:3000
+ADMIN_API_KEY=replace-with-a-long-random-admin-key
 
 COMPANY_EMAIL=sales@ariselux.com
 COMPANY_PHONE=+918126732502
@@ -90,18 +95,30 @@ npm start
 | `GET` | `/api/health` | Service health status & timestamp |
 | `POST` | `/api/quotations` | Submit commercial quotation (RFQ) |
 | `POST` | `/api/rfq` | Alias for `/api/quotations` |
-| `GET` | `/api/quotations` | List all quotations |
-| `GET` | `/api/quotations/:id` | View specific quotation |
+| `GET` | `/api/quotations` | List all quotations (admin key required) |
+| `GET` | `/api/quotations/:id` | View specific quotation (admin key required) |
 | `POST` | `/api/enquiries` | Submit technical consultation enquiry |
-| `GET` | `/api/enquiries` | List all technical enquiries |
-| `GET` | `/api/enquiries/:id` | View specific technical enquiry |
+| `GET` | `/api/enquiries` | List all technical enquiries (admin key required) |
+| `GET` | `/api/enquiries/:id` | View specific technical enquiry (admin key required) |
 | `POST` | `/api/inquiries` | Smart unified inquiry / RFQ endpoint |
 | `POST` | `/api/contact` | Alias for `/api/inquiries` |
-| `GET` | `/api/inquiries` | List all unified inquiries (`?search=diesel&status=new&type=quotation`) |
-| `GET` | `/api/inquiries/:id` | View specific inquiry |
-| `PATCH` | `/api/inquiries/:id/status` | Update inquiry status (`new`, `contacted`, `quoted`, `completed`, `archived`) |
+| `GET` | `/api/inquiries` | List all unified inquiries (admin key required) |
+| `GET` | `/api/inquiries/:id` | View specific inquiry (admin key required) |
+| `PATCH` | `/api/inquiries/:id/status` | Update inquiry status (admin key required) |
 | `GET` | `/api/products` | All lighting towers (`?category=solar&search=slt`) |
 | `GET` | `/api/products/categories` | Product category list |
 | `GET` | `/api/products/:id` | Single product details |
 | `POST` | `/api/newsletter` | Subscribe email to technical bulletins |
-| `GET` | `/api/newsletter` | List subscribers |
+| `GET` | `/api/newsletter` | List subscribers (admin key required) |
+
+Private endpoints accept either header format:
+
+```http
+x-admin-key: <ADMIN_API_KEY>
+```
+
+or:
+
+```http
+Authorization: Bearer <ADMIN_API_KEY>
+```

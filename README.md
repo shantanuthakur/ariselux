@@ -74,6 +74,8 @@ ariselux/
 │   ├── src/
 │   │   ├── config/
 │   │   │   └── index.js               # Environment config loader with live hot-reload
+│   │   ├── middleware/
+│   │   │   └── adminAuth.js            # API-key protection for private admin reads
 │   │   ├── controllers/
 │   │   │   ├── inquiryController.js   # Commercial RFQ & technical enquiry business logic
 │   │   │   ├── productController.js   # Product catalog & category filtering logic
@@ -89,7 +91,7 @@ ariselux/
 │   │   ├── services/
 │   │   │   ├── emailService.js        # Nodemailer dispatch (sales alerts & client acknowledgments)
 │   │   │   ├── logService.js          # IST timestamped file logger with 5MB auto-rotation
-│   │   │   └── storageService.js      # Atomic asynchronous JSON file persistence
+│   │   │   └── storageService.js      # Asynchronous JSON file persistence
 │   │   ├── app.js                     # Express app setup, CORS, route mounting, 404 & error handlers
 │   │   └── server.js                  # HTTP server initialization & graceful shutdown listeners
 │   ├── ariselux.log                   # Active system audit & operational log file
@@ -166,6 +168,8 @@ ariselux/
   * **Honeypot Trap**: Silently neutralizes automated bot spam via hidden `website_hp` and `_gotcha` fields.
   * **IP Rate Limiting**: In-memory sliding window restricting clients to 8 requests per 10 minutes.
   * **Deduplication Cache**: 60-second window preventing duplicate double-click submissions.
+  * **Admin API Protection**: Private quotation, enquiry, inquiry, and subscriber reads require `x-admin-key` or a Bearer token.
+  * **Proxy Awareness**: Uses the forwarded visitor IP when deployed behind Cloudflare or another reverse proxy.
 * **Automated Email Dispatch (Nodemailer)**:
   * Commercial RFQ alert dispatched to `sales@ariselux.com`.
   * Branded HTML acknowledgment email sent to the client.
@@ -183,22 +187,22 @@ ariselux/
 |---|---|---|---|
 | `GET` | `/api/health` | Service health status & uptime | None |
 | `POST` | `/api/quotations` | Submit commercial quotation (RFQ) | `{ name, phone, email, company, gstin, product, quantity, deliveryTimeline, deliveryLocation, message }` |
-| `GET` | `/api/quotations` | List all stored quotations | None |
-| `GET` | `/api/quotations/:id` | Get specific quotation details | `id` (e.g. `RFQ-M1K2L3-ABCDEF`) |
+| `GET` | `/api/quotations` | List all stored quotations (admin key required) | `x-admin-key` header |
+| `GET` | `/api/quotations/:id` | Get specific quotation details (admin key required) | `id` + admin key |
 | `POST` | `/api/enquiries` | Submit technical consultation | `{ name, phone, email, company, location, enquiryType, product, projectType, preferredChannel, message }` |
-| `GET` | `/api/enquiries` | List all technical enquiries | None |
-| `GET` | `/api/enquiries/:id` | Get specific enquiry details | `id` (e.g. `ENQ-M1K2L3-ABCDEF`) |
+| `GET` | `/api/enquiries` | List all technical enquiries (admin key required) | `x-admin-key` header |
+| `GET` | `/api/enquiries/:id` | Get specific enquiry details (admin key required) | `id` + admin key |
 | `POST` | `/api/inquiries` | Smart unified inquiry / RFQ endpoint | Payload with auto-detection of type |
 | `POST` | `/api/rfq` | Alias for `/api/quotations` | Same as `/api/quotations` |
 | `POST` | `/api/contact` | Alias for `/api/inquiries` | Same as `/api/inquiries` |
-| `GET` | `/api/inquiries` | List all unified inquiries | Query params: `?status=new&search=diesel&type=quotation` |
-| `GET` | `/api/inquiries/:id` | Get single unified inquiry | `id` parameter |
-| `PATCH` | `/api/inquiries/:id/status`| Update inquiry status | `{ status: "new" \| "contacted" \| "quoted" \| "completed" \| "archived" }` |
+| `GET` | `/api/inquiries` | List all unified inquiries (admin key required) | Query params + `x-admin-key` header |
+| `GET` | `/api/inquiries/:id` | Get single unified inquiry (admin key required) | `id` + admin key |
+| `PATCH` | `/api/inquiries/:id/status`| Update inquiry status (admin key required) | `{ status: "new" \| "contacted" \| "quoted" \| "completed" \| "archived" }` |
 | `GET` | `/api/products` | Retrieve lighting tower catalog | Query params: `?category=solar&search=slt` |
 | `GET` | `/api/products/categories` | Retrieve list of product categories | None |
 | `GET` | `/api/products/:id` | Retrieve specific product specs | `id` (e.g. `ace-lt-12000`) |
 | `POST` | `/api/newsletter` | Subscribe email to technical bulletins | `{ email: "user@example.com" }` |
-| `GET` | `/api/newsletter` | List newsletter subscribers | None |
+| `GET` | `/api/newsletter` | List newsletter subscribers (admin key required) | `x-admin-key` header |
 
 ---
 
@@ -245,6 +249,7 @@ Copy `backend/.env.example` to `backend/.env` and update credentials as required
 PORT=5000
 NODE_ENV=development
 CLIENT_ORIGIN=http://localhost:3000
+ADMIN_API_KEY=replace-with-a-long-random-admin-key
 
 COMPANY_EMAIL=sales@ariselux.com
 COMPANY_PHONE=+918126732502
@@ -264,6 +269,11 @@ FROM_EMAIL=sales@ariselux.com
 Copy `frontend/.env.example` to `frontend/.env`:
 ```env
 VITE_API_URL=/api
+```
+
+For a separately hosted production API, set `VITE_API_URL` to the complete API base URL, for example:
+```env
+VITE_API_URL=https://api.example.com/api
 ```
 
 ---
@@ -326,7 +336,23 @@ npm run start:backend
 Ensure your production environment specifies:
 - `NODE_ENV=production`
 - `CLIENT_ORIGIN=https://your-domain.com`
+- `ADMIN_API_KEY` set to a long random secret. Send it as `x-admin-key` or `Authorization: Bearer <key>` for private listing/status endpoints.
 - Valid SMTP credentials in `backend/.env` for customer acknowledgment and sales desk emails.
+
+### Cloudflare Pages Deployment
+
+The Vite frontend is ready for Cloudflare Pages:
+
+| Setting | Value |
+|---|---|
+| Root directory | `frontend` |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Environment variable | `VITE_API_URL=https://your-api-domain.com/api` |
+
+The current Express backend is a regular Node.js service and stores submissions in local JSON files. Deploy it on a Node-compatible host, then point `VITE_API_URL` at it. Do not deploy the backend as a static Pages site. A full Cloudflare-only deployment requires converting the API to Pages Functions and moving persistence to D1, KV, or R2.
+
+Keep `backend/.env` and SMTP credentials out of Git and Cloudflare Pages variables. Store backend secrets only in the backend host's secret manager.
 
 ---
 

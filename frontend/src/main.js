@@ -3,6 +3,12 @@
    Full Interactive Functionality
    ============================================ */
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/+$/, '');
+
+function apiUrl(path) {
+  return `${API_BASE_URL}/${String(path).replace(/^\/+/, '')}`;
+}
+
 // --- Header Scroll Effect ---
 const header = document.getElementById('header');
 if (header) {
@@ -309,7 +315,7 @@ function initContactForm() {
       }
 
       try {
-        const response = await fetch('/api/enquiries', {
+        const response = await fetch(apiUrl('enquiries'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -389,7 +395,7 @@ function initContactForm() {
       }
 
       try {
-        const response = await fetch('/api/quotations', {
+        const response = await fetch(apiUrl('quotations'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -772,7 +778,7 @@ function initRequestForQuotation() {
       }
 
       try {
-        const response = await fetch('/api/quotations', {
+        const response = await fetch(apiUrl('quotations'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -1138,7 +1144,7 @@ function initEnquiryModal() {
       }
 
       try {
-        const response = await fetch('/api/enquiries', {
+        const response = await fetch(apiUrl('enquiries'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)

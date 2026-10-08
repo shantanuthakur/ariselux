@@ -10,6 +10,10 @@ import newsletterRoutes from './routes/newsletterRoutes.js';
 
 const app = express();
 
+// The API is normally behind a reverse proxy in production. Trust one proxy
+// hop so req.ip resolves to the visitor instead of the shared proxy address.
+app.set('trust proxy', 1);
+
 // Middlewares
 app.use(cors({
   origin: config.nodeEnv === 'production' ? config.clientOrigin : '*',
@@ -17,8 +21,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '100kb' }));
+app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 
 if (config.nodeEnv !== 'test') {
   app.use(morgan('dev'));

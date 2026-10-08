@@ -1,5 +1,11 @@
 import { productsData } from './products-data.js';
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/+$/, '');
+
+function apiUrl(path) {
+  return `${API_BASE_URL}/${String(path).replace(/^\/+/, '')}`;
+}
+
 // Note: Header scroll and mobile menu toggling are handled globally by main.js
 
 // Determine which product to display
@@ -256,7 +262,7 @@ if (quoteForm) {
     }
 
     try {
-      const response = await fetch('/api/quotations', {
+      const response = await fetch(apiUrl('quotations'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -360,7 +366,7 @@ if (enqForm) {
     }
 
     try {
-      const response = await fetch('/api/enquiries', {
+      const response = await fetch(apiUrl('enquiries'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

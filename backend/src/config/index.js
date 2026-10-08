@@ -17,6 +17,7 @@ export function getConfig() {
     port: parseInt(process.env.PORT, 10) || 5000,
     nodeEnv: process.env.NODE_ENV || 'development',
     clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+    adminApiKey: process.env.ADMIN_API_KEY || '',
     company: {
       name: 'Ariselux Equipments Private Limited',
       email: process.env.COMPANY_EMAIL || 'sales@ariselux.com',

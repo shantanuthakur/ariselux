@@ -369,23 +369,23 @@ export async function getAllInquiries(req, res, next) {
     let list = await getInquiries();
 
     if (type === 'quotation') {
-      list = list.filter(i => i.entryType === 'quotation' || i.id.startsWith('RFQ-'));
+      list = list.filter(i => i.entryType === 'quotation' || String(i.id || '').startsWith('RFQ-'));
     } else if (type === 'enquiry') {
-      list = list.filter(i => i.entryType === 'enquiry' || i.id.startsWith('ENQ-'));
+      list = list.filter(i => i.entryType === 'enquiry' || String(i.id || '').startsWith('ENQ-'));
     }
 
     if (status) {
-      list = list.filter(i => i.status.toLowerCase() === status.toLowerCase());
+      list = list.filter(i => String(i.status || '').toLowerCase() === status.toLowerCase());
     }
 
     if (search) {
       const q = search.toLowerCase();
-      list = list.filter(i => 
-        i.name.toLowerCase().includes(q) ||
-        i.email.toLowerCase().includes(q) ||
-        i.phone.includes(q) ||
-        i.product.toLowerCase().includes(q) ||
-        (i.company && i.company.toLowerCase().includes(q))
+      list = list.filter(i =>
+        String(i.name || '').toLowerCase().includes(q) ||
+        String(i.email || '').toLowerCase().includes(q) ||
+        String(i.phone || '').includes(q) ||
+        String(i.product || '').toLowerCase().includes(q) ||
+        String(i.company || '').toLowerCase().includes(q)
       );
     }
 
