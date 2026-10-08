@@ -716,7 +716,7 @@ export const productsData = {
         ]
       }
     ],
-    variants: ['ace-3-slt-6000', 'without-genset', 'ace-lt-12000']
+    variants: ['solar-surveillance-tower', 'ace-3-slt-6000', 'without-genset']
   },
 
   'ace-3-slt-6000': {
@@ -805,7 +805,97 @@ export const productsData = {
         ]
       }
     ],
-    variants: ['ace-5-slt-6000', 'without-genset', 'ace-lt-12000']
+    variants: ['solar-surveillance-tower', 'ace-5-slt-6000', 'ace-lt-12000']
+  },
+
+  'solar-surveillance-tower': {
+    id: 'solar-surveillance-tower',
+    title: 'Solar Powered Surveillance & Light Tower',
+    category: 'solar',
+    categoryName: 'Solar Operated',
+    tagline: 'Clean Energy 24x7 Smart Surveillance & Mobile Lighting Tower',
+    description: 'The Ariselux Solar Powered Surveillance & Light Tower is a compact, mobile and reliable solution designed for continuous surveillance and lighting in remote and critical locations. Powered by clean solar energy, it ensures round-the-clock monitoring with high performance PTZ and bullet network cameras while reducing dependence on conventional power sources.',
+    image: '/images/products/Solar Oprated/solar new 1.png',
+    gallery: [
+      '/images/products/Solar Oprated/solar new 1.png',
+      '/images/products/Solar Oprated/solar new 2.png',
+      '/images/products/Solar Oprated/solar new 3.png'
+    ],
+    featureImage: '/images/features/features-solar-surveillance.jpg',
+    bestFor: [
+      {
+        title: 'Road Traffic & Highway Safety Monitoring',
+        desc: 'Continuous real-time speed, perimeter, and traffic safety observation with 360° PTZ coverage.'
+      },
+      {
+        title: 'Orchard, Agriculture & Remote Farm Security',
+        desc: '100% emission-free off-grid perimeter protection and night surveillance for remote agricultural land.'
+      },
+      {
+        title: 'Commercial Parking Lots & Logistics Yards',
+        desc: 'Round-the-clock security recording with 8-channel NVR and motion tracking in open commercial lots.'
+      },
+      {
+        title: 'Port Terminals & Marine Freight Operations',
+        desc: 'Heavy-duty sandblasted and powder-coated trailer built to withstand harsh coastal weather and monitor shipping.'
+      }
+    ],
+    quickSpecs: {
+      mastHeight: { title: 'Mast height', value: '20 - 30 ft (6.0 - 9.0 MTR)', icon: '/images/icons/mast-height.svg' },
+      light: { title: 'Solar Array', value: '3 x 300W High Efficiency (900W)', icon: '/images/icons/led-light.svg' },
+      runtime: { title: 'Battery Bank', value: '4 x 200Ah / 150Ah Gel (DC24V)', icon: '/images/icons/runtime-in-hours.svg' },
+      coverage: { title: 'Surveillance', value: '1 x PTZ + 3 x Bullet (360°)', icon: '/images/icons/light-coverage.svg' }
+    },
+    tableSpecs: [
+      {
+        engine: 'Solar Array: 3 x 300W High Efficiency Solar Panels (900W Total)',
+        generator: 'Battery System: 4 x 200Ah / 4 x 150Ah Gel Batteries (DC24V System)',
+        tankSize: 'Cameras: 1 x 2MP PTZ (16x Zoom, IR 100m) + 3 x 3MP Bullet (IR 50m)',
+        sockets: 'NVR: 8-ch, 2 x 3TB HDDs | Industrial POE Switch | Optional 4G Router',
+        weight: 'Approx 500 KG (Single Axle Trailer, 15\" Wheels)',
+        dimensions: 'Length: 2600 mm | Width: 1470 mm | Height: 2810 mm\nMast: 6 to 9 m (Manual / Electric / Hydraulic) | Wind Rating: 100 km/h'
+      }
+    ],
+    features: [
+      '3 x 300W high-efficiency monocrystalline solar panels with tilting mechanism',
+      '4 x 200Ah / 4 x 150Ah deep-cycle gel batteries in a robust DC24V system',
+      '1 x 2MP PTZ network camera with 16x optical zoom, IR 100m, and 360° view',
+      '3 x 3MP HD bullet cameras providing 50m infrared night vision coverage',
+      'Commercial 8-channel NVR with 2 x 3TB HDDs and industrial-grade POE switch',
+      'Optional 6.0 to 9.0-meter telescopic mast (manual, electric, or hydraulic)',
+      'Single-axle trailer chassis built to Australia, Europe, and North America standards',
+      'Fully enclosed 2mm heavy-duty stainless steel body, sandblasted and powder-coated'
+    ],
+    highlights: [
+      {
+        title: 'Solar Power Generation & Energy Storage',
+        items: [
+          '3 x 300W high-efficiency solar panels for continuous daily charging',
+          'Heavy-duty DC24V power architecture with 4 x 200Ah / 150Ah gel batteries',
+          'Zero fuel cost, zero emissions, and silent operation in remote locations',
+          'Optional backup generator integration for continuous operation in severe weather'
+        ]
+      },
+      {
+        title: 'Professional Smart Surveillance Array',
+        items: [
+          'High-precision 2MP PTZ camera with 16x optical zoom and 100m infrared range',
+          '3 wide-angle 3MP bullet cameras for comprehensive 360-degree perimeter coverage',
+          'Industrial POE switch and 8-channel NVR equipped with dual 3TB hard drives',
+          'Optional 4G LTE cellular router for remote live streaming and cloud access'
+        ]
+      },
+      {
+        title: 'Trailer, Mast & Durability',
+        items: [
+          'Telescopic mast from 6 to 9 meters tested to 100 km/h wind rating speed',
+          'Single-axle trailer with 15\" rim/tires, A-frame drawbar, and 4 manual stabilizer jacks',
+          '50mm ball / 70mm ring tow hitch options and heavy-duty mud guards',
+          'Protected internal cable routing and operating temperature range of -35°C to +60°C'
+        ]
+      }
+    ],
+    variants: ['ace-5-slt-6000', 'ace-3-slt-6000']
   },
 
   // ── 6. BATTERY OPERATED ───────────────────────────────────────────

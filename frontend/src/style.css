@@ -1763,6 +1763,12 @@ p {
   color: var(--white);
 }
 
+.social-links a.social-wa:hover {
+  background: #25D366;
+  border-color: #25D366;
+  color: var(--white);
+}
+
 .footer-bottom {
   padding: 25px 0;
   display: flex;
@@ -2859,23 +2865,44 @@ p {
   align-items: center;
   position: relative;
   background: transparent;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 .about-hero-tower-img {
   width: 100%;
-  max-width: 520px;
+  max-width: 560px;
   height: auto;
   max-height: 720px;
   object-fit: contain;
   display: block;
   background: transparent;
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08));
-  transition: transform 0.4s ease;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.12));
+  transition: none; /* JS handles transforms via rAF */
+  will-change: transform;
+  transform-origin: center center;
 }
 
-.about-hero-tower-img:hover {
-  transform: scale(1.02);
+/* Float animation class added by JS */
+.tower-float-anim {
+  animation: towerFloat 4.5s ease-in-out infinite;
 }
+
+@keyframes towerFloat {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  25%  { transform: translateY(-14px) rotate(0.6deg); }
+  50%  { transform: translateY(-22px) rotate(0deg); }
+  75%  { transform: translateY(-14px) rotate(-0.6deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Tower column 3D perspective container */
+.about-hero-tower-col {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
 
 .about-hero-content-col {
   padding-left: 10px;

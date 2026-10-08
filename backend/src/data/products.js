@@ -116,6 +116,23 @@ export const products = [
     weight: '850 - 900 kg'
   },
   {
+    id: 'solar-surveillance-tower',
+    title: 'Solar Powered Surveillance & Light Tower',
+    category: 'solar',
+    categoryName: 'Solar Powered',
+    tagline: 'Clean Energy 24x7 Smart Surveillance & Mobile Lighting Tower',
+    power: '1 x 2MP PTZ + 3 x 3MP Bullet Cameras + Mobile LED Tower',
+    lumens: 'Smart Surveillance & Illumination',
+    height: '6.0 - 9.0 Meters (Manual / Electric / Hydraulic)',
+    runtime: 'Continuous 24x7 Surveillance Autonomy',
+    coverage: '360° Smart Perimeter & Area Monitoring',
+    solarArray: '3 x 300W High Efficiency Panels (900W Total)',
+    battery: '4 x 200Ah / 4 x 150Ah Gel Batteries (DC24V System)',
+    cameras: '1 x PTZ (16x Optical Zoom, 100m IR) + 3 x Bullet (50m IR)',
+    nvr: '8-ch NVR with 2 x 3TB HDDs (6TB) & Industrial POE Switch',
+    weight: '500 kg (Approx)'
+  },
+  {
     id: 'without-genset',
     title: 'Mobile Light Tower (Without Genset)',
     category: 'without-genset',

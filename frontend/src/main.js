@@ -1194,3 +1194,69 @@ function initEnquiryModal() {
 initEnquiryModal();
 
 
+// ─── TOWER IMAGE: Float + 3D Mouse-Tracking Parallax Tilt ───────────────────
+(function initTowerMotion() {
+  const towerCol = document.querySelector('.about-hero-tower-col');
+  const towerImg = document.querySelector('.about-hero-tower-img');
+  if (!towerCol || !towerImg) return;
+
+  // 1. Continuous gentle floating animation via CSS class
+  towerImg.classList.add('tower-float-anim');
+
+  // 2. 3D perspective mouse-tracking tilt on the section
+  const section = document.querySelector('.about-hero-showcase-section');
+  if (!section) return;
+
+  let rafId = null;
+  let targetRX = 0, targetRY = 0;
+  let currentRX = 0, currentRY = 0;
+  let isHovering = false;
+
+  const MAX_TILT = 12; // degrees max tilt
+  const LERP = 0.07;   // smoothing factor
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function tick() {
+    currentRX = lerp(currentRX, targetRX, LERP);
+    currentRY = lerp(currentRY, targetRY, LERP);
+
+    const scale = isHovering ? 1.04 : 1.0;
+    towerImg.style.transform = `
+      perspective(900px)
+      rotateX(${currentRX}deg)
+      rotateY(${currentRY}deg)
+      scale(${scale})
+    `;
+
+    rafId = requestAnimationFrame(tick);
+  }
+  tick();
+
+  section.addEventListener('mousemove', (e) => {
+    isHovering = true;
+    const rect = towerCol.getBoundingClientRect();
+    // Compute mouse position relative to towerCol center
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);   // -1 to 1
+    const dy = (e.clientY - cy) / (rect.height / 2);  // -1 to 1
+
+    targetRY =  dx * MAX_TILT;  // left-right tilt
+    targetRX = -dy * MAX_TILT * 0.6; // up-down tilt (less aggressive)
+  }, { passive: true });
+
+  section.addEventListener('mouseleave', () => {
+    isHovering = false;
+    targetRX = 0;
+    targetRY = 0;
+  });
+
+  // Pause float animation during active mouse tilt for cleaner feel
+  section.addEventListener('mouseenter', () => {
+    towerImg.style.animationPlayState = 'paused';
+  });
+  section.addEventListener('mouseleave', () => {
+    towerImg.style.animationPlayState = 'running';
+  });
+})();
