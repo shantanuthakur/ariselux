@@ -45,7 +45,9 @@ if (hamburger && mobileNav) {
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     mobileNav.classList.toggle('active');
-    document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    const isOpen = mobileNav.classList.contains('active');
+    document.body.classList.toggle('nav-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   // Close mobile nav when a link is clicked
@@ -53,6 +55,7 @@ if (hamburger && mobileNav) {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
       mobileNav.classList.remove('active');
+      document.body.classList.remove('nav-open');
       document.body.style.overflow = '';
     });
   });
