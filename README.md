@@ -46,3 +46,17 @@ Configure the hosting service with:
 - Environment variable: `VITE_API_URL=<public backend URL>/api`
 
 The build produces five pages: `index.html`, `about.html`, `products.html`, `product-detail.html`, and `contact.html`.
+
+## Cloudflare deployment
+
+For Cloudflare Workers with Static Assets:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- The included `wrangler.jsonc` publishes the generated `dist/` directory.
+
+For Cloudflare Pages, create a Pages project instead and use:
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- No deploy command; Pages deploys the build output automatically.
