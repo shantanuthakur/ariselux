@@ -1,21 +1,15 @@
 {
-  "name": "ariselux-workspace",
+  "name": "ariselux-frontend",
   "version": "1.0.0",
-  "description": "Ariselux Equipments Full-Stack Workspace (Frontend + Backend)",
+  "description": "Ariselux Equipments frontend",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
+  "type": "module",
   "scripts": {
-    "install:all": "npm install --workspace=frontend && npm install --workspace=backend",
-    "dev": "concurrently -n \"FRONTEND,BACKEND\" -c \"cyan,green\" \"npm run dev --workspace=frontend\" \"npm run dev --workspace=backend\"",
-    "dev:frontend": "npm run dev --workspace=frontend",
-    "dev:backend": "npm run dev --workspace=backend",
-    "build:frontend": "npm run build --workspace=frontend",
-    "start:backend": "npm run start --workspace=backend"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "vite": "^8.3.1"
   }
 }
